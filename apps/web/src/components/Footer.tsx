@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
             <span className="text-slate-600">|</span>
             <span className="flex items-center gap-1 text-slate-400">
               <GitBranch className="w-3 h-3 text-cyan-400" />
-              <span>SHA: #2a8f4c9</span>
+              <span>SHA: #b0a445e</span>
             </span>
             <span className="text-slate-600">|</span>
             <span className="text-slate-400">RHEL-READY</span>

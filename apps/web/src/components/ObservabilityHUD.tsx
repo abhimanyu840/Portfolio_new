@@ -6,23 +6,27 @@ import type { ITelemetry } from "@portfolio/shared";
 
 export const ObservabilityHUD: React.FC = () => {
   const [telemetry, setTelemetry] = useState<ITelemetry | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [simulatedLoad, setSimulatedLoad] = useState(24.8);
   const [latencyHistory, setLatencyHistory] = useState<number[]>([14, 18, 12, 16, 21, 15, 13, 19, 14, 12]);
 
   const fetchTelemetry = async () => {
+    setIsRefreshing(true);
     try {
       const res = await fetch("/api/v1/telemetry");
       if (res.ok) {
         const json = await res.json();
         if (json.success && json.data) {
           setTelemetry(json.data);
+          if (json.data.metrics?.latencyMs) {
+            setLatencyHistory((prev) => [...prev.slice(1), json.data.metrics.latencyMs]);
+          }
         }
       }
     } catch {
       // Fallback local metrics
     } finally {
-      setLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -64,10 +68,11 @@ export const ObservabilityHUD: React.FC = () => {
           <div className="mt-4 md:mt-0 flex items-center gap-3">
             <button
               onClick={fetchTelemetry}
-              className="px-3 py-1 rounded bg-slate-900 border border-slate-700 hover:border-emerald-500 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all"
+              disabled={isRefreshing}
+              className="px-3 py-1 rounded bg-slate-900 border border-slate-700 hover:border-emerald-500 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60"
             >
-              <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
-              <span>REFRESH_TELEMETRY</span>
+              <RefreshCw className={`w-3.5 h-3.5 text-emerald-400 ${isRefreshing ? "animate-spin" : ""}`} />
+              <span>{isRefreshing ? "SAMPLING..." : "REFRESH_TELEMETRY"}</span>
             </button>
             <div className="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 font-mono text-xs text-emerald-400 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -174,6 +179,13 @@ export const ObservabilityHUD: React.FC = () => {
                   <span className="text-slate-400">API Response Latency:</span>
                   <span className="text-emerald-400 font-bold">
                     {latencyHistory[latencyHistory.length - 1]}ms
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400">Heap Memory Usage:</span>
+                  <span className="text-cyan-400 font-semibold">
+                    {telemetry?.metrics.memoryUsage || "38MB / 54MB"}
                   </span>
                 </div>
 

@@ -18,6 +18,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
     };
     window.addEventListener("scroll", handleScroll);
 
+    fetch("/api/v1/health")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && typeof json.data.uptime === "number") {
+          setUptimeSeconds(json.data.uptime);
+        }
+      })
+      .catch(() => {});
+
     const interval = setInterval(() => {
       setUptimeSeconds((prev) => prev + 1);
     }, 1000);

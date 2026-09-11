@@ -55,14 +55,12 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
     terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
 
-  // Global hotkeys (Ctrl + / or ~ to toggle)
+  // Hotkeys inside terminal: Escape to close
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey && e.key === "/") || e.key === "`") {
+      if (e.key === "Escape" && isOpen) {
         e.preventDefault();
-        if (isOpen) {
-          onClose();
-        }
+        onClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -77,7 +75,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
     setHistory((prev) => [...prev, trimmed]);
     setHistoryIndex(-1);
 
-    const parts = trimmed.split(" ");
+    const parts = trimmed.split(/\s+/);
     const cmd = parts[0]?.toLowerCase() || "";
     const arg = parts.slice(1).join(" ").toLowerCase();
 
@@ -91,17 +89,37 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
             <div className="text-cyan-400 font-semibold mb-1">AVAILABLE COMMANDS:</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
               <div><span className="text-emerald-300 font-bold">whoami</span> — Overview &amp; enterprise credentials</div>
+              <div><span className="text-emerald-300 font-bold">ls / dir</span> — List directory files</div>
+              <div><span className="text-emerald-300 font-bold">cat &lt;file&gt;</span> — Print file (e.g. cat resume, cat readme)</div>
               <div><span className="text-emerald-300 font-bold">projects</span> — List monitored platforms &amp; apps</div>
               <div><span className="text-emerald-300 font-bold">skills</span> — Categorized technical proficiency</div>
               <div><span className="text-emerald-300 font-bold">experience</span> — Wipro enterprise track &amp; SAN storage</div>
               <div><span className="text-emerald-300 font-bold">education</span> — BITS Pilani M.Tech &amp; BCA degrees</div>
-              <div><span className="text-emerald-300 font-bold">cat resume</span> — Complete textual resume stream</div>
               <div><span className="text-emerald-300 font-bold">uptime</span> — System health &amp; active session duration</div>
               <div><span className="text-emerald-300 font-bold">contact</span> — Email, phone, GitHub, LinkedIn links</div>
               <div><span className="text-emerald-300 font-bold">theme</span> — Toggle prompt color (emerald/cyan/amber)</div>
+              <div><span className="text-emerald-300 font-bold">history</span> — View recent command history</div>
               <div><span className="text-emerald-300 font-bold">clear</span> — Wipe terminal viewport</div>
               <div><span className="text-emerald-300 font-bold">exit</span> — Dismiss terminal drawer</div>
             </div>
+          </div>
+        );
+        break;
+
+      case "ls":
+      case "dir":
+        resultNode = (
+          <div className="space-y-1 text-xs sm:text-sm">
+            <div className="text-slate-400">Directory index of /home/abhimanyu:</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-cyan-300 font-mono py-1">
+              <span className="text-emerald-300 font-bold">📄 resume.md</span>
+              <span className="text-cyan-300 font-bold">📁 projects/</span>
+              <span className="text-cyan-300 font-bold">📁 telemetry/</span>
+              <span className="text-slate-300">📄 readme.txt</span>
+              <span className="text-slate-300">📄 system.log</span>
+              <span className="text-slate-300">📄 certs.pem</span>
+            </div>
+            <div className="text-slate-500 text-[11px]">Execute &apos;cat resume&apos; or &apos;cat readme&apos; to view contents.</div>
           </div>
         );
         break;
@@ -189,7 +207,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
                     ABHIMANYU KUMAR — RESUME SUMMARY
   SOFTWARE ENGINEER | PYTHON • FASTAPI • REACT • LINUX • OBSERVABILITY
   Email: ${DEVELOPER_PROFILE.email} | Phone: ${DEVELOPER_PROFILE.phone}
-  GitHub: ${DEVELOPER_PROFILE.github}
+  GitHub: ${DEVELOPER_PROFILE.github} | LinkedIn: ${DEVELOPER_PROFILE.linkedin}
 =============================================================================
 [EXPERIENCE]
 Wipro | Software Engineer / Project Engineer (2025 - Present)
@@ -211,8 +229,26 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
 =============================================================================`}
             </pre>
           );
+        } else if (arg === "readme" || arg === "readme.txt" || arg === "readme.md") {
+          resultNode = (
+            <div className="text-slate-300 space-y-1 text-xs sm:text-sm">
+              <div className="text-emerald-400 font-bold">ABHIMANYU KUMAR — SYSTEM OBSERVABILITY PORTFOLIO</div>
+              <div>Engineered with Next.js 16, React 19, Turborepo, Bun workspaces, and Tailwind CSS.</div>
+              <div>Backend telemetry route handlers with MongoDB persistence and resilient in-memory seed fallback.</div>
+              <div>Designed for high-reliability infrastructure engineering showcasing enterprise storage, SAN, and observability platforms.</div>
+            </div>
+          );
+        } else if (arg === "system.log" || arg === "telemetry.log") {
+          resultNode = (
+            <div className="text-slate-400 font-mono text-[11px] space-y-0.5">
+              <div>[INFO]  Daemon rhel-telemetry-agent status: active (running)</div>
+              <div>[METRIC] Monitored nodes: 500+ SAN ports across NetApp &amp; Dell EMC</div>
+              <div>[INGEST] InfluxDB flow rate: 12,000 metrics/sec | Shard buffer 99.9%</div>
+              <div>[ALERT] 0 active critical incidents | Fabric health optimal</div>
+            </div>
+          );
         } else {
-          resultNode = <div className="text-red-400">File not found: &apos;{arg}&apos;. Try &apos;cat resume&apos;.</div>;
+          resultNode = <div className="text-red-400">File not found: &apos;{arg || "unspecified"}&apos;. Execute &apos;ls&apos; or &apos;cat resume&apos;.</div>;
           isErr = true;
         }
         break;
@@ -225,11 +261,36 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         );
         break;
 
+      case "history":
+        resultNode = (
+          <div className="space-y-1 text-xs">
+            {history.length === 0 ? (
+              <div className="text-slate-500">No previous commands.</div>
+            ) : (
+              history.map((h, i) => (
+                <div key={i} className="text-slate-400 font-mono">
+                  <span className="text-slate-600 mr-2">{i + 1}</span> {h}
+                </div>
+              ))
+            )}
+          </div>
+        );
+        break;
+
+      case "sudo":
+        resultNode = (
+          <div className="text-amber-400 text-xs sm:text-sm">
+            [ACCESS DENIED] User &apos;visitor&apos; is not in the sudoers file. This incident has been logged to enterprise telemetry.
+          </div>
+        );
+        break;
+
       case "contact":
         resultNode = (
           <div className="space-y-1 text-xs sm:text-sm">
             <div><span className="text-emerald-300">Email:</span> <a href={`mailto:${DEVELOPER_PROFILE.email}`} className="underline hover:text-white">{DEVELOPER_PROFILE.email}</a></div>
             <div><span className="text-emerald-300">Phone:</span> {DEVELOPER_PROFILE.phone}</div>
+            <div><span className="text-emerald-300">LinkedIn:</span> <a href={DEVELOPER_PROFILE.linkedin} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.linkedin}</a></div>
             <div><span className="text-emerald-300">GitHub:</span> <a href={DEVELOPER_PROFILE.github} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.github}</a></div>
             <div><span className="text-emerald-300">Portfolio:</span> {DEVELOPER_PROFILE.portfolio}</div>
           </div>

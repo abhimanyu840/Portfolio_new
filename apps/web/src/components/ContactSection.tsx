@@ -141,7 +141,16 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Social links */}
-              <div className="pt-4 border-t border-slate-800 flex items-center gap-3">
+              <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-2.5">
+                <a
+                  href={DEVELOPER_PROFILE.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-cyan-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                >
+                  <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>LinkedIn</span>
+                </a>
                 <a
                   href={DEVELOPER_PROFILE.github}
                   target="_blank"

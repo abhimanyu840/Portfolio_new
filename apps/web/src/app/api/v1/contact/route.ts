@@ -5,7 +5,31 @@ import { ContactModel } from "@/models/Contact";
 
 export async function POST(request: NextRequest) {
   try {
-    const rawBody = await request.json();
+    let rawBody: unknown;
+    try {
+      rawBody = await request.json();
+    } catch {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: "Invalid JSON format in request body",
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!rawBody || typeof rawBody !== "object" || Array.isArray(rawBody)) {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: "Request body must be a valid JSON object",
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
     const parseResult = ContactSchema.safeParse(rawBody);
 
     if (!parseResult.success) {
