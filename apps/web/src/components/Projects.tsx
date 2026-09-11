@@ -47,34 +47,34 @@ export const Projects: React.FC = () => {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-16 md:py-24 border-b border-slate-800/60">
+    <section id="projects" className="py-16 md:py-24 border-b border-blue-950/40 bg-[#02040a] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-blue-950/80">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-1.5 font-semibold">
               <FolderGit2 className="w-4 h-4" />
               <span>PRODUCTION_PORTFOLIO</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono">
+            <h2 className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight">
               FEATURED ENGINEERING SYSTEMS
             </h2>
           </div>
           <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            TOTAL_DEPLOYED: <span className="text-emerald-400 font-bold">{projects.length} SYSTEMS</span>
+            TOTAL_DEPLOYED: <span className="text-cyan-400 font-bold">{projects.length} SYSTEMS</span>
           </div>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2.5 mb-8">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1.5 rounded font-mono text-xs transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl font-mono text-xs transition-all ${
                 activeCategory === cat.id
-                  ? "bg-emerald-500 text-slate-950 font-bold shadow-md shadow-emerald-500/20"
-                  : "bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800"
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.35)]"
+                  : "bg-[#040a1c]/80 hover:bg-[#071333] text-slate-300 border border-blue-500/20"
               }`}
             >
               [ {cat.label} ]
@@ -87,60 +87,60 @@ export const Projects: React.FC = () => {
           {filtered.map((project) => (
             <div
               key={project.id}
-              className="glass-panel rounded-lg p-5 border border-slate-800 hover:border-emerald-500/40 transition-all duration-200 flex flex-col justify-between group"
+              className="glass-panel-dark rounded-2xl p-6 border border-blue-500/20 hover:border-cyan-400/50 transition-all duration-300 flex flex-col justify-between group shadow-xl"
             >
               <div>
                 {/* Header tags */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800/90 text-emerald-400 border border-slate-700">
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-lg bg-blue-950/70 text-cyan-300 border border-blue-500/30">
                     {project.category}
                   </span>
                   {project.featured && (
-                    <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span className="font-mono text-[10px] px-2.5 py-0.5 rounded-lg bg-cyan-950/40 text-cyan-300 border border-cyan-400/40 flex items-center gap-1.5 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
                       CORE_SYS
                     </span>
                   )}
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="font-mono text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                <h3 className="font-mono text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-300 mt-2 line-clamp-2 leading-relaxed font-normal">
                   {project.tagline}
                 </p>
 
                 {/* Architecture Highlights */}
-                <div className="my-4 pt-3 border-t border-slate-800/80 space-y-1.5">
-                  <div className="font-mono text-[10px] text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                <div className="my-4 pt-3.5 border-t border-blue-950 space-y-2">
+                  <div className="font-mono text-[10px] text-blue-300 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
                     <Layers className="w-3 h-3 text-cyan-400" />
                     <span>Architecture Highlights</span>
                   </div>
                   {project.architecture.slice(0, 2).map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-xs text-slate-300">
-                      <ChevronRight className="w-3 h-3 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                      <ChevronRight className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
                       <span>{item}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Performance Metrics Grid */}
-                <div className="grid grid-cols-2 gap-2 my-3 p-2 rounded bg-slate-900/60 border border-slate-800/80">
+                <div className="grid grid-cols-2 gap-2.5 my-3.5 p-2.5 rounded-xl bg-[#040a1c]/80 border border-blue-500/20">
                   {Object.entries(project.metrics).slice(0, 2).map(([key, val]) => (
                     <div key={key}>
                       <div className="font-mono text-[9px] text-slate-400 uppercase">{key}</div>
-                      <div className="font-mono text-xs font-bold text-emerald-400">{val}</div>
+                      <div className="font-mono text-xs font-bold text-cyan-300 mt-0.5">{val}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 mt-3">
+                <div className="flex flex-wrap gap-1.5 mt-3.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-[10px] px-2 py-0.5 rounded bg-slate-800/70 text-slate-300 border border-slate-700/50"
+                      className="font-mono text-[10px] px-2.5 py-0.5 rounded-lg bg-[#071333]/90 text-slate-300 border border-blue-500/25"
                     >
                       {tag}
                     </span>
@@ -149,10 +149,10 @@ export const Projects: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-5 mt-5 border-t border-slate-800 flex items-center justify-between">
+              <div className="pt-5 mt-5 border-t border-blue-950 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedProject(project)}
-                  className="font-mono text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+                  className="font-mono text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
                 >
                   <span>SPEC_DETAILS</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -164,7 +164,7 @@ export const Projects: React.FC = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700"
+                      className="p-2 rounded-xl bg-[#050e26] border border-blue-500/25 text-slate-300 hover:text-white hover:border-cyan-400 transition-colors"
                       title="View GitHub Repository"
                     >
                       <GithubIcon className="w-4 h-4" />
@@ -175,7 +175,7 @@ export const Projects: React.FC = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-emerald-400 hover:bg-slate-700"
+                      className="p-2 rounded-xl bg-[#050e26] border border-blue-500/25 text-slate-300 hover:text-cyan-300 hover:border-cyan-400 transition-colors"
                       title="Inspect Live Endpoint"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -189,24 +189,24 @@ export const Projects: React.FC = () => {
 
         {/* Modal: Project Spec Drill-Down */}
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="max-w-2xl w-full bg-[#0c121e] border border-slate-700 rounded-lg p-6 shadow-2xl font-mono text-sm max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <div className="max-w-2xl w-full bg-[#04091a] border border-blue-500/40 rounded-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.9)] font-mono text-sm max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between border-b border-blue-950 pb-4 mb-5">
                 <div>
-                  <span className="text-[10px] uppercase text-emerald-400 font-bold">
+                  <span className="text-[10px] uppercase text-cyan-400 font-bold tracking-wider">
                     SYSTEM_SPEC // {selectedProject.category}
                   </span>
-                  <h3 className="text-xl font-bold text-white mt-0.5">{selectedProject.title}</h3>
+                  <h3 className="text-xl font-bold text-white mt-1">{selectedProject.title}</h3>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-1 text-slate-400 hover:text-white"
+                  className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-slate-300 text-xs leading-relaxed mb-4">
+              <p className="text-slate-300 text-xs leading-relaxed mb-5 font-normal">
                 {selectedProject.description}
               </p>
 
@@ -218,7 +218,7 @@ export const Projects: React.FC = () => {
                   <ul className="space-y-1.5 pl-2">
                     {selectedProject.architecture.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-slate-300">
-                        <span className="text-emerald-400">❖</span>
+                        <span className="text-cyan-400 font-bold">❖</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -243,21 +243,21 @@ export const Projects: React.FC = () => {
                   <h4 className="text-cyan-400 font-bold mb-2 flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5" /> PERFORMANCE TELEMETRY BENCHMARKS:
                   </h4>
-                  <div className="grid grid-cols-2 gap-3 p-3 rounded bg-slate-900 border border-slate-800">
+                  <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-[#030716] border border-blue-950">
                     {Object.entries(selectedProject.metrics).map(([key, val]) => (
                       <div key={key}>
                         <div className="text-[10px] text-slate-400 uppercase">{key}</div>
-                        <div className="text-emerald-400 font-bold text-sm">{val}</div>
+                        <div className="text-cyan-300 font-bold text-sm mt-0.5">{val}</div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+              <div className="mt-6 pt-4 border-t border-blue-950 flex justify-end">
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all"
                 >
                   DISMISS
                 </button>

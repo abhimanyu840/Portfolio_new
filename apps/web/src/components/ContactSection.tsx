@@ -77,76 +77,76 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 border-b border-slate-800/60 bg-slate-950/40">
+    <section id="contact" className="py-16 md:py-24 border-b border-blue-950/40 bg-[#02050e] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-blue-950/80">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-1.5 font-semibold">
               <Mail className="w-4 h-4" />
               <span>INGESTION_GATEWAY</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono">
+            <h2 className="text-2xl sm:text-3xl font-black text-white font-mono tracking-tight">
               INITIATE SECURE CONTACT
             </h2>
           </div>
           <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            DISPATCH_TARGET: <span className="text-emerald-400 font-bold">ABHIMANYU KUMAR</span>
+            DISPATCH_TARGET: <span className="text-cyan-400 font-bold">ABHIMANYU KUMAR</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Direct Credentials Card (Span 2) */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="glass-panel p-6 rounded-lg border border-slate-800 space-y-6">
+            <div className="glass-panel-dark p-6 sm:p-7 rounded-2xl border border-blue-500/20 space-y-6 shadow-xl">
               <div>
                 <h3 className="font-mono text-sm font-bold text-white uppercase tracking-wider mb-2">
                   DIRECT CHANNELS
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-400 leading-relaxed font-normal">
                   Open for enterprise engineering positions, infrastructure telemetry consulting, or collaborative distributed software projects.
                 </p>
               </div>
 
-              <div className="space-y-4 font-mono text-xs">
+              <div className="space-y-3.5 font-mono text-xs">
                 <a
                   href={`mailto:${DEVELOPER_PROFILE.email}`}
-                  className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3.5 rounded-xl bg-[#040a1c]/80 border border-blue-500/20 hover:border-cyan-400/50 text-slate-300 hover:text-white transition-all group shadow-sm"
                 >
-                  <Mail className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <Mail className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Direct Email</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.email}</div>
+                    <div className="font-semibold text-white mt-0.5">{DEVELOPER_PROFILE.email}</div>
                   </div>
                 </a>
 
                 <a
                   href={`tel:${DEVELOPER_PROFILE.phone}`}
-                  className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3.5 rounded-xl bg-[#040a1c]/80 border border-blue-500/20 hover:border-blue-400/50 text-slate-300 hover:text-white transition-all group shadow-sm"
                 >
-                  <Phone className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                  <Phone className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Voice / Telemetry Line</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.phone}</div>
+                    <div className="font-semibold text-white mt-0.5">{DEVELOPER_PROFILE.phone}</div>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <MapPin className="w-4 h-4 text-emerald-400" />
+                <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#040a1c]/80 border border-blue-500/20 text-slate-300 shadow-sm">
+                  <MapPin className="w-4 h-4 text-cyan-400" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Geographic Node</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.location} // Standard Time (IST)</div>
+                    <div className="font-semibold text-white mt-0.5">{DEVELOPER_PROFILE.location} // Standard Time (IST)</div>
                   </div>
                 </div>
               </div>
 
               {/* Social links */}
-              <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-2.5">
+              <div className="pt-4 border-t border-blue-950 flex flex-wrap items-center gap-2.5">
                 <a
                   href={DEVELOPER_PROFILE.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-cyan-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#050e26] border border-blue-500/25 hover:border-cyan-400 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
                   <Globe className="w-3.5 h-3.5 text-cyan-400" />
                   <span>LinkedIn</span>
@@ -155,19 +155,19 @@ export const ContactSection: React.FC = () => {
                   href={DEVELOPER_PROFILE.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#050e26] border border-blue-500/25 hover:border-blue-400 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
-                  <GithubIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <GithubIcon className="w-3.5 h-3.5 text-blue-400" />
                   <span>GitHub</span>
                 </a>
                 <a
                   href={DEVELOPER_PROFILE.portfolio}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-cyan-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#050e26] border border-blue-500/25 hover:border-cyan-400 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
                   <Globe className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Live Portfolio</span>
+                  <span>Portfolio</span>
                 </a>
               </div>
             </div>
@@ -175,23 +175,25 @@ export const ContactSection: React.FC = () => {
 
           {/* High-Tech Contact Form (Span 3) */}
           <div className="lg:col-span-3">
-            <div className="glass-panel p-6 sm:p-8 rounded-lg border border-slate-800 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
-                <span className="text-white font-bold uppercase tracking-wider">
+            <div className="glass-panel-dark p-6 sm:p-8 rounded-2xl border border-blue-500/20 font-mono text-xs shadow-2xl">
+              <div className="flex items-center justify-between border-b border-blue-950 pb-3 mb-6">
+                <span className="text-white font-bold uppercase tracking-wider text-xs sm:text-sm">
                   TRANSMISSION BUFFER FORM
                 </span>
-                <span className="text-emerald-400 text-[10px]">ENCRYPTION: TLS 1.3</span>
+                <span className="text-cyan-400 text-[10px] px-2 py-0.5 rounded bg-blue-950/60 border border-blue-500/20">
+                  ENCRYPTION: TLS 1.3
+                </span>
               </div>
 
               {status.type === "success" && (
-                <div className="mb-6 p-4 rounded bg-emerald-950/40 border border-emerald-500/50 text-emerald-300 space-y-1">
+                <div className="mb-6 p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/50 text-cyan-300 space-y-1 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
                   <div className="flex items-center gap-2 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-cyan-400" />
                     <span>TRANSMISSION CONFIRMED</span>
                   </div>
                   <p className="text-xs">{status.message}</p>
                   {status.details && (
-                    <div className="text-[10px] text-slate-400 mt-2 font-mono pt-2 border-t border-emerald-500/20 flex justify-between">
+                    <div className="text-[10px] text-slate-400 mt-2 font-mono pt-2 border-t border-cyan-500/20 flex justify-between">
                       <span>EVENT_ID: {status.details.id}</span>
                       <span>TIMESTAMP: {new Date(status.details.timestamp || "").toLocaleTimeString()}</span>
                     </div>
@@ -200,7 +202,7 @@ export const ContactSection: React.FC = () => {
               )}
 
               {status.type === "error" && (
-                <div className="mb-6 p-4 rounded bg-red-950/40 border border-red-500/50 text-red-300 flex items-center gap-2">
+                <div className="mb-6 p-4 rounded-xl bg-red-950/40 border border-red-500/50 text-red-300 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
                   <span>{status.message}</span>
                 </div>
@@ -209,8 +211,8 @@ export const ContactSection: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Name <span className="text-emerald-400">*</span>
+                    <label className="text-slate-400 text-[11px] uppercase font-semibold">
+                      Originator Name <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="text"
@@ -219,13 +221,13 @@ export const ContactSection: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="e.g. John Doe"
-                      className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#030716] border border-blue-500/20 focus:border-cyan-400 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors shadow-inner"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Email <span className="text-emerald-400">*</span>
+                    <label className="text-slate-400 text-[11px] uppercase font-semibold">
+                      Originator Email <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="email"
@@ -234,14 +236,14 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="e.g. john@enterprise.io"
-                      className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#030716] border border-blue-500/20 focus:border-cyan-400 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors shadow-inner"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-slate-400 text-[11px] uppercase">
-                    Subject Line <span className="text-emerald-400">*</span>
+                  <label className="text-slate-400 text-[11px] uppercase font-semibold">
+                    Subject Line <span className="text-cyan-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -250,13 +252,13 @@ export const ContactSection: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="e.g. Opportunity / Telemetry Architecture Discussion"
-                    className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#030716] border border-blue-500/20 focus:border-cyan-400 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors shadow-inner"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-slate-400 text-[11px] uppercase">
-                    Telemetry Message Body <span className="text-emerald-400">*</span>
+                  <label className="text-slate-400 text-[11px] uppercase font-semibold">
+                    Telemetry Message Body <span className="text-cyan-400">*</span>
                   </label>
                   <textarea
                     name="message"
@@ -265,14 +267,14 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Provide details regarding the project scope, role, or technical question..."
-                    className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#030716] border border-blue-500/20 focus:border-cyan-400 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors resize-none shadow-inner"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
                 >
                   {loading ? (
                     <span>TRANSMITTING_PACKET...</span>

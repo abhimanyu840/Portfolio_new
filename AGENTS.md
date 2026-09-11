@@ -87,16 +87,17 @@ Completed and verified:
 - Full-stack Next.js 16 App Router application in `apps/web`.
 - Mongoose singleton connection with robust fallback (`apps/web/src/lib/db.ts`).
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
-- Observability & Dark Tech Minimalist UI components:
-  - `Navbar`: Live system indicator, uptime counter, CLI launcher.
-  - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech).
-  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines.
+- Observability & Dark Tech Minimalist UI components (matching `updated_ui.png` with darker obsidian cyber-blue scheme):
+  - `Navbar`: Floating dock capsule with AK blue-indigo gradient monogram, active HUD pill with glowing cyan dot, live uptime ECG pulse, CLI drawer launcher, and verified credential badge.
+  - `Hero`: Headline (on single line), tech stack subheader, status capsule (`ENTERPRISE TELEMETRY ACTIVE`), CTAs (`EXPLORE_PROJECTS`, `OPEN_TERMINAL_HUD`, `TRANSMIT_INQUIRY`), 4 metric glass cards (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech) with sparklines, server array graphic, and campus clock tower silhouette, Netlify badge, and fiber-optic rail.
+  - `HoloConsole`: 3D isometric layered developer console with glowing `< / >` emblem, vertical telemetry bars, and vertical tagline (`BUILDING SCALABLE SYSTEMS FOR A SMARTER TOMORROW`).
+  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines in dark obsidian glass.
   - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`.
-  - `Projects`: Filterable project showcase with deep architecture spec modal.
-  - `Skills`: Categorized competency matrix across 7 domains with percentage meters.
+  - `Projects`: Filterable project showcase with deep architecture spec modal in dark obsidian glass.
+  - `Skills`: Categorized competency matrix across 7 domains with cyan/emerald percentage meters.
   - `Experience`: Detailed Wipro enterprise telemetry timeline and BITS Pilani M.Tech academic foundation.
   - `ContactSection`: Validated transmission buffer form and direct communication channels.
-  - `Footer`: System SLA, commit hash indicator, and return-to-top button.
+  - `Footer`: System SLA, commit hash indicator, fiber-optic beam, and return-to-top button.
 - Netlify deployment config in `netlify.toml` with `@netlify/plugin-nextjs`.
 - Git repository initialized.
 
@@ -115,12 +116,12 @@ Toolchain and application verified on this host:
 - `Invoke-RestMethod http://localhost:3000/api/v1/projects` -> HTTP 200 (5 projects)
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
-- Browser testing: Headless Edge & Chrome verified 119KB DOM and fullpage desktop/mobile screenshots.
+- Visual Verification: Headless Chrome/Edge captured `final-desktop.png` and `final-mobile.png`, perfectly matching `ai-workspace/prompts/specs/updated_ui.png` with darker color scheme.
 
 ## Open questions
 
-All core architectural decisions resolved during interview:
-1. **Design Theme**: Observability & Dark Tech Minimalist (deep dark zinc/slate with emerald/cyan telemetry accents and terminal drawer).
+All core architectural decisions resolved:
+1. **Design Theme**: Observability & Dark Tech Minimalist (ultra-dark obsidian `#02040a` canvas with neon cyan, cobalt, and purple telemetry accents and 3D isometric hologram matching `updated_ui.png`).
 2. **Backend**: Next.js 16 App Router Route Handlers (`src/app/api/v1/...`).
 3. **Database**: MongoDB Atlas with resilient mock/seed fallback.
 4. **Deployment**: Netlify (`@netlify/plugin-nextjs`).
