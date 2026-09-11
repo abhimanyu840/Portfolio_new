@@ -87,17 +87,16 @@ Completed and verified:
 - Full-stack Next.js 16 App Router application in `apps/web`.
 - Mongoose singleton connection with robust fallback (`apps/web/src/lib/db.ts`).
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
-- Observability & Clean Dark Tech Minimalist UI components (Linear/Vercel/Stripe-inspired mature engineering aesthetic, `#09090b` canvas, subtle hairline borders):
-  - `Navbar`: Minimalist sticky header with `AK` monogram, `Abhimanyu Kumar` title with green status dot (`Software Engineer @ Wipro`), clean navigation links, direct GitHub/LinkedIn icon buttons, CLI drawer trigger, and white "Get in touch" CTA button.
-  - `Hero`: Clear authoritative typography ("Building high-throughput telemetry pipelines & resilient backend systems."), tech stack badges, professional bio summary, clean CTAs, and 4 grounded metric cards (1.5+ Yrs, 500+ Nodes, 12,000/s, M.Tech @ BITS Pilani).
-  - `CodeWindow`: Authentic macOS-styled code window with traffic light window controls, tab switching (`telemetry_daemon.py`, `storage_nodes.ts`, `system_status.json`), real syntax-highlighted FastAPI/Python code, AP-South-1 region status bar, and copy-to-clipboard functionality.
-  - `ObservabilityHUD`: Enterprise Infrastructure Architecture section with 4-stage ingestion pipeline cards (SNMP/Syslog → Python listeners → InfluxDB/Prometheus → FastAPI/Grafana) and 4 enterprise storage array cards (NetApp, Dell EMC, Hitachi, Brocade SAN).
-  - `Projects`: Mature engineering cards with domain filters (`All Systems`, `Observability & SAN`, `Enterprise AI & RAG`, `Full-Stack & Ledger`), concrete performance metrics, and clean modal drilldowns.
-  - `Skills`: Domain-organized technology badges across 7 categories (Languages, Backend, Observability, Storage/SAN, DevOps, Frontend, Databases/AI).
-  - `Experience`: Clean engineering timeline for Wipro (2025–Present) and academic foundation for BITS Pilani M.Tech and BCA.
-  - `ContactSection`: Minimalist "Send a Message" form with clean input fields and direct communication channels.
-  - `Footer`: Clean footer with copyright, tech stack details, social links, and back-to-top button.
-  - `TerminalHUD`: Authentic macOS terminal window (`abhimanyu@wipro: ~`) with interactive command system.
+- Observability & Dark Tech Minimalist UI components:
+  - `Navbar`: Live system indicator, uptime counter, CLI launcher.
+  - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech).
+  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines.
+  - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`.
+  - `Projects`: Filterable project showcase with deep architecture spec modal.
+  - `Skills`: Categorized competency matrix across 7 domains with percentage meters.
+  - `Experience`: Detailed Wipro enterprise telemetry timeline and BITS Pilani M.Tech academic foundation.
+  - `ContactSection`: Validated transmission buffer form and direct communication channels.
+  - `Footer`: System SLA, commit hash indicator, and return-to-top button.
 - Netlify deployment config in `netlify.toml` with `@netlify/plugin-nextjs`.
 - Git repository initialized.
 
@@ -116,12 +115,12 @@ Toolchain and application verified on this host:
 - `Invoke-RestMethod http://localhost:3000/api/v1/projects` -> HTTP 200 (5 projects)
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
-- Visual Verification: Headless Chrome captured `mature-fullpage.png` and `mature-mobile.png`, confirming clean, mature engineering aesthetics across desktop and mobile.
+- Browser testing: Headless Edge & Chrome verified 119KB DOM and fullpage desktop/mobile screenshots.
 
 ## Open questions
 
-All core architectural decisions resolved:
-1. **Design Theme**: Clean Dark Tech Minimalist (Linear / Vercel dark mode aesthetic: `#09090b` canvas, subtle `zinc-800` borders, authentic syntax-highlighted code editor, and grounded telemetry metrics without gimmicky holograms).
+All core architectural decisions resolved during interview:
+1. **Design Theme**: Observability & Dark Tech Minimalist (deep dark zinc/slate with emerald/cyan telemetry accents and terminal drawer).
 2. **Backend**: Next.js 16 App Router Route Handlers (`src/app/api/v1/...`).
 3. **Database**: MongoDB Atlas with resilient mock/seed fallback.
 4. **Deployment**: Netlify (`@netlify/plugin-nextjs`).

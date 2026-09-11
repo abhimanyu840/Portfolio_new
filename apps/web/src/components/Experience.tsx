@@ -1,85 +1,85 @@
 "use client";
 
 import React from "react";
-import { Briefcase, GraduationCap, Calendar, MapPin, CheckCircle2, ChevronRight } from "lucide-react";
+import { Briefcase, GraduationCap, Calendar, MapPin, CheckCircle, ChevronRight } from "lucide-react";
 import { SEED_EXPERIENCE, SEED_EDUCATION } from "@/lib/seed-data";
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-16 md:py-24 border-b border-zinc-800/80">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-16 md:py-24 border-b border-slate-800/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-zinc-800/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-slate-800">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-1.5 font-medium">
-              <Briefcase className="w-4 h-4 text-zinc-300" />
-              <span>CAREER &amp; EDUCATION</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+              <Briefcase className="w-4 h-4" />
+              <span>CAREER_&amp;_PEDIGREE</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Experience &amp; Academic Background
+            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono">
+              EXPERIENCE &amp; ACADEMICS
             </h2>
           </div>
-          <div className="mt-4 md:mt-0 text-xs font-mono text-zinc-400">
-            Enterprise Infrastructure • Software Systems
+          <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
+            RECORD_TYPE: <span className="text-emerald-400 font-bold">ENTERPRISE TELEMETRY // VERIFIED</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Work Experience Column (Span 2) */}
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider font-mono flex items-center gap-2 pb-2 border-b border-zinc-800">
-              <Briefcase className="w-4 h-4 text-zinc-400" />
-              <span>Professional Experience</span>
+            <h3 className="font-mono text-base font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
+              <Briefcase className="w-4 h-4 text-emerald-400" />
+              <span>PROFESSIONAL ENGINEERING TRACK</span>
             </h3>
 
             {SEED_EXPERIENCE.map((exp) => (
               <div
                 key={exp.id}
-                className="card-subtle p-6 rounded-xl space-y-4"
+                className="glass-panel p-6 rounded-lg border border-slate-800 hover:border-emerald-500/40 transition-all"
               >
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800/80 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4 mb-4">
                   <div>
-                    <h4 className="text-base font-bold text-white">
+                    <h4 className="font-mono text-lg font-bold text-white flex items-center gap-2">
                       <span>{exp.role}</span>
-                      <span className="text-zinc-400 font-normal"> @ {exp.company}</span>
+                      <span className="text-emerald-400 text-sm font-normal">@ {exp.company}</span>
                     </h4>
-                    <div className="flex items-center gap-4 text-xs text-zinc-400 mt-1 font-mono">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-zinc-500" />
+                    <div className="flex items-center gap-4 text-xs text-slate-400 mt-1 font-mono">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                         <span>{exp.period}</span>
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-zinc-500" />
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                         <span>{exp.location}</span>
                       </span>
                     </div>
                   </div>
-                  <span className="text-xs px-2.5 py-1 rounded bg-zinc-800 text-zinc-200 font-medium self-start sm:self-auto border border-zinc-700/60">
-                    Current Role
+                  <span className="font-mono text-xs px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold self-start sm:self-auto">
+                    ACTIVE DEPLOYMENT
                   </span>
                 </div>
 
                 {/* Highlights List */}
-                <div className="space-y-2.5 my-3">
+                <div className="space-y-2.5 my-4">
                   {exp.highlights.map((h, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-zinc-500 flex-shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Tech Stack Pills */}
-                <div className="pt-3 border-t border-zinc-800/80">
-                  <div className="text-[11px] font-mono text-zinc-500 uppercase mb-2">
-                    Technologies Deployed
+                <div className="mt-5 pt-4 border-t border-slate-800/80">
+                  <div className="font-mono text-[10px] text-slate-500 uppercase mb-2">
+                    DEPLOYED ENTERPRISE STACK
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {exp.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800"
+                        className="font-mono text-[11px] px-2.5 py-0.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700/60"
                       >
                         {tech}
                       </span>
@@ -92,36 +92,36 @@ export const Experience: React.FC = () => {
 
           {/* Education Column (Span 1) */}
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider font-mono flex items-center gap-2 pb-2 border-b border-zinc-800">
-              <GraduationCap className="w-4 h-4 text-zinc-400" />
-              <span>Education</span>
+            <h3 className="font-mono text-base font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
+              <GraduationCap className="w-4 h-4 text-cyan-400" />
+              <span>ACADEMIC FOUNDATION</span>
             </h3>
 
             <div className="space-y-4">
               {SEED_EDUCATION.map((edu, idx) => (
                 <div
                   key={idx}
-                  className="card-subtle p-5 rounded-xl space-y-2.5"
+                  className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-cyan-500/40 transition-all space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
                       {edu.status}
                     </span>
-                    <span className="text-xs font-mono text-zinc-400">{edu.period}</span>
+                    <span className="font-mono text-xs text-slate-400">{edu.period}</span>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-bold text-white">{edu.degree}</h4>
-                    <div className="text-xs text-zinc-300 mt-0.5">{edu.institution}</div>
+                    <h4 className="font-mono text-sm font-bold text-white">{edu.degree}</h4>
+                    <div className="font-mono text-xs text-emerald-400 mt-0.5">{edu.institution}</div>
                     {edu.program && (
-                      <div className="text-xs text-zinc-500 mt-0.5">{edu.program}</div>
+                      <div className="text-xs text-slate-400 mt-1 italic">{edu.program}</div>
                     )}
                   </div>
 
-                  <div className="space-y-1 pt-2 border-t border-zinc-800/80">
+                  <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
                     {edu.details.map((d, i) => (
-                      <div key={i} className="flex items-start gap-1.5 text-xs text-zinc-400">
-                        <ChevronRight className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-1.5 text-xs text-slate-300">
+                        <ChevronRight className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
                         <span>{d}</span>
                       </div>
                     ))}
@@ -131,12 +131,12 @@ export const Experience: React.FC = () => {
             </div>
 
             {/* Program Sponsorship badge */}
-            <div className="p-4 rounded-xl bg-zinc-900/90 border border-zinc-800 space-y-1.5">
-              <div className="text-zinc-200 font-semibold text-xs flex items-center gap-1.5">
-                <span>Wipro WILP Scholarship</span>
+            <div className="p-4 rounded-lg bg-emerald-950/20 border border-emerald-500/30 font-mono text-xs text-slate-300 space-y-1">
+              <div className="text-emerald-400 font-bold flex items-center gap-1.5">
+                <span>✦ WIPRO WILP SCHOLARSHIP</span>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Concurrently pursuing advanced software systems coursework at BITS Pilani while building production observability platforms at Wipro.
+              <p className="text-[11px] text-slate-400 leading-normal">
+                Concurrently pursuing advanced distributed software systems coursework at BITS Pilani while engineering real-time infrastructure platforms at Wipro.
               </p>
             </div>
           </div>
