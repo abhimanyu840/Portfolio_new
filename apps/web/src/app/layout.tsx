@@ -9,19 +9,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Abhimanyu Kumar | Software Engineer — Python, FastAPI, React, Linux & Observability",
   description:
-    "Enterprise observability engineer and full-stack developer portfolio. Systems monitoring, FastAPI microservices, React dashboards, InfluxDB, Prometheus, and RHEL infrastructure.",
+    "Software Engineer with 1.5+ years of experience building enterprise monitoring solutions, FastAPI services, and reactive dashboards at Wipro. M.Tech in Software Systems at BITS Pilani.",
   keywords: [
     "Abhimanyu Kumar",
     "Software Engineer",
-    "Observability",
     "FastAPI",
     "Python",
     "React",
+    "Observability",
+    "InfluxDB",
+    "Prometheus",
+    "Grafana",
     "Linux",
     "RHEL",
-    "InfluxDB",
-    "Grafana",
-    "Prometheus",
     "Docker",
     "NetApp",
     "Dell EMC",
@@ -37,9 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen bg-[#02040a] text-slate-200 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
-        <div className="fixed inset-0 tech-grid pointer-events-none z-0" />
-        <div className="fixed inset-0 tech-radial-dark pointer-events-none z-0" />
+      <body className="min-h-screen bg-[#09090b] text-zinc-100 antialiased selection:bg-zinc-800 selection:text-white">
+        <div className="fixed inset-0 subtle-grid pointer-events-none z-0" />
+        <div className="fixed inset-0 ambient-gradient pointer-events-none z-0" />
         <div className="relative z-10">{children}</div>
       </body>
     </html>
