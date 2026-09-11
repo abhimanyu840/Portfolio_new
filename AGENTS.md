@@ -23,7 +23,8 @@ Status: new project, 0 commits. Architecture aligned via user interview: single 
 | probe next registry | `npm view next version` | `verified` — exited 0 (`16.3.4`) |
 | probe turbo registry | `npm view turbo version` | `verified` — exited 0 (`2.10.12`) |
 | install monorepo deps | `bun install` | `verified` — exited 0 (138 packages installed) |
-| check-types (turbo) | `bun run check-types` | `verified` — exited 0 (turbo check-types in 5.15s) |
+| check-types (turbo) | `bun run check-types` | `verified` — exited 0 (turbo check-types across all workspaces) |
+| lint (turbo) | `bun run lint` | `verified` — exited 0 (turbo lint across all workspaces) |
 | dev (turbo) | `bun run dev` | `verified` — starts Next.js App Router on port 3000 |
 | build (turbo) | `bun run build` | `verified` — exited 0 (production build in 13.4s) |
 | health probe | `Invoke-RestMethod http://localhost:3000/api/v1/health` | `verified` — exited 0 (status: healthy, 200 OK) |
