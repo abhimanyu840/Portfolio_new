@@ -11,7 +11,7 @@ export const Skills: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-slate-800">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-1">
               <Cpu className="w-4 h-4" />
               <span>CORE_COMPETENCIES</span>
             </div>
@@ -20,7 +20,7 @@ export const Skills: React.FC = () => {
             </h2>
           </div>
           <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            TOTAL_SKILLSETS: <span className="text-emerald-400 font-bold">40+ VERIFIED TECHNOLOGIES</span>
+            TOTAL_SKILLSETS: <span className="text-indigo-400 font-bold">40+ VERIFIED TECHNOLOGIES</span>
           </div>
         </div>
 
@@ -29,11 +29,11 @@ export const Skills: React.FC = () => {
           {SEED_SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
-              className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
+              className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-indigo-500/40 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 mb-3">
-                  <h3 className="font-mono text-sm font-bold text-emerald-400 flex items-center gap-2">
+                  <h3 className="font-mono text-sm font-bold text-indigo-400 flex items-center gap-2">
                     <Wrench className="w-3.5 h-3.5" />
                     <span>{group.category.toUpperCase()}</span>
                   </h3>
@@ -52,7 +52,7 @@ export const Skills: React.FC = () => {
                       <div className="flex items-center justify-between font-mono text-xs">
                         <span className="flex items-center gap-1.5 text-slate-200">
                           {skill.highlight && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Core Specialty" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" title="Core Specialty" />
                           )}
                           <span className={skill.highlight ? "font-semibold text-white" : ""}>
                             {skill.name}
@@ -64,8 +64,8 @@ export const Skills: React.FC = () => {
                         <div
                           className={`h-full rounded-full ${
                             skill.highlight
-                              ? "bg-gradient-to-r from-emerald-500 to-cyan-400"
-                              : "bg-slate-600"
+                              ? "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"
+                              : "bg-slate-700"
                           }`}
                           style={{ width: `${skill.level}%` }}
                         />
@@ -78,7 +78,7 @@ export const Skills: React.FC = () => {
               {/* Bottom tag */}
               <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
                 <span className="flex items-center gap-1">
-                  <Shield className="w-3 h-3 text-emerald-400" />
+                  <Shield className="w-3 h-3 text-indigo-400" />
                   <span>Production Ready</span>
                 </span>
                 <span>ENTERPRISE GRADE</span>

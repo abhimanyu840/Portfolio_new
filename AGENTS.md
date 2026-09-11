@@ -88,9 +88,9 @@ Completed and verified:
 - Mongoose singleton connection with robust fallback (`apps/web/src/lib/db.ts`).
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
 - Observability & Dark Tech Minimalist UI components:
-  - `Navbar`: Live system indicator, uptime counter, CLI launcher.
+  - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA.
   - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech).
-  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines.
+  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines in indigo/purple telemetry tint.
   - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`.
   - `Projects`: Filterable project showcase with deep architecture spec modal.
   - `Skills`: Categorized competency matrix across 7 domains with percentage meters.
@@ -115,12 +115,12 @@ Toolchain and application verified on this host:
 - `Invoke-RestMethod http://localhost:3000/api/v1/projects` -> HTTP 200 (5 projects)
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
-- Browser testing: Headless Edge & Chrome verified 119KB DOM and fullpage desktop/mobile screenshots.
+- Browser testing: Headless Edge & Chrome verified 119KB DOM, fullpage desktop, mobile viewport, and mobile menu screenshots.
 
 ## Open questions
 
 All core architectural decisions resolved during interview:
-1. **Design Theme**: Observability & Dark Tech Minimalist (deep dark zinc/slate with emerald/cyan telemetry accents and terminal drawer).
+1. **Design Theme**: Blue, Indigo & Purple Tint Minimalist Tech (canvas `#060813`, indigo/purple ambient glow, refined developer topbar, zero vibe-coded sci-fi noise).
 2. **Backend**: Next.js 16 App Router Route Handlers (`src/app/api/v1/...`).
 3. **Database**: MongoDB Atlas with resilient mock/seed fallback.
 4. **Deployment**: Netlify (`@netlify/plugin-nextjs`).

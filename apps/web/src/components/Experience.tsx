@@ -11,7 +11,7 @@ export const Experience: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-slate-800">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-1">
               <Briefcase className="w-4 h-4" />
               <span>CAREER_&amp;_PEDIGREE</span>
             </div>
@@ -20,7 +20,7 @@ export const Experience: React.FC = () => {
             </h2>
           </div>
           <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            RECORD_TYPE: <span className="text-emerald-400 font-bold">ENTERPRISE TELEMETRY // VERIFIED</span>
+            RECORD_TYPE: <span className="text-indigo-400 font-bold">ENTERPRISE TELEMETRY // VERIFIED</span>
           </div>
         </div>
 
@@ -28,25 +28,25 @@ export const Experience: React.FC = () => {
           {/* Work Experience Column (Span 2) */}
           <div className="lg:col-span-2 space-y-6">
             <h3 className="font-mono text-base font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
-              <Briefcase className="w-4 h-4 text-emerald-400" />
+              <Briefcase className="w-4 h-4 text-indigo-400" />
               <span>PROFESSIONAL ENGINEERING TRACK</span>
             </h3>
 
             {SEED_EXPERIENCE.map((exp) => (
               <div
                 key={exp.id}
-                className="glass-panel p-6 rounded-lg border border-slate-800 hover:border-emerald-500/40 transition-all"
+                className="glass-panel p-6 rounded-lg border border-slate-800 hover:border-indigo-500/40 transition-all"
               >
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4 mb-4">
                   <div>
                     <h4 className="font-mono text-lg font-bold text-white flex items-center gap-2">
                       <span>{exp.role}</span>
-                      <span className="text-emerald-400 text-sm font-normal">@ {exp.company}</span>
+                      <span className="text-indigo-400 text-sm font-normal">@ {exp.company}</span>
                     </h4>
                     <div className="flex items-center gap-4 text-xs text-slate-400 mt-1 font-mono">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                        <Calendar className="w-3.5 h-3.5 text-indigo-400" />
                         <span>{exp.period}</span>
                       </span>
                       <span className="flex items-center gap-1">
@@ -55,7 +55,7 @@ export const Experience: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="font-mono text-xs px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold self-start sm:self-auto">
+                  <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 font-semibold self-start sm:self-auto">
                     ACTIVE DEPLOYMENT
                   </span>
                 </div>
@@ -64,7 +64,7 @@ export const Experience: React.FC = () => {
                 <div className="space-y-2.5 my-4">
                   {exp.highlights.map((h, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </div>
                   ))}
@@ -93,7 +93,7 @@ export const Experience: React.FC = () => {
           {/* Education Column (Span 1) */}
           <div className="space-y-6">
             <h3 className="font-mono text-base font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
-              <GraduationCap className="w-4 h-4 text-cyan-400" />
+              <GraduationCap className="w-4 h-4 text-purple-400" />
               <span>ACADEMIC FOUNDATION</span>
             </h3>
 
@@ -101,10 +101,10 @@ export const Experience: React.FC = () => {
               {SEED_EDUCATION.map((edu, idx) => (
                 <div
                   key={idx}
-                  className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-cyan-500/40 transition-all space-y-3"
+                  className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-purple-500/40 transition-all space-y-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30">
                       {edu.status}
                     </span>
                     <span className="font-mono text-xs text-slate-400">{edu.period}</span>
@@ -112,7 +112,7 @@ export const Experience: React.FC = () => {
 
                   <div>
                     <h4 className="font-mono text-sm font-bold text-white">{edu.degree}</h4>
-                    <div className="font-mono text-xs text-emerald-400 mt-0.5">{edu.institution}</div>
+                    <div className="font-mono text-xs text-indigo-400 mt-0.5">{edu.institution}</div>
                     {edu.program && (
                       <div className="text-xs text-slate-400 mt-1 italic">{edu.program}</div>
                     )}
@@ -121,7 +121,7 @@ export const Experience: React.FC = () => {
                   <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
                     {edu.details.map((d, i) => (
                       <div key={i} className="flex items-start gap-1.5 text-xs text-slate-300">
-                        <ChevronRight className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <ChevronRight className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 mt-0.5" />
                         <span>{d}</span>
                       </div>
                     ))}
@@ -131,8 +131,8 @@ export const Experience: React.FC = () => {
             </div>
 
             {/* Program Sponsorship badge */}
-            <div className="p-4 rounded-lg bg-emerald-950/20 border border-emerald-500/30 font-mono text-xs text-slate-300 space-y-1">
-              <div className="text-emerald-400 font-bold flex items-center gap-1.5">
+            <div className="p-4 rounded-lg bg-purple-950/25 border border-purple-500/30 font-mono text-xs text-slate-300 space-y-1">
+              <div className="text-purple-400 font-bold flex items-center gap-1.5">
                 <span>✦ WIPRO WILP SCHOLARSHIP</span>
               </div>
               <p className="text-[11px] text-slate-400 leading-normal">

@@ -82,7 +82,7 @@ export const ContactSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-slate-800">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-1">
               <Mail className="w-4 h-4" />
               <span>INGESTION_GATEWAY</span>
             </div>
@@ -91,7 +91,7 @@ export const ContactSection: React.FC = () => {
             </h2>
           </div>
           <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            DISPATCH_TARGET: <span className="text-emerald-400 font-bold">ABHIMANYU KUMAR</span>
+            DISPATCH_TARGET: <span className="text-indigo-400 font-bold">ABHIMANYU KUMAR</span>
           </div>
         </div>
 
@@ -111,9 +111,9 @@ export const ContactSection: React.FC = () => {
               <div className="space-y-4 font-mono text-xs">
                 <a
                   href={`mailto:${DEVELOPER_PROFILE.email}`}
-                  className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all group"
                 >
-                  <Mail className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <Mail className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Direct Email</div>
                     <div className="font-semibold text-white">{DEVELOPER_PROFILE.email}</div>
@@ -122,17 +122,17 @@ export const ContactSection: React.FC = () => {
 
                 <a
                   href={`tel:${DEVELOPER_PROFILE.phone}`}
-                  className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group"
                 >
-                  <Phone className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                  <Phone className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Voice / Telemetry Line</div>
                     <div className="font-semibold text-white">{DEVELOPER_PROFILE.phone}</div>
                   </div>
                 </a>
 
-                <div className="flex items-center gap-3 p-3 rounded bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <MapPin className="w-4 h-4 text-emerald-400" />
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300">
+                  <MapPin className="w-4 h-4 text-purple-400" />
                   <div>
                     <div className="text-[10px] text-slate-500 uppercase">Geographic Node</div>
                     <div className="font-semibold text-white">{DEVELOPER_PROFILE.location} // Standard Time (IST)</div>
@@ -146,27 +146,27 @@ export const ContactSection: React.FC = () => {
                   href={DEVELOPER_PROFILE.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-cyan-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
-                  <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                  <Globe className="w-3.5 h-3.5 text-indigo-400" />
                   <span>LinkedIn</span>
                 </a>
                 <a
                   href={DEVELOPER_PROFILE.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
-                  <GithubIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <GithubIcon className="w-3.5 h-3.5 text-purple-400" />
                   <span>GitHub</span>
                 </a>
                 <a
                   href={DEVELOPER_PROFILE.portfolio}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded bg-slate-900 border border-slate-800 hover:border-cyan-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
                 >
-                  <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                  <Globe className="w-3.5 h-3.5 text-blue-400" />
                   <span>Live Portfolio</span>
                 </a>
               </div>
@@ -180,18 +180,18 @@ export const ContactSection: React.FC = () => {
                 <span className="text-white font-bold uppercase tracking-wider">
                   TRANSMISSION BUFFER FORM
                 </span>
-                <span className="text-emerald-400 text-[10px]">ENCRYPTION: TLS 1.3</span>
+                <span className="text-indigo-400 text-[10px]">ENCRYPTION: TLS 1.3</span>
               </div>
 
               {status.type === "success" && (
-                <div className="mb-6 p-4 rounded bg-emerald-950/40 border border-emerald-500/50 text-emerald-300 space-y-1">
+                <div className="mb-6 p-4 rounded-lg bg-indigo-950/40 border border-indigo-500/50 text-indigo-300 space-y-1">
                   <div className="flex items-center gap-2 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-indigo-400" />
                     <span>TRANSMISSION CONFIRMED</span>
                   </div>
                   <p className="text-xs">{status.message}</p>
                   {status.details && (
-                    <div className="text-[10px] text-slate-400 mt-2 font-mono pt-2 border-t border-emerald-500/20 flex justify-between">
+                    <div className="text-[10px] text-slate-400 mt-2 font-mono pt-2 border-t border-indigo-500/20 flex justify-between">
                       <span>EVENT_ID: {status.details.id}</span>
                       <span>TIMESTAMP: {new Date(status.details.timestamp || "").toLocaleTimeString()}</span>
                     </div>
@@ -200,7 +200,7 @@ export const ContactSection: React.FC = () => {
               )}
 
               {status.type === "error" && (
-                <div className="mb-6 p-4 rounded bg-red-950/40 border border-red-500/50 text-red-300 flex items-center gap-2">
+                <div className="mb-6 p-4 rounded-lg bg-red-950/40 border border-red-500/50 text-red-300 flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
                   <span>{status.message}</span>
                 </div>
@@ -210,7 +210,7 @@ export const ContactSection: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Name <span className="text-emerald-400">*</span>
+                      Originator Name <span className="text-purple-400">*</span>
                     </label>
                     <input
                       type="text"
@@ -219,13 +219,13 @@ export const ContactSection: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="e.g. John Doe"
-                      className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Email <span className="text-emerald-400">*</span>
+                      Originator Email <span className="text-purple-400">*</span>
                     </label>
                     <input
                       type="email"
@@ -234,14 +234,14 @@ export const ContactSection: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="e.g. john@enterprise.io"
-                      className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="text-slate-400 text-[11px] uppercase">
-                    Subject Line <span className="text-emerald-400">*</span>
+                    Subject Line <span className="text-purple-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -250,13 +250,13 @@ export const ContactSection: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="e.g. Opportunity / Telemetry Architecture Discussion"
-                    className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                    className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="text-slate-400 text-[11px] uppercase">
-                    Telemetry Message Body <span className="text-emerald-400">*</span>
+                    Telemetry Message Body <span className="text-purple-400">*</span>
                   </label>
                   <textarea
                     name="message"
@@ -265,14 +265,14 @@ export const ContactSection: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Provide details regarding the project scope, role, or technical question..."
-                    className="w-full px-3 py-2.5 rounded bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors resize-none"
+                    className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95"
                 >
                   {loading ? (
                     <span>TRANSMITTING_PACKET...</span>
