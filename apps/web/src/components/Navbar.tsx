@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
           </div>
 
           {/* Mobile menu and terminal toggle */}
-          <div className="flex items-center md:hidden space-x-2">
+          <div className="flex items-center lg:hidden space-x-2">
             <button
               onClick={onOpenTerminal}
               className="p-2 rounded-xl bg-white/[0.05] text-cyan-400 border border-white/[0.1] hover:border-cyan-500/50 transition-colors cursor-pointer"
@@ -156,7 +156,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
         {/* Mobile Menu Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-3 pt-3 pb-2 border-t border-white/[0.08] space-y-3">
+          <div className="lg:hidden mt-3 pt-3 pb-3 border-t border-white/[0.08] space-y-3">
             <div className="flex flex-col space-y-1">
               {navLinks.map((link) => (
                 <a

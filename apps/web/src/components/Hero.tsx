@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
   const persona = PERSONAS[activePersona];
 
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden border-b border-white/[0.08]">
+    <section className="relative pt-28 pb-14 sm:pt-36 sm:pb-20 md:pt-40 md:pb-24 overflow-hidden border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Top Status Capsule */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
@@ -82,24 +82,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
         {/* Main Typographic Hierarchy */}
         <div className="space-y-4 max-w-5xl">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white">
             Abhimanyu <span className="text-gradient-cyan">Kumar</span>
           </h1>
 
-          <div className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-slate-200">
+          <div className="text-lg sm:text-2xl md:text-3xl font-medium tracking-tight text-slate-200">
             Engineering High-Throughput <span className="text-cyan-400 font-semibold">Distributed Telemetry</span>, Resilient APIs &amp; Scalable Systems.
           </div>
 
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl pt-1">
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-3xl pt-1">
             Software Engineer with <strong className="text-white font-semibold">1.5+ years</strong> of enterprise production experience at <strong className="text-white font-semibold">Wipro</strong>. Architecting telemetry daemons, FastAPI microservices, and reactive monitoring consoles across <span className="text-cyan-300 font-medium">NetApp</span>, <span className="text-blue-300 font-medium">Dell EMC</span>, <span className="text-indigo-300 font-medium">Hitachi VSP</span>, and <span className="text-purple-300 font-medium">Brocade SAN switches</span>. Currently pursuing M.Tech in Software Systems at <strong className="text-white font-semibold">BITS Pilani</strong>.
           </p>
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="flex flex-wrap items-center gap-3.5 mt-8 pt-2">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-3.5 mt-8 pt-2">
           <a
             href="#projects"
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-sm font-semibold tracking-wide transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
           >
             <span>Explore Featured Systems</span>
             <ArrowDown className="w-4 h-4" />
@@ -107,7 +107,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
           <button
             onClick={onOpenTerminal}
-            className="px-5 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-cyan-500/50 text-slate-200 hover:text-cyan-200 font-mono text-sm transition-all flex items-center gap-2 shadow-md cursor-pointer"
+            className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-cyan-500/50 text-slate-200 hover:text-cyan-200 font-mono text-xs sm:text-sm transition-all flex items-center gap-2 shadow-md cursor-pointer"
           >
             <Terminal className="w-4 h-4 text-cyan-400" />
             <span>Terminal CLI [~]</span>
@@ -115,7 +115,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
           <a
             href="#hud"
-            className="px-5 py-3 rounded-full bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.08] hover:border-indigo-500/40 text-slate-300 hover:text-indigo-300 font-mono text-sm transition-all flex items-center gap-2 cursor-pointer"
+            className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.08] hover:border-indigo-500/40 text-slate-300 hover:text-indigo-300 font-mono text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
           >
             <Layers className="w-4 h-4 text-indigo-400" />
             <span>Architecture Lab</span>
@@ -125,11 +125,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
         {/* ========================================================= */}
         {/* INTERACTIVE PERSONA COMMAND DECK                          */}
         {/* ========================================================= */}
-        <div className="mt-12 p-6 rounded-2xl glass-panel border border-white/[0.1] relative overflow-hidden">
+        <div className="mt-10 sm:mt-12 p-4 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.1] relative overflow-hidden">
           {/* Subtle accent glow */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-5 border-b border-white/[0.08] gap-3">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 mb-5 border-b border-white/[0.08] gap-3">
             <div>
               <div className="font-mono text-xs text-cyan-400 font-bold tracking-wider uppercase mb-1">
                 ENGINEERING PROFILE DECK // SELECT SPECIALIZATION
@@ -140,12 +140,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             </div>
 
             {/* Persona Switcher Buttons */}
-            <div className="flex items-center gap-1.5 p-1 bg-black/40 border border-white/[0.08] rounded-full">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-1 p-1 bg-black/40 border border-white/[0.08] rounded-xl sm:rounded-full self-start lg:self-auto">
               {(["sre", "backend", "fullstack"] as PersonaMode[]).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setActivePersona(mode)}
-                  className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-full font-mono text-xs font-semibold transition-all cursor-pointer ${
                     activePersona === mode
                       ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
                       : "text-slate-400 hover:text-slate-200"
@@ -160,12 +160,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </div>
 
           {/* Active Persona Spotlight Description */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="mb-5 sm:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <div className="font-mono text-xs text-indigo-400 font-semibold mb-1">
                 {persona.badge}
               </div>
-              <p className="text-sm text-slate-300 font-medium leading-relaxed max-w-3xl">
+              <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-3xl">
                 {persona.tagline}
               </p>
             </div>
@@ -182,16 +182,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </div>
 
           {/* 4 Bento Metric Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
             {persona.stats.map((stat, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] transition-all group"
+                className="p-3.5 sm:p-4 rounded-xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] transition-all group"
               >
-                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">
+                <div className="text-[11px] sm:text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">
                   {stat.label}
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-white group-hover:text-cyan-300 transition-colors">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-mono text-white group-hover:text-cyan-300 transition-colors">
                   {stat.value}
                 </div>
                 <div className="text-[11px] text-slate-400 mt-1 font-mono truncate">
