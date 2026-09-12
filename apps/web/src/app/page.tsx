@@ -46,10 +46,10 @@ export default function Home() {
       
       <div className="flex-1">
         <Hero onOpenTerminal={() => setTerminalOpen(true)} />
-        <ObservabilityHUD />
         <Projects />
         <Skills />
         <Experience />
+        <ObservabilityHUD />
         <ContactSection />
       </div>
 

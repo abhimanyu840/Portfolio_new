@@ -36,10 +36,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
   }, []);
 
   const navLinks = [
-    { label: "Architecture", href: "#hud" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
     { label: "Experience", href: "#experience" },
+    { label: "Architecture Lab", href: "#hud" },
     { label: "Contact", href: "#contact" },
   ];
 

@@ -91,7 +91,7 @@ Completed and verified:
 - Observability & Dark Tech Minimalist UI components:
   - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA (all elements verified with `cursor-pointer`).
   - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech), and above-the-fold Quick Tech Stack ribbon featuring official brand logos (HTML5, CSS3, JS, TS, React, Next.js, Python, FastAPI, Docker, Linux, MongoDB).
-  - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines in indigo/purple telemetry tint.
+  - `ObservabilityHUD`: Repositioned as an interactive Systems Architecture & Live Telemetry Lab below Experience. Features dual-perspective tabs (Enterprise Pipeline Simulation vs. Portfolio Live Runtime), interactive 4-stage ingestion pipeline inspector, enterprise SAN storage fabric node deep-dive inspector (NetApp, Dell EMC, Hitachi, Brocade), live streaming event log terminal with synthetic trap packet injector and SAN alarm simulator, and real-time roundtrip latency sparkline.
   - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`, dismissable on backdrop click.
   - `Projects`: Filterable project showcase with deep architecture spec modal and dismissable backdrop.
   - `Skills`: Filterable visual technology directory with official colored SVG brand logos (HTML5 orange shield, CSS3, JavaScript, TypeScript, React, Python, FastAPI, etc.) and categorized competency matrix with matching tech icons.
@@ -112,13 +112,13 @@ Toolchain and application verified on this host:
 - `npm view next version` -> `16.3.4`
 - `npm view turbo version` -> `2.10.12`
 - `bun run check-types` -> passed (0 errors)
-- `bun run build` -> passed (0 errors, all static & dynamic routes compiled)
+- `bun run build` -> passed (0 errors, all static & dynamic routes compiled in 9.1s)
 - `Invoke-RestMethod http://localhost:3000/api/v1/health` -> HTTP 200 `{ status: "healthy" }`
 - `Invoke-RestMethod http://localhost:3000/api/v1/projects` -> HTTP 200 (5 projects)
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
-- Interactive cursor probe: 42/42 interactive elements verified with computed `cursor: pointer` and disabled state verified with `cursor: not-allowed`.
-- Browser testing: Headless Edge & Chrome verified 119KB DOM, fullpage desktop, mobile viewport, and mobile menu screenshots.
+- DOM section ordering probe: `[ "projects", "skills", "experience", "hud", "contact" ]` verified (`hud` rendered after `experience`).
+- Interactive cursor probe: All buttons, mode toggles, pipeline cards, and fabric node selectors verified with computed `cursor: pointer`.
 
 ## Open questions
 
