@@ -379,10 +379,10 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         onClick={(e) => e.stopPropagation()}
         className={`w-full ${
           isExpanded ? "h-[94vh]" : "max-w-3xl h-[65vh]"
-        } bg-[#080d1e] border border-indigo-950/80 rounded-xl shadow-2xl flex flex-col font-mono overflow-hidden transition-all duration-200 cursor-default`}
+        } bg-[#060813] border border-white/[0.12] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col font-mono overflow-hidden transition-all duration-200 cursor-default`}
       >
         {/* Terminal Title Bar */}
-        <div className="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between select-none">
+        <div className="px-4 py-3 bg-black/60 border-b border-white/[0.08] flex items-center justify-between select-none">
           <div className="flex items-center space-x-2">
             <TerminalIcon className={`w-4 h-4 ${colorStyles[promptColor]}`} />
             <span className="text-xs font-semibold text-slate-200 tracking-wider">
@@ -392,14 +392,14 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 cursor-pointer"
+              className="p-1 text-slate-400 hover:text-white rounded hover:bg-white/[0.06] cursor-pointer"
               title={isExpanded ? "Restore" : "Maximize"}
             >
               {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             </button>
             <button
               onClick={onClose}
-              className="p-1 text-slate-400 hover:text-red-400 rounded hover:bg-slate-800 cursor-pointer"
+              className="p-1 text-slate-400 hover:text-red-400 rounded hover:bg-white/[0.06] cursor-pointer"
               title="Close (Esc)"
             >
               <X className="w-4 h-4" />
@@ -409,7 +409,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
 
         {/* Terminal Output Logs */}
         <div
-          className="flex-1 p-4 overflow-y-auto space-y-4 text-xs sm:text-sm bg-[#090e17]/95 cursor-text"
+          className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 text-xs sm:text-sm bg-black/40 cursor-text"
           onClick={() => inputRef.current?.focus()}
         >
           {logs.map((log) => (
@@ -428,7 +428,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 bg-slate-900/90 border-t border-slate-800 flex items-center space-x-2">
+        <div className="p-3 sm:p-3.5 bg-black/60 border-t border-white/[0.08] flex items-center space-x-2">
           <span className={`${colorStyles[promptColor]} font-bold text-xs sm:text-sm flex-shrink-0`}>
             ops@abhimanyu:~$
           </span>

@@ -513,9 +513,9 @@ export const ObservabilityHUD: React.FC = () => {
             {/* Bottom Split: Monitored Storage Fabrics + Interactive Live Event Console */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Left Column: Monitored Enterprise SAN Fabric Nodes (7 cols) */}
-              <div className="lg:col-span-7 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+              <div className="lg:col-span-7 glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                  <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-4">
                     <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
                       <HardDrive className="w-4 h-4 text-indigo-400" />
                       <span>MONITORED_ENTERPRISE_FABRICS (CLICK TO INSPECT)</span>
@@ -534,7 +534,7 @@ export const ObservabilityHUD: React.FC = () => {
                           className={`p-3.5 rounded-xl border transition-all cursor-pointer group ${
                             isSelected
                               ? "bg-indigo-950/40 border-indigo-500 shadow-sm"
-                              : "bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900"
+                              : "bg-white/[0.02] border-white/[0.06] hover:border-white/[0.14] hover:bg-white/[0.04]"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-1">
@@ -552,7 +552,7 @@ export const ObservabilityHUD: React.FC = () => {
                           <div className="font-mono text-[11px] text-slate-400 truncate mt-0.5">
                             {node.role}
                           </div>
-                          <div className="mt-2.5 pt-2 border-t border-slate-800/80 font-mono text-[11px] font-semibold text-indigo-400 flex justify-between">
+                          <div className="mt-2.5 pt-2 border-t border-white/[0.06] font-mono text-[11px] font-semibold text-indigo-400 flex justify-between">
                             <span>{node.primaryMetric}</span>
                             <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-indigo-400 transition-colors" />
                           </div>
@@ -562,8 +562,8 @@ export const ObservabilityHUD: React.FC = () => {
                   </div>
 
                   {/* Selected Node Inspector Detail */}
-                  <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-xs space-y-2">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                  <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-black/50 border border-white/[0.08] font-mono text-xs space-y-2">
+                    <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
                       <span className="text-indigo-300 font-bold">
                         DEVICE INSPECTION: {selectedNode.name}
                       </span>
@@ -589,23 +589,23 @@ export const ObservabilityHUD: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="pt-2 text-[11px] text-slate-400 border-t border-slate-800/80 leading-relaxed">
+                    <div className="pt-2 text-[11px] text-slate-400 border-t border-white/[0.06] leading-relaxed">
                       <span className="text-slate-500 font-semibold">DIAGNOSTIC STATUS: </span>
                       {selectedNode.details.diagnostic}
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800 font-mono text-[11px] text-slate-500 flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-white/[0.08] font-mono text-[11px] text-slate-500 flex items-center justify-between">
                   <span>TELEMETRY POLLER: PYTHON ASYNC DAEMON</span>
                   <span className="text-indigo-400 font-semibold">SYNC FREQ: 1000ms</span>
                 </div>
               </div>
 
               {/* Right Column: Live Streaming Telemetry Terminal & Generator (5 cols) */}
-              <div className="lg:col-span-5 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+              <div className="lg:col-span-5 glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                  <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-3">
                     <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
                       <TerminalIcon className="w-4 h-4 text-indigo-400" />
                       <span>STREAMING_EVENT_LOG</span>
@@ -639,7 +639,7 @@ export const ObservabilityHUD: React.FC = () => {
                   </div>
 
                   {/* Terminal Log Stream Box */}
-                  <div className="p-3 rounded-lg bg-black/80 border border-slate-800 font-mono text-[11px] space-y-2 h-[260px] overflow-y-auto scrollbar-thin">
+                  <div className="p-3 sm:p-4 rounded-xl bg-black/80 border border-white/[0.08] font-mono text-[11px] space-y-2 h-[260px] sm:h-[280px] overflow-y-auto scrollbar-thin">
                     {logs.map((log) => {
                       const levelColors = {
                         INFO: "text-blue-400 bg-blue-500/10 border-blue-500/20",
@@ -670,7 +670,7 @@ export const ObservabilityHUD: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-slate-500">
                   <span>BUFFER: 8/8 SLOTS</span>
                   <button
                     onClick={() => setLogs(INITIAL_LOGS)}
@@ -690,10 +690,10 @@ export const ObservabilityHUD: React.FC = () => {
         {activeTab === "runtime" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Live Metrics Matrix */}
-            <div className="lg:col-span-2 glass-panel p-6 rounded-xl border border-slate-800">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-5">
+            <div className="lg:col-span-2 glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-white/[0.08]">
+              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-5">
                 <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
-                  <ShieldCheck className="w-4 h-4 text-indigo-400" />
+                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
                   <span>NEXTJS_APP_ROUTER_RUNTIME_STATUS</span>
                 </div>
                 <span className="font-mono text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
@@ -703,13 +703,13 @@ export const ObservabilityHUD: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
-                <div className="p-3.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                   <div className="text-[10px] text-slate-400 uppercase">Application Runtime</div>
                   <div className="font-bold text-white text-sm mt-1">Next.js 16.3.4 (App Router)</div>
                   <div className="text-[11px] text-slate-400 mt-0.5">React 19 Server Components</div>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                   <div className="text-[10px] text-slate-400 uppercase">Database Persistence</div>
                   <div className="font-bold text-cyan-300 text-sm mt-1">
                     {telemetry?.metrics.databaseStatus === "connected"
@@ -723,7 +723,7 @@ export const ObservabilityHUD: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                   <div className="text-[10px] text-slate-400 uppercase">Server Heap Memory</div>
                   <div className="font-bold text-purple-300 text-sm mt-1">
                     {telemetry?.metrics.memoryUsage || "38MB / 54MB"}
@@ -731,7 +731,7 @@ export const ObservabilityHUD: React.FC = () => {
                   <div className="text-[11px] text-slate-400 mt-0.5">Node.js process memoryUsage()</div>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                   <div className="text-[10px] text-slate-400 uppercase">Environment &amp; Target</div>
                   <div className="font-bold text-indigo-300 text-sm mt-1">
                     {telemetry?.environment === "production" ? "Production (Netlify Edge)" : "Development (Local Node)"}
@@ -743,30 +743,30 @@ export const ObservabilityHUD: React.FC = () => {
               </div>
 
               {/* Latency History Sparkline */}
-              <div className="mt-6 pt-5 border-t border-slate-800">
+              <div className="mt-6 pt-5 border-t border-white/[0.08]">
                 <div className="text-xs font-mono text-slate-300 mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-indigo-400" />
+                    <BarChart3 className="w-4 h-4 text-cyan-400" />
                     <span>CLIENT_ROUNDTRIP_LATENCY_SPARKLINE (LAST 10 SAMPLES)</span>
                   </div>
-                  <span className="text-indigo-400 font-bold">
+                  <span className="text-cyan-400 font-bold">
                     Latest: {latencyHistory[latencyHistory.length - 1]}ms
                   </span>
                 </div>
 
-                <div className="h-16 flex items-end gap-2 bg-slate-950/80 p-2.5 rounded-lg border border-slate-800">
+                <div className="h-28 sm:h-32 flex items-end gap-2 bg-black/60 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/[0.08]">
                   {latencyHistory.map((val, idx) => {
                     const pct = Math.min(100, Math.max(15, (val / 40) * 100));
                     return (
                       <div
                         key={idx}
-                        className="flex-1 flex flex-col items-center gap-1 group relative cursor-pointer"
+                        className="flex-1 flex flex-col items-center gap-1.5 group relative cursor-pointer"
                       >
                         <div
                           style={{ height: `${pct}%` }}
-                          className="w-full bg-gradient-to-t from-blue-600/70 via-indigo-500 to-purple-500 group-hover:from-blue-400 group-hover:to-purple-300 rounded-t transition-all"
+                          className="w-full bg-gradient-to-t from-cyan-600/70 via-blue-500 to-indigo-500 group-hover:from-cyan-400 group-hover:to-indigo-300 rounded-t transition-all"
                         />
-                        <span className="font-mono text-[9px] text-slate-500 group-hover:text-slate-200">
+                        <span className="font-mono text-[9px] sm:text-[10px] text-slate-400 group-hover:text-slate-200">
                           {val}ms
                         </span>
                       </div>
@@ -781,18 +781,18 @@ export const ObservabilityHUD: React.FC = () => {
             </div>
 
             {/* Right Column: Raw JSON Telemetry Inspector */}
-            <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div className="glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-3">
                   <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
-                    <Code2 className="w-4 h-4 text-indigo-400" />
+                    <Code2 className="w-4 h-4 text-cyan-400" />
                     <span>RAW_API_PAYLOAD</span>
                   </div>
-                  <span className="font-mono text-[10px] text-indigo-400">/api/v1/telemetry</span>
+                  <span className="font-mono text-[10px] text-cyan-400">/api/v1/telemetry</span>
                 </div>
 
                 {/* Code format json preview */}
-                <div className="p-3 rounded-lg bg-black/80 border border-slate-800 font-mono text-[11px] text-indigo-200 overflow-x-auto h-[260px] scrollbar-thin">
+                <div className="p-3 sm:p-4 rounded-xl bg-black/80 border border-white/[0.08] font-mono text-[11px] text-cyan-200 overflow-x-auto h-[260px] sm:h-[280px] scrollbar-thin">
                   <pre>
                     {JSON.stringify(
                       {
@@ -814,12 +814,12 @@ export const ObservabilityHUD: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800 font-mono text-[11px] text-slate-500 flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-white/[0.08] font-mono text-[11px] text-slate-500 flex items-center justify-between">
                 <span>LAST POLL: {lastSampleTime}</span>
                 <button
                   onClick={fetchTelemetry}
                   disabled={isRefreshing}
-                  className="text-indigo-400 hover:text-indigo-300 font-semibold cursor-pointer disabled:opacity-50"
+                  className="text-cyan-400 hover:text-cyan-300 font-semibold cursor-pointer disabled:opacity-50"
                 >
                   TRIGGER_PROBE
                 </button>

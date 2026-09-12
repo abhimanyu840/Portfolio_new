@@ -124,7 +124,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 relative">
+    <section id="contact" className="py-16 sm:py-20 md:py-24 lg:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-white/[0.08] gap-4">
@@ -150,7 +150,7 @@ export const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Direct Connection Channels (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08] space-y-5">
+            <div className="glass-panel p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-white/[0.08] space-y-5">
               <div className="pb-3 border-b border-white/[0.08]">
                 <span className="font-mono text-xs text-cyan-400 font-bold uppercase">
                   DIRECT ACCESS CHANNELS
@@ -161,7 +161,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Email Card with Copy Button */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
+              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4 text-cyan-400" />
@@ -183,7 +183,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Phone Card with Copy Button */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
+              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                     <Phone className="w-4 h-4 text-blue-400" />
@@ -205,7 +205,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Location Card */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center gap-3">
+              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4 text-purple-400" />
                 </div>
@@ -218,7 +218,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {/* Response SLA Beacon */}
-              <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between font-mono text-xs">
+              <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between font-mono text-xs">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-emerald-400" />
                   <span className="text-slate-300">Guaranteed Response SLA:</span>
@@ -252,7 +252,7 @@ export const ContactSection: React.FC = () => {
 
           {/* Right Column: Transmission Form (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/[0.08]">
+            <div className="glass-panel p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-white/[0.08]">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>

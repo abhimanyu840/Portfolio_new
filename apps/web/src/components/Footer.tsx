@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-14 border-t border-white/[0.08] font-mono text-xs text-slate-400 relative">
+    <footer className="py-12 sm:py-14 border-t border-white/[0.08] font-mono text-xs text-slate-400 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left Info */}
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Center Commit Hash & SLA */}
-          <div className="flex items-center gap-3 text-[11px] bg-black/40 px-4 py-2 rounded-full border border-white/[0.08]">
+          <div className="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 text-[11px] bg-black/40 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-2xl sm:rounded-full border border-white/[0.08]">
             <span className="flex items-center gap-1.5 text-cyan-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>SLA: 99.95%</span>
