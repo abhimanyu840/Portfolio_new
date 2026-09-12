@@ -3,6 +3,7 @@
 import React from "react";
 import { Terminal, Database, Server, Cpu, ArrowDown, ExternalLink, Code2 } from "lucide-react";
 import { DEVELOPER_PROFILE } from "@/lib/seed-data";
+import { getTechIcon } from "@/components/TechIcons";
 
 interface HeroProps {
   onOpenTerminal: () => void;
@@ -72,8 +73,41 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </a>
         </div>
 
+        {/* Quick Tech Stack Ribbon */}
+        <div className="mt-8 pt-5 border-t border-slate-800/80 flex flex-col md:flex-row md:items-center gap-3">
+          <span className="font-mono text-xs text-slate-400 uppercase tracking-wider flex-shrink-0 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+            <span>CORE TECH STACK:</span>
+          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              { name: "HTML5", highlight: "border-orange-500/40 bg-orange-950/20 text-orange-300" },
+              { name: "CSS3", highlight: "border-blue-500/40 bg-blue-950/20 text-blue-300" },
+              { name: "JavaScript", highlight: "border-yellow-500/40 bg-yellow-950/20 text-yellow-300" },
+              { name: "TypeScript", highlight: "border-sky-500/40 bg-sky-950/20 text-sky-300" },
+              { name: "React", highlight: "border-cyan-500/40 bg-cyan-950/20 text-cyan-300" },
+              { name: "Next.js", highlight: "border-slate-600/40 bg-slate-900/60 text-slate-300" },
+              { name: "Python", highlight: "border-indigo-500/40 bg-indigo-950/20 text-indigo-300" },
+              { name: "FastAPI", highlight: "border-teal-500/40 bg-teal-950/20 text-teal-300" },
+              { name: "Docker", highlight: "border-blue-500/40 bg-blue-950/20 text-blue-300" },
+              { name: "Linux", highlight: "border-red-500/40 bg-red-950/20 text-red-300" },
+              { name: "MongoDB", highlight: "border-emerald-500/40 bg-emerald-950/20 text-emerald-300" },
+            ].map((tech) => (
+              <a
+                key={tech.name}
+                href="#skills"
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm ${tech.highlight}`}
+                title={`Inspect ${tech.name} skills`}
+              >
+                <span className="flex-shrink-0">{getTechIcon(tech.name, "w-3.5 h-3.5")}</span>
+                <span>{tech.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
         {/* Key Metrics Ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-2">
           <div className="glass-panel p-4 rounded-lg border-l-2 border-l-indigo-500">
             <div className="flex items-center justify-between text-slate-400 mb-1">
               <span className="font-mono text-xs uppercase tracking-wider">Enterprise Exp</span>

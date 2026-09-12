@@ -90,11 +90,12 @@ Completed and verified:
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
 - Observability & Dark Tech Minimalist UI components:
   - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA (all elements verified with `cursor-pointer`).
-  - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech).
+  - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech), and above-the-fold Quick Tech Stack ribbon featuring official brand logos (HTML5, CSS3, JS, TS, React, Next.js, Python, FastAPI, Docker, Linux, MongoDB).
   - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines in indigo/purple telemetry tint.
   - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`, dismissable on backdrop click.
   - `Projects`: Filterable project showcase with deep architecture spec modal and dismissable backdrop.
-  - `Skills`: Categorized competency matrix across 7 domains with percentage meters.
+  - `Skills`: Filterable visual technology directory with official colored SVG brand logos (HTML5 orange shield, CSS3, JavaScript, TypeScript, React, Python, FastAPI, etc.) and categorized competency matrix with matching tech icons.
+  - `TechIcons`: High-fidelity SVG brand icon library with unified `getTechIcon` resolver for all primary web and backend technologies.
   - `Experience`: Detailed Wipro enterprise telemetry timeline and BITS Pilani M.Tech academic foundation.
   - `ContactSection`: Validated transmission buffer form and direct communication channels.
   - `Footer`: System SLA, commit hash indicator, and return-to-top button.

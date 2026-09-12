@@ -240,12 +240,13 @@ export const SEED_SKILL_GROUPS: ISkillGroup[] = [
     category: "Languages & Core",
     description: "Core programming and scripting languages for production microservices & client apps",
     skills: [
-      { name: "Python", level: 95, highlight: true },
+      { name: "HTML5", level: 96, highlight: true },
+      { name: "CSS3", level: 94, highlight: true },
+      { name: "JavaScript (ES6+)", level: 92, highlight: true },
       { name: "TypeScript", level: 90, highlight: true },
-      { name: "JavaScript (ES6+)", level: 92 },
-      { name: "HTML5 / CSS3", level: 92 },
-      { name: "Java", level: 75 },
+      { name: "Python", level: 95, highlight: true },
       { name: "Bash / Shell Scripting", level: 88, highlight: true },
+      { name: "Java", level: 75 },
     ],
   },
   {
