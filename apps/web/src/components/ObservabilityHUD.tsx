@@ -323,7 +323,7 @@ export const ObservabilityHUD: React.FC = () => {
   };
 
   return (
-    <section id="hud" className="py-20 md:py-28 border-b border-white/[0.08] relative overflow-hidden">
+    <section id="hud" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative overflow-hidden">
       {/* Subtle ambient lighting */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -347,10 +347,10 @@ export const ObservabilityHUD: React.FC = () => {
           {/* Controls and Perspective Switcher */}
           <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center gap-3">
             {/* View Mode Tabs */}
-            <div className="p-1 bg-black/40 border border-white/[0.08] rounded-full flex items-center gap-1">
+            <div className="p-1 sm:p-1.5 bg-black/40 border border-white/[0.08] rounded-2xl sm:rounded-full flex flex-wrap sm:flex-nowrap items-center gap-1">
               <button
                 onClick={() => setActiveTab("pipeline")}
-                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl sm:rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   activeTab === "pipeline"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
                     : "text-slate-400 hover:text-slate-200"
@@ -361,7 +361,7 @@ export const ObservabilityHUD: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab("runtime")}
-                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl sm:rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   activeTab === "runtime"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
                     : "text-slate-400 hover:text-slate-200"
@@ -405,7 +405,7 @@ export const ObservabilityHUD: React.FC = () => {
         {activeTab === "pipeline" && (
           <div className="space-y-6">
             {/* Top Interactive Pipeline Flow */}
-            <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08]">
+            <div className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-white/[0.08]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-white/[0.08] gap-2">
                 <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
                   <Network className="w-4 h-4 text-cyan-400" />
@@ -432,11 +432,11 @@ export const ObservabilityHUD: React.FC = () => {
                       className={`p-4 rounded-xl border text-left transition-all cursor-pointer relative overflow-hidden group ${
                         isSelected
                           ? "bg-indigo-950/40 border-indigo-500 shadow-md shadow-indigo-600/20"
-                          : "bg-slate-900/70 border-slate-800/90 hover:border-slate-700 hover:bg-slate-900"
+                          : "bg-white/[0.02] border-white/[0.06] hover:border-white/[0.14] hover:bg-white/[0.04]"
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-indigo-300">
+                        <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/[0.06] text-indigo-300">
                           STAGE {stage.step}
                         </span>
                         <span className="font-mono text-[10px] text-slate-400 group-hover:text-indigo-300 transition-colors">
@@ -449,7 +449,7 @@ export const ObservabilityHUD: React.FC = () => {
                       <div className="font-mono text-xs text-indigo-400/90 mt-0.5">
                         {stage.subtitle}
                       </div>
-                      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                      <div className="mt-3 pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
                         <span className="text-slate-400">{stage.throughput}</span>
                         <span className="text-emerald-400 font-semibold">{stage.latency}</span>
                       </div>
@@ -464,7 +464,7 @@ export const ObservabilityHUD: React.FC = () => {
               </div>
 
               {/* Dynamic Stage Inspector Drawer */}
-              <div className="mt-5 p-4 rounded-xl bg-slate-900/90 border border-indigo-950/80 relative">
+              <div className="mt-5 p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-black/50 border border-white/[0.08] relative">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   <div className="space-y-2 flex-1">
                     <div className="flex items-center gap-2">
@@ -482,7 +482,7 @@ export const ObservabilityHUD: React.FC = () => {
                       {selectedStage.highlights.map((h, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.03] border border-white/[0.06] text-[11px] text-slate-300 font-mono"
                         >
                           <CheckCircle2 className="w-3 h-3 text-indigo-400 shrink-0" />
                           <span>{h}</span>
@@ -491,7 +491,7 @@ export const ObservabilityHUD: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="md:w-64 shrink-0 p-3 rounded-lg bg-slate-950 border border-slate-800/80 font-mono text-xs space-y-1.5">
+                  <div className="md:w-64 shrink-0 p-3 sm:p-3.5 rounded-xl bg-black/60 border border-white/[0.08] font-mono text-xs space-y-1.5">
                     <div className="text-[10px] text-slate-500 uppercase tracking-wider">Operational Target</div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Throughput:</span>
