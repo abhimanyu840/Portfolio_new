@@ -22,17 +22,17 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [promptColor, setPromptColor] = useState<"indigo" | "purple" | "cyan">("indigo");
+  const [promptColor, setPromptColor] = useState<"indigo" | "purple" | "cyan">("cyan");
 
   const [logs, setLogs] = useState<CommandLog[]>([
     {
       id: "init-1",
       output: (
         <div className="space-y-1 text-slate-300">
-          <div className="text-indigo-400 font-bold">
-            ⚡ Welcome to Abhimanyu Kumar&apos;s Observability Terminal HUD v2.4
+          <div className="text-cyan-400 font-bold">
+            ⚡ Welcome to Abhimanyu Kumar&apos;s Engineering Terminal HUD v3.0
           </div>
-          <div>Type <span className="text-purple-300 font-semibold">&apos;help&apos;</span> to view all commands or <span className="text-purple-300 font-semibold">&apos;cat resume&apos;</span> for full credentials.</div>
+          <div>Type <span className="text-cyan-300 font-semibold">&apos;help&apos;</span> to view all commands or <span className="text-cyan-300 font-semibold">&apos;cat resume&apos;</span> for full credentials.</div>
           <div className="text-slate-500 text-xs">Keyboard shortcut: Press [Ctrl+/] or [~] to toggle anytime.</div>
         </div>
       ),

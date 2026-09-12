@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #060813;
-  --foreground: #e2e8f0;
+  --background: #07080e;
+  --foreground: #f1f5f9;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
 }
 
@@ -32,50 +32,102 @@ textarea:disabled,
   cursor: not-allowed;
 }
 
+/* High-Tech Grid & Dot Matrix Patterns */
+.obsidian-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+}
+
+.obsidian-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.obsidian-radial {
+  background: radial-gradient(circle at 50% -15%, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.10) 30%, rgba(168, 85, 247, 0.04) 55%, transparent 75%);
+}
+
+.obsidian-ambient {
+  background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.07) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+}
+
+/* Frosted Glass & Surface Panels */
+.glass-panel {
+  background: rgba(13, 16, 28, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-card-glow {
+  background: rgba(15, 19, 36, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.15);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Luminous Gradient Text */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 20%, #38bdf8 70%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #f8fafc 20%, #a855f7 70%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.96); }
 }
 
 .animate-pulse-subtle {
-  animation: pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.tech-grid {
-  background-size: 36px 36px;
-  background-image: 
-    linear-gradient(to right, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
 }
 
-.tech-radial {
-  background: radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.16) 0%, rgba(168, 85, 247, 0.08) 35%, transparent 70%);
+.animate-scanline {
+  animation: scanline 8s linear infinite;
 }
 
-.glass-panel {
-  background: rgba(11, 16, 33, 0.72);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 41, 79, 0.65);
-}
-
-.glass-panel-glow {
-  background: rgba(13, 19, 41, 0.82);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(129, 140, 248, 0.35);
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.22);
-}
-
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #060813;
+  background: #07080e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e2547;
-  border-radius: 3px;
+  background: #1e2438;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #373f73;
+  background: #3b456d;
 }

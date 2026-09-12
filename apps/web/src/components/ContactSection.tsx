@@ -1,13 +1,36 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Globe } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  Terminal,
+  Copy,
+  Check,
+  Sparkles,
+  Radio,
+  ArrowUpRight,
+} from "lucide-react";
 import { DEVELOPER_PROFILE } from "@/lib/seed-data";
+import { ContactSchema } from "@portfolio/shared";
 
 const GithubIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
     <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const LinkedinIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
   </svg>
 );
 
@@ -19,27 +42,57 @@ export const ContactSection: React.FC = () => {
     message: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{
-    type: "idle" | "success" | "error";
-    message: string;
-    details?: { id?: string; timestamp?: string };
-  }>({
-    type: "idle",
-    message: "",
-  });
+  const [formStatus, setFormStatus] = useState<{
+    type: "idle" | "submitting" | "success" | "error";
+    message?: string;
+  }>({ type: "idle" });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
+
+  const copyToClipboard = (text: string, type: "email" | "phone") => {
+    navigator.clipboard.writeText(text);
+    if (type === "email") {
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } else {
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2000);
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setStatus({ type: "idle", message: "" });
+    setFieldErrors({});
+
+    const result = ContactSchema.safeParse(formData);
+    if (!result.success) {
+      const errors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          errors[err.path[0].toString()] = err.message;
+        }
+      });
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFormStatus({ type: "submitting" });
 
     try {
       const res = await fetch("/api/v1/contact", {
@@ -51,238 +104,274 @@ export const ContactSection: React.FC = () => {
       const json = await res.json();
 
       if (res.ok && json.success) {
-        setStatus({
+        setFormStatus({
           type: "success",
           message: json.message || "Message transmitted to telemetry buffer.",
-          details: {
-            id: json.data?.id,
-            timestamp: json.timestamp || new Date().toISOString(),
-          },
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        setStatus({
+        setFormStatus({
           type: "error",
-          message: json.error || "Failed to transmit message. Please verify fields.",
+          message: json.error || "Transmission rejected. Please verify fields.",
         });
       }
     } catch {
-      setStatus({
+      setFormStatus({
         type: "error",
         message: "Network error communicating with telemetry gateway.",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24 border-b border-slate-800/60 bg-slate-950/40">
+    <section id="contact" className="py-20 md:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-4 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-white/[0.08] gap-4">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-1">
-              <Mail className="w-4 h-4" />
-              <span>INGESTION_GATEWAY</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
+              <Mail className="w-4 h-4 text-cyan-400" />
+              <span>05 // DIRECT TRANSMISSION GATEWAY</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono">
-              INITIATE SECURE CONTACT
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Initiate Transmission
             </h2>
+            <p className="mt-2 text-sm text-slate-400 max-w-2xl">
+              Open for enterprise platform engineering positions, infrastructure telemetry consulting, or collaborative distributed software systems.
+            </p>
           </div>
-          <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            DISPATCH_TARGET: <span className="text-indigo-400 font-bold">ABHIMANYU KUMAR</span>
+
+          <div className="font-mono text-xs text-slate-400 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>ENCRYPTION: <strong className="text-cyan-300">TLS 1.3 // GATEWAY ACTIVE</strong></span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Direct Credentials Card (Span 2) */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="glass-panel p-6 rounded-lg border border-slate-800 space-y-6">
-              <div>
-                <h3 className="font-mono text-sm font-bold text-white uppercase tracking-wider mb-2">
-                  DIRECT CHANNELS
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Open for enterprise engineering positions, infrastructure telemetry consulting, or collaborative distributed software projects.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column: Direct Connection Channels (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08] space-y-5">
+              <div className="pb-3 border-b border-white/[0.08]">
+                <span className="font-mono text-xs text-cyan-400 font-bold uppercase">
+                  DIRECT ACCESS CHANNELS
+                </span>
+                <p className="text-xs text-slate-400 mt-1">
+                  Connect with Abhimanyu directly through verified production channels:
                 </p>
               </div>
 
-              <div className="space-y-4 font-mono text-xs">
-                <a
-                  href={`mailto:${DEVELOPER_PROFILE.email}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all group cursor-pointer"
-                >
-                  <Mail className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-[10px] text-slate-500 uppercase">Direct Email</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.email}</div>
+              {/* Email Card with Copy Button */}
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-cyan-400" />
                   </div>
-                </a>
-
-                <a
-                  href={`tel:${DEVELOPER_PROFILE.phone}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group cursor-pointer"
-                >
-                  <Phone className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-[10px] text-slate-500 uppercase">Voice / Telemetry Line</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.phone}</div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-mono text-slate-500 uppercase">Primary Inquiries</div>
+                    <div className="text-xs sm:text-sm font-mono font-semibold text-white truncate">
+                      {DEVELOPER_PROFILE.email}
+                    </div>
                   </div>
-                </a>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(DEVELOPER_PROFILE.email, "email")}
+                  className="p-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-all cursor-pointer shrink-0 ml-2"
+                  title="Copy email to clipboard"
+                >
+                  {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
 
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300">
+              {/* Phone Card with Copy Button */}
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/40 transition-all flex items-center justify-between">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-mono text-slate-500 uppercase">Voice / Telemetry Line</div>
+                    <div className="text-xs sm:text-sm font-mono font-semibold text-white truncate">
+                      {DEVELOPER_PROFILE.phone}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(DEVELOPER_PROFILE.phone, "phone")}
+                  className="p-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-all cursor-pointer shrink-0 ml-2"
+                  title="Copy phone to clipboard"
+                >
+                  {copiedPhone ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
+
+              {/* Location Card */}
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4 text-purple-400" />
-                  <div>
-                    <div className="text-[10px] text-slate-500 uppercase">Geographic Node</div>
-                    <div className="font-semibold text-white">{DEVELOPER_PROFILE.location} // Standard Time (IST)</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-slate-500 uppercase">Current Station</div>
+                  <div className="text-xs sm:text-sm font-mono font-semibold text-white">
+                    {DEVELOPER_PROFILE.location}
                   </div>
                 </div>
               </div>
 
-              {/* Social links */}
-              <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-2.5">
-                <a
-                  href={DEVELOPER_PROFILE.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
-                >
-                  <Globe className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>LinkedIn</span>
-                </a>
+              {/* Response SLA Beacon */}
+              <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between font-mono text-xs">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-emerald-400" />
+                  <span className="text-slate-300">Guaranteed Response SLA:</span>
+                </div>
+                <span className="text-emerald-400 font-bold">&lt; 24 Hours</span>
+              </div>
+
+              {/* Social Profiles Grid */}
+              <div className="pt-2 flex items-center gap-3">
                 <a
                   href={DEVELOPER_PROFILE.github}
                   target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
+                  rel="noopener noreferrer"
+                  className="flex-1 p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-xs font-mono text-slate-300 hover:text-white transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <GithubIcon className="w-3.5 h-3.5 text-purple-400" />
+                  <GithubIcon className="w-4 h-4" />
                   <span>GitHub</span>
                 </a>
                 <a
-                  href={DEVELOPER_PROFILE.portfolio}
+                  href={DEVELOPER_PROFILE.linkedin}
                   target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
+                  rel="noopener noreferrer"
+                  className="flex-1 p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-xs font-mono text-slate-300 hover:text-white transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Globe className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Live Portfolio</span>
+                  <LinkedinIcon className="w-4 h-4" />
+                  <span>LinkedIn</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* High-Tech Contact Form (Span 3) */}
-          <div className="lg:col-span-3">
-            <div className="glass-panel p-6 sm:p-8 rounded-lg border border-slate-800 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
-                <span className="text-white font-bold uppercase tracking-wider">
-                  TRANSMISSION BUFFER FORM
-                </span>
-                <span className="text-indigo-400 text-[10px]">ENCRYPTION: TLS 1.3</span>
-              </div>
-
-              {status.type === "success" && (
-                <div className="mb-6 p-4 rounded-lg bg-indigo-950/40 border border-indigo-500/50 text-indigo-300 space-y-1">
-                  <div className="flex items-center gap-2 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-400" />
-                    <span>TRANSMISSION CONFIRMED</span>
-                  </div>
-                  <p className="text-xs">{status.message}</p>
-                  {status.details && (
-                    <div className="text-[10px] text-slate-400 mt-2 font-mono pt-2 border-t border-indigo-500/20 flex justify-between">
-                      <span>EVENT_ID: {status.details.id}</span>
-                      <span>TIMESTAMP: {new Date(status.details.timestamp || "").toLocaleTimeString()}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {status.type === "error" && (
-                <div className="mb-6 p-4 rounded-lg bg-red-950/40 border border-red-500/50 text-red-300 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  <span>{status.message}</span>
-                </div>
-              )}
-
+          {/* Right Column: Transmission Form (7 cols) */}
+          <div className="lg:col-span-7">
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/[0.08]">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Name <span className="text-purple-400">*</span>
+                  <div>
+                    <label className="block font-mono text-xs text-slate-300 mb-1.5 font-semibold">
+                      Sender Name <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
-                      required
                       value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. John Doe"
-                      className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      onChange={handleInputChange}
+                      placeholder="e.g. Elena Rostova"
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white/[0.03] border text-xs sm:text-sm text-white placeholder:text-slate-600 focus:outline-none transition-all ${
+                        fieldErrors.name
+                          ? "border-red-500/70 focus:border-red-400"
+                          : "border-white/[0.08] focus:border-cyan-500/70"
+                      }`}
                     />
+                    {fieldErrors.name && (
+                      <p className="font-mono text-[11px] text-red-400 mt-1">{fieldErrors.name}</p>
+                    )}
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-slate-400 text-[11px] uppercase">
-                      Originator Email <span className="text-purple-400">*</span>
+                  <div>
+                    <label className="block font-mono text-xs text-slate-300 mb-1.5 font-semibold">
+                      Return Email Address <span className="text-cyan-400">*</span>
                     </label>
                     <input
                       type="email"
                       name="email"
-                      required
                       value={formData.email}
-                      onChange={handleChange}
-                      placeholder="e.g. john@enterprise.io"
-                      className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                      onChange={handleInputChange}
+                      placeholder="elena@enterprise.org"
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white/[0.03] border text-xs sm:text-sm text-white placeholder:text-slate-600 focus:outline-none transition-all ${
+                        fieldErrors.email
+                          ? "border-red-500/70 focus:border-red-400"
+                          : "border-white/[0.08] focus:border-cyan-500/70"
+                      }`}
                     />
+                    {fieldErrors.email && (
+                      <p className="font-mono text-[11px] text-red-400 mt-1">{fieldErrors.email}</p>
+                    )}
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-slate-400 text-[11px] uppercase">
-                    Subject Line <span className="text-purple-400">*</span>
+                <div>
+                  <label className="block font-mono text-xs text-slate-300 mb-1.5 font-semibold">
+                    Transmission Subject <span className="text-cyan-400">*</span>
                   </label>
                   <input
                     type="text"
                     name="subject"
-                    required
                     value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="e.g. Opportunity / Telemetry Architecture Discussion"
-                    className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors"
+                    onChange={handleInputChange}
+                    placeholder="e.g. Platform Engineering Opportunity / SRE Consulting"
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white/[0.03] border text-xs sm:text-sm text-white placeholder:text-slate-600 focus:outline-none transition-all ${
+                      fieldErrors.subject
+                        ? "border-red-500/70 focus:border-red-400"
+                        : "border-white/[0.08] focus:border-cyan-500/70"
+                    }`}
                   />
+                  {fieldErrors.subject && (
+                    <p className="font-mono text-[11px] text-red-400 mt-1">{fieldErrors.subject}</p>
+                  )}
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-slate-400 text-[11px] uppercase">
-                    Telemetry Message Body <span className="text-purple-400">*</span>
+                <div>
+                  <label className="block font-mono text-xs text-slate-300 mb-1.5 font-semibold">
+                    Transmission Body <span className="text-cyan-400">*</span>
                   </label>
                   <textarea
                     name="message"
-                    required
-                    rows={4}
+                    rows={5}
                     value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Provide details regarding the project scope, role, or technical question..."
-                    className="w-full px-3 py-2.5 rounded-lg bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:outline-none text-slate-200 text-xs font-mono placeholder:text-slate-600 transition-colors resize-none"
+                    onChange={handleInputChange}
+                    placeholder="Detail your engineering opportunity, team requirements, or architecture project..."
+                    className={`w-full px-4 py-2.5 rounded-xl bg-white/[0.03] border text-xs sm:text-sm text-white placeholder:text-slate-600 focus:outline-none transition-all resize-none ${
+                      fieldErrors.message
+                        ? "border-red-500/70 focus:border-red-400"
+                        : "border-white/[0.08] focus:border-cyan-500/70"
+                    }`}
                   />
+                  {fieldErrors.message && (
+                    <p className="font-mono text-[11px] text-red-400 mt-1">{fieldErrors.message}</p>
+                  )}
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95 cursor-pointer disabled:cursor-not-allowed"
-                >
-                  {loading ? (
-                    <span>TRANSMITTING_PACKET...</span>
-                  ) : (
-                    <>
-                      <span>TRANSMIT_TO_TELEMETRY_BUFFER</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </>
-                  )}
-                </button>
+                {/* Status Message Display */}
+                {formStatus.type === "success" && (
+                  <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 font-mono text-xs text-emerald-300 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>{formStatus.message}</span>
+                  </div>
+                )}
+
+                {formStatus.type === "error" && (
+                  <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 font-mono text-xs text-red-300 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    <span>{formStatus.message}</span>
+                  </div>
+                )}
+
+                {/* Submit Action */}
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="text-[11px] font-mono text-slate-500">
+                    Press <kbd className="px-1.5 py-0.5 rounded bg-white/[0.06] text-slate-400 border border-white/[0.08]">Ctrl + Enter</kbd> or click Transmit
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formStatus.type === "submitting"}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white font-mono text-xs font-bold tracking-wider shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Send className={`w-3.5 h-3.5 ${formStatus.type === "submitting" ? "animate-spin" : ""}`} />
+                    <span>
+                      {formStatus.type === "submitting" ? "TRANSMITTING..." : "TRANSMIT_TO_BUFFER"}
+                    </span>
+                  </button>
+                </div>
               </form>
             </div>
           </div>

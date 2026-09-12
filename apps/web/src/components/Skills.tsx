@@ -1,316 +1,266 @@
 "use client";
 
 import React, { useState } from "react";
-import { Cpu, Shield, Wrench, Layers, Sparkles } from "lucide-react";
-import { SEED_SKILL_GROUPS } from "@/lib/seed-data";
+import { Cpu, Server, Database, Network, Terminal, Sparkles, CheckCircle2, Layers } from "lucide-react";
 import { getTechIcon } from "@/components/TechIcons";
 
-interface FeaturedTech {
+interface TechCompetency {
   name: string;
-  category: "all" | "web" | "backend" | "devops" | "telemetry";
+  category: "languages" | "backend" | "telemetry" | "devops";
+  tier: "Production Core" | "Architectural" | "Advanced";
+  years: string;
   role: string;
-  proficiency: string;
-  badge: string;
+  subtags: string[];
 }
 
-const FEATURED_TECHS: FeaturedTech[] = [
-  {
-    name: "HTML5",
-    category: "web",
-    role: "Semantic Structure, Web APIs, Accessibility (a11y) & DOM Architecture",
-    proficiency: "96%",
-    badge: "Core Web Standard",
-  },
-  {
-    name: "CSS3",
-    category: "web",
-    role: "Modern Flexbox, CSS Grid, Transitions, Keyframes & Responsive Media",
-    proficiency: "94%",
-    badge: "Styling Engine",
-  },
-  {
-    name: "JavaScript (ES6+)",
-    category: "web",
-    role: "Async/Await, Event Loop, Closures, Prototypes & Dynamic Web Apps",
-    proficiency: "92%",
-    badge: "Frontend Core",
-  },
-  {
-    name: "TypeScript",
-    category: "web",
-    role: "Static Typing, Generics, Discriminated Unions & Type-Safe APIs",
-    proficiency: "90%",
-    badge: "Type Safety",
-  },
-  {
-    name: "React 19",
-    category: "web",
-    role: "Hooks, Functional Components, Virtual DOM & State Architecture",
-    proficiency: "92%",
-    badge: "UI Framework",
-  },
-  {
-    name: "Next.js 16",
-    category: "web",
-    role: "App Router, SSR, Turbopack, Route Handlers & Server Components",
-    proficiency: "90%",
-    badge: "Full-Stack Meta",
-  },
-  {
-    name: "Tailwind CSS",
-    category: "web",
-    role: "Utility-First CSS, Design Systems, Dark Themes & Responsive Layouts",
-    proficiency: "94%",
-    badge: "Modern UI Toolkit",
-  },
+const COMPETENCIES: TechCompetency[] = [
   {
     name: "Python",
-    category: "backend",
-    role: "High-Throughput Daemons, AsyncIO, OOP, Automation & Telemetry Ingestion",
-    proficiency: "95%",
-    badge: "Primary Backend",
+    category: "languages",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "High-throughput asynchronous daemons, AsyncIO sockets, ZeroMQ workers, SNMP/Syslog event parsers at Wipro.",
+    subtags: ["AsyncIO", "Multiprocessing", "ZeroMQ", "Pydantic", "OOP"],
   },
   {
     name: "FastAPI",
     category: "backend",
-    role: "Asynchronous Microservices, Pydantic Schema Validation & OpenAPI Docs",
-    proficiency: "94%",
-    badge: "High-Speed REST",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Low-latency REST & WebSocket telemetry microservices, Pydantic data contracts, asynchronous I/O handlers.",
+    subtags: ["RESTful APIs", "WebSocket Stream", "Middleware", "CORS", "OpenAPI"],
   },
   {
-    name: "Node.js",
+    name: "React",
     category: "backend",
-    role: "Event-Driven Server Runtime, NPM Workspaces & Microservice Gateways",
-    proficiency: "90%",
-    badge: "Backend Runtime",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Dynamic operations consoles, reactive dashboards, custom state management hooks, and virtualized tables.",
+    subtags: ["React 19", "Custom Hooks", "Context API", "State Machines"],
   },
   {
-    name: "Linux / RHEL",
-    category: "devops",
-    role: "Red Hat 9.x Enterprise Administration, Systemd Daemons & Kernel Tuning",
-    proficiency: "92%",
-    badge: "Enterprise OS",
+    name: "Next.js",
+    category: "backend",
+    tier: "Architectural",
+    years: "1.5+ Yrs",
+    role: "Next.js 16 App Router full-stack web applications, Server Components, Route Handlers, Turbopack builds.",
+    subtags: ["App Router", "Server Components", "Route Handlers", "Turbopack"],
   },
   {
-    name: "Docker",
-    category: "devops",
-    role: "Multi-Stage Containers, Podman Rootless Execution & Layer Optimization",
-    proficiency: "90%",
-    badge: "Containerization",
+    name: "TypeScript",
+    category: "languages",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Strict type systems, shared monorepo schemas with Zod, end-to-end type safety between backend and frontend.",
+    subtags: ["Strict Typing", "Zod Validation", "Generics", "Type Inference"],
   },
   {
-    name: "MongoDB",
-    category: "telemetry",
-    role: "Document Persistence, Mongoose Schemas, Aggregations & Sharding",
-    proficiency: "90%",
-    badge: "NoSQL Database",
-  },
-  {
-    name: "PostgreSQL",
-    category: "telemetry",
-    role: "Relational Queries, Schema Migrations, Indexes & ACID Transactions",
-    proficiency: "88%",
-    badge: "Relational DB",
-  },
-  {
-    name: "Git",
-    category: "devops",
-    role: "Git Workflows, Monorepo Version Control, Branch Strategies & CI/CD",
-    proficiency: "92%",
-    badge: "Version Control",
+    name: "JavaScript",
+    category: "languages",
+    tier: "Production Core",
+    years: "2+ Yrs",
+    role: "Modern ES2024 idioms, async/await pipelines, event-loop optimization, and DOM lifecycle manipulation.",
+    subtags: ["ES2024", "Event Loop", "Promises", "Async/Await"],
   },
   {
     name: "InfluxDB",
     category: "telemetry",
-    role: "Time-Series Telemetry Ingestion, Shard Policies & Sub-Second Querying",
-    proficiency: "92%",
-    badge: "Time-Series Core",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Sub-second time-series metric ingestion, shard group management, retention policies, and Flux aggregation tasks.",
+    subtags: ["Line Protocol", "Downsampling", "Retention Policies", "Flux"],
   },
   {
     name: "Grafana",
     category: "telemetry",
-    role: "Real-Time Operational Dashboards, Alert Panels & PromQL Querying",
-    proficiency: "95%",
-    badge: "Visual Observability",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "High-density enterprise NOC dashboards, heatmaps for SAN switch ports, threshold alerts, and panel templates.",
+    subtags: ["Dashboard Engine", "Alert Rules", "Dynamic Variables", "Heatmaps"],
   },
   {
     name: "Prometheus",
     category: "telemetry",
-    role: "Metric Scrapers, Alertmanager Rules, Exporters & Node Instrumentation",
-    proficiency: "90%",
-    badge: "Alerts & Metrics",
+    tier: "Architectural",
+    years: "1.5+ Yrs",
+    role: "Target metric scraping, PromQL alert expressions, custom Python exporters, and blackbox network probes.",
+    subtags: ["PromQL", "Custom Exporters", "Metric Scraping", "Alertmanager"],
+  },
+  {
+    name: "Linux",
+    category: "devops",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Enterprise RHEL 8/9 administration, Systemd unit daemons, bash automation, socket tuning, and kernel profiling.",
+    subtags: ["RHEL 8/9", "Systemd Daemons", "Bash Scripting", "Kernel Tuning"],
+  },
+  {
+    name: "Docker",
+    category: "devops",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Multi-stage minimal runtime containers, Compose service mesh, Podman rootless daemons, network bridges.",
+    subtags: ["Multi-Stage Builds", "Podman", "Compose", "Bridge Networks"],
+  },
+  {
+    name: "MongoDB",
+    category: "backend",
+    tier: "Production Core",
+    years: "1.5+ Yrs",
+    role: "Mongoose ODM schemas, indexing strategies, resilient serverless singleton pools, and aggregation pipelines.",
+    subtags: ["Mongoose ODM", "Indexing", "Aggregations", "Atlas Cloud"],
+  },
+  {
+    name: "HTML5",
+    category: "languages",
+    tier: "Production Core",
+    years: "2+ Yrs",
+    role: "Semantic DOM architecture, accessibility (WCAG 2.1 AA), structured metadata, and responsive canvas layouts.",
+    subtags: ["Semantic Markup", "Accessibility", "SEO Metadata", "Canvas"],
+  },
+  {
+    name: "CSS3",
+    category: "languages",
+    tier: "Production Core",
+    years: "2+ Yrs",
+    role: "Tailwind CSS utility engine, modern CSS grid/flexbox, custom keyframe physics, and dark mode themes.",
+    subtags: ["Tailwind CSS", "Flexbox/Grid", "Keyframe Animations", "Dark Mode"],
   },
 ];
 
 export const Skills: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"all" | "web" | "backend" | "devops" | "telemetry">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "languages" | "backend" | "telemetry" | "devops">("all");
 
-  const filterTabs = [
-    { id: "all" as const, label: "ALL TECHNOLOGIES" },
-    { id: "web" as const, label: "WEB & FRONTEND" },
-    { id: "backend" as const, label: "BACKEND & APIS" },
-    { id: "devops" as const, label: "DEVOPS & LINUX" },
-    { id: "telemetry" as const, label: "DATA & TELEMETRY" },
+  const tabs = [
+    { id: "all" as const, label: "All Disciplines", count: COMPETENCIES.length },
+    { id: "telemetry" as const, label: "Telemetry & Observability", count: COMPETENCIES.filter((c) => c.category === "telemetry").length },
+    { id: "backend" as const, label: "Backend & Full-Stack", count: COMPETENCIES.filter((c) => c.category === "backend").length },
+    { id: "languages" as const, label: "Languages & Core", count: COMPETENCIES.filter((c) => c.category === "languages").length },
+    { id: "devops" as const, label: "DevOps & Linux/RHEL", count: COMPETENCIES.filter((c) => c.category === "devops").length },
   ];
 
-  const filteredTechs = activeTab === "all" 
-    ? FEATURED_TECHS 
-    : FEATURED_TECHS.filter((t) => t.category === activeTab);
+  const filtered =
+    activeTab === "all"
+      ? COMPETENCIES
+      : COMPETENCIES.filter((c) => c.category === activeTab);
 
   return (
-    <section id="skills" className="py-16 md:py-24 border-b border-slate-800/60 bg-slate-950/20">
+    <section id="skills" className="py-20 md:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-white/[0.08] gap-4">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-1">
-              <Cpu className="w-4 h-4" />
-              <span>CORE_COMPETENCIES</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
+              <Cpu className="w-4 h-4 text-cyan-400" />
+              <span>02 // PRODUCTION COMPETENCY MATRIX</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono">
-              TECH STACK &amp; CAPABILITIES
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Technical Arsenal &amp; Tooling
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
-              Visual technology directory and deep engineering proficiency matrix across modern web standards, enterprise backends, and observability platforms.
+            <p className="mt-2 text-sm text-slate-400 max-w-2xl">
+              Languages, backend runtimes, time-series storage engines, and enterprise storage fabrics proven in production at Wipro and graduate research at BITS Pilani.
             </p>
           </div>
-          <div className="mt-4 md:mt-0 font-mono text-xs text-slate-400">
-            TOTAL_STACK: <span className="text-indigo-400 font-bold">40+ VERIFIED TECHS</span>
+
+          {/* Tab Filters */}
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-black/40 border border-white/[0.08] rounded-full">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  activeTab === tab.id
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/25"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${activeTab === tab.id ? "bg-white/20 text-white" : "bg-white/[0.06] text-slate-400"}`}>
+                  {tab.count}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Visual Technology Quick Scan Grid */}
-        <div className="mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
-              <span>QUICK-SCAN TECHNOLOGY DIRECTORY</span>
-              <span className="text-[11px] text-slate-500 font-normal">
-                ({filteredTechs.length} Selected)
-              </span>
-            </div>
+        {/* Competency Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filtered.map((skill) => (
+            <div
+              key={skill.name}
+              className="glass-panel p-5 rounded-2xl border border-white/[0.08] hover:border-cyan-500/40 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/40 relative overflow-hidden"
+            >
+              <div>
+                {/* Card Top: Brand Icon + Title + Tier Badge */}
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:border-cyan-500/40 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.2)] transition-all">
+                      {getTechIcon(skill.name, "w-5 h-5")}
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-white group-hover:text-cyan-200 transition-colors">
+                        {skill.name}
+                      </h3>
+                      <span className="font-mono text-[11px] text-slate-400">
+                        {skill.years} Enterprise Experience
+                      </span>
+                    </div>
+                  </div>
 
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap gap-1.5">
-              {filterTabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer ${
-                    activeTab === tab.id
-                      ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold shadow-md shadow-indigo-600/20"
-                      : "bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800"
-                  }`}
+                  <span
+                    className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                      skill.tier === "Production Core"
+                        ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/30"
+                        : "bg-indigo-500/10 text-indigo-300 border-indigo-500/30"
+                    }`}
+                  >
+                    {skill.tier}
+                  </span>
+                </div>
+
+                {/* Production Role Description */}
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  {skill.role}
+                </p>
+              </div>
+
+              {/* Sub-skill pills */}
+              <div className="pt-3 border-t border-white/[0.06] flex flex-wrap items-center gap-1.5">
+                {skill.subtags.map((sub) => (
+                  <span
+                    key={sub}
+                    className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-[10px] font-mono text-slate-400"
+                  >
+                    {sub}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Enterprise SAN Hardware & Storage Fabric Callout */}
+        <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-blue-950/20 via-indigo-950/30 to-purple-950/20 border border-indigo-500/20 glass-panel">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 font-bold uppercase">
+                <Server className="w-4 h-4 text-indigo-400" />
+                <span>ENTERPRISE SAN &amp; STORAGE HARDWARE PROTOCOLS</span>
+              </div>
+              <p className="text-xs text-slate-300">
+                Specialized datacenter hardware infrastructure monitored and automated in enterprise production:
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {["NetApp ONTAP", "Dell EMC PowerStore", "Hitachi VSP", "Brocade SAN FC 32G", "SNMP v3", "Syslog RFC 5424"].map((hw) => (
+                <span
+                  key={hw}
+                  className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-xs text-indigo-300 font-medium"
                 >
-                  {tab.label}
-                </button>
+                  {hw}
+                </span>
               ))}
             </div>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
-            {filteredTechs.map((tech) => (
-              <div
-                key={tech.name}
-                className="group glass-panel p-4 rounded-xl border border-slate-800/90 hover:border-indigo-500/50 hover:bg-slate-900/90 transition-all duration-200 flex flex-col justify-between shadow-sm hover:shadow-indigo-500/10 cursor-pointer"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center justify-center p-1.5 shadow-inner group-hover:scale-105 group-hover:border-indigo-500/40 transition-all">
-                      {getTechIcon(tech.name, "w-6 h-6")}
-                    </div>
-                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-indigo-950/50 text-indigo-300 border border-indigo-900/60 font-medium">
-                      {tech.proficiency}
-                    </span>
-                  </div>
-
-                  <h3 className="font-mono text-sm font-bold text-white group-hover:text-indigo-300 transition-colors">
-                    {tech.name}
-                  </h3>
-                  <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
-                    {tech.role}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
-                  <span className="text-slate-400 truncate">{tech.badge}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Detailed Competency Matrix Accordions / Cards */}
-        <div>
-          <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-300 mb-6 pb-2 border-b border-slate-800">
-            <Layers className="w-4 h-4 text-purple-400" />
-            <span>ENTERPRISE COMPETENCY &amp; ARCHITECTURAL MATRIX</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SEED_SKILL_GROUPS.map((group) => (
-              <div
-                key={group.category}
-                className="glass-panel p-5 rounded-lg border border-slate-800 hover:border-indigo-500/40 transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 mb-3">
-                    <h3 className="font-mono text-sm font-bold text-indigo-400 flex items-center gap-2">
-                      <Wrench className="w-3.5 h-3.5" />
-                      <span>{group.category.toUpperCase()}</span>
-                    </h3>
-                    <span className="font-mono text-[10px] text-slate-500">
-                      {group.skills.length} TECHS
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mb-4 leading-relaxed">
-                    {group.description}
-                  </p>
-
-                  {/* Individual Skills with Tech Logos */}
-                  <div className="space-y-3">
-                    {group.skills.map((skill) => (
-                      <div key={skill.name} className="space-y-1">
-                        <div className="flex items-center justify-between font-mono text-xs">
-                          <span className="flex items-center gap-2 text-slate-200">
-                            <span className="flex-shrink-0">
-                              {getTechIcon(skill.name, "w-4 h-4")}
-                            </span>
-                            <span className={skill.highlight ? "font-semibold text-white" : ""}>
-                              {skill.name}
-                            </span>
-                            {skill.highlight && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" title="Core Specialty" />
-                            )}
-                          </span>
-                          <span className="text-slate-400 text-[11px] font-medium">{skill.level}%</span>
-                        </div>
-                        <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-                          <div
-                            className={`h-full rounded-full ${
-                              skill.highlight
-                                ? "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"
-                                : "bg-slate-700"
-                            }`}
-                            style={{ width: `${skill.level}%` }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom tag */}
-                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
-                  <span className="flex items-center gap-1">
-                    <Shield className="w-3 h-3 text-indigo-400" />
-                    <span>Production Ready</span>
-                  </span>
-                  <span>ENTERPRISE GRADE</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

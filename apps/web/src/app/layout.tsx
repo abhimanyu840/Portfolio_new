@@ -4,28 +4,32 @@ import "./globals.css";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#07080e",
 };
 
 export const metadata: Metadata = {
-  title: "Abhimanyu Kumar | Software Engineer — Python, FastAPI, React, Linux & Observability",
+  title: "Abhimanyu Kumar | Software Engineer — Distributed Telemetry, APIs & Systems",
   description:
-    "Enterprise observability engineer and full-stack developer portfolio. Systems monitoring, FastAPI microservices, React dashboards, InfluxDB, Prometheus, and RHEL infrastructure.",
+    "Software Engineer specializing in enterprise observability, distributed telemetry ingestion, FastAPI microservices, React, and Linux infrastructure. Experience at Wipro & M.Tech at BITS Pilani.",
   keywords: [
     "Abhimanyu Kumar",
     "Software Engineer",
     "Observability",
+    "Distributed Telemetry",
     "FastAPI",
     "Python",
     "React",
+    "Next.js",
     "Linux",
     "RHEL",
     "InfluxDB",
     "Grafana",
     "Prometheus",
-    "Docker",
+    "Brocade SAN",
     "NetApp",
     "Dell EMC",
-    "Brocade SAN",
+    "Wipro",
+    "BITS Pilani",
   ],
   authors: [{ name: "Abhimanyu Kumar" }],
 };
@@ -37,9 +41,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen bg-[#060813] text-slate-200 antialiased selection:bg-purple-500/25 selection:text-purple-300">
-        <div className="fixed inset-0 tech-grid pointer-events-none z-0" />
-        <div className="fixed inset-0 tech-radial pointer-events-none z-0" />
+      <body className="min-h-screen bg-[#07080e] text-slate-100 antialiased selection:bg-cyan-500/25 selection:text-cyan-200">
+        {/* Background Ambience Layers */}
+        <div className="fixed inset-0 obsidian-grid pointer-events-none z-0" />
+        <div className="fixed inset-0 obsidian-radial pointer-events-none z-0" />
+        <div className="fixed inset-0 obsidian-ambient pointer-events-none z-0" />
+        
         <div className="relative z-10">{children}</div>
       </body>
     </html>

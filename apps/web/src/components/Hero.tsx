@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Terminal, Database, Server, Cpu, ArrowDown, ExternalLink, Code2 } from "lucide-react";
+import React, { useState } from "react";
+import { Terminal, Database, Server, Cpu, ArrowDown, ExternalLink, Code2, Sparkles, CheckCircle2, Layers } from "lucide-react";
 import { DEVELOPER_PROFILE } from "@/lib/seed-data";
 import { getTechIcon } from "@/components/TechIcons";
 
@@ -9,139 +9,229 @@ interface HeroProps {
   onOpenTerminal: () => void;
 }
 
+type PersonaMode = "sre" | "backend" | "fullstack";
+
+interface PersonaConfig {
+  title: string;
+  badge: string;
+  tagline: string;
+  stats: { label: string; value: string; sub: string }[];
+  skills: string[];
+}
+
+const PERSONAS: Record<PersonaMode, PersonaConfig> = {
+  sre: {
+    title: "Observability & SRE",
+    badge: "ENTERPRISE TELEMETRY // WIPRO",
+    tagline: "Centralized monitoring for 500+ SAN storage nodes, Brocade fabrics, SNMP/Syslog daemons, and InfluxDB time-series shards.",
+    stats: [
+      { label: "Monitored Fabric", value: "500+", sub: "NetApp, Dell EMC, Hitachi, Brocade" },
+      { label: "Telemetry Stream", value: "12,000/s", sub: "Sub-second InfluxDB write rate" },
+      { label: "Alert Latency", value: "< 1.8ms", sub: "Non-blocking AsyncIO trap engine" },
+      { label: "System SLA", value: "99.95%", sub: "Enterprise production uptime" },
+    ],
+    skills: ["Python 3.11", "Linux/RHEL", "InfluxDB", "Grafana", "Prometheus", "Brocade SAN", "NetApp ONTAP"],
+  },
+  backend: {
+    title: "Backend & Distributed APIs",
+    badge: "FASTAPI & ASYNCIO ARCHITECTURE",
+    tagline: "High-throughput asynchronous microservices, REST/WebSocket gateways, MongoDB persistence, and intelligent alert classifiers.",
+    stats: [
+      { label: "API Query Latency", value: "< 45ms", sub: "P99 sub-second response times" },
+      { label: "Data Persistence", value: "MongoDB", sub: "Singleton Mongoose connection pool" },
+      { label: "Concurrency", value: "AsyncIO", sub: "ZeroMQ & non-blocking event loops" },
+      { label: "Microservices", value: "FastAPI", sub: "Pydantic typed contract schemas" },
+    ],
+    skills: ["FastAPI", "Python", "MongoDB", "AsyncIO", "Docker", "ZeroMQ", "Pydantic"],
+  },
+  fullstack: {
+    title: "Modern Full-Stack Engineering",
+    badge: "NEXT.JS 16 & REACT 19 APP ROUTER",
+    tagline: "High-density developer consoles, interactive observability HUDs, reactive state management, and Turborepo monorepos.",
+    stats: [
+      { label: "Framework", value: "Next.js 16", sub: "React 19 Server & Client Components" },
+      { label: "Monorepo Engine", value: "Turborepo", sub: "Orchestrated via Bun workspaces" },
+      { label: "Design System", value: "Tailwind", sub: "Obsidian dark tech minimalist UI" },
+      { label: "Academic Foundation", value: "M.Tech", sub: "BITS Pilani (Software Systems)" },
+    ],
+    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Turborepo", "Bun", "Node.js"],
+  },
+};
+
 export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
+  const [activePersona, setActivePersona] = useState<PersonaMode>("sre");
+  const persona = PERSONAS[activePersona];
+
   return (
-    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden border-b border-indigo-950/40">
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden border-b border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Top Status Header */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-indigo-900/40 mb-6 backdrop-blur font-mono text-[11px] text-slate-300 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-          <span className="text-indigo-300 font-semibold">ENTERPRISE TELEMETRY ACTIVE</span>
-          <span className="text-slate-600">|</span>
-          <span className="hidden sm:inline text-slate-400">HOST: PROD-SRV-01</span>
-          <span className="hidden sm:inline text-slate-600">|</span>
-          <span className="text-slate-400">AP-SOUTH // WIPRO + BITS PILANI</span>
+        {/* Top Status Capsule */}
+        <div className="flex flex-wrap items-center gap-2 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.1] backdrop-blur font-mono text-xs text-slate-300 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-emerald-300 font-semibold">AVAILABLE FOR PLATFORM &amp; SYSTEMS ROLES</span>
+            <span className="text-slate-600 hidden sm:inline">|</span>
+            <span className="text-slate-400 hidden sm:inline">NOIDA, INDIA</span>
+          </div>
+
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 font-mono text-xs text-cyan-300">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Wipro Software Engineer // BITS Pilani M.Tech</span>
+          </div>
         </div>
 
-        {/* Main Title & Role */}
-        <div className="space-y-4 max-w-4xl">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white font-mono">
-            {DEVELOPER_PROFILE.name.toUpperCase()}
+        {/* Main Typographic Hierarchy */}
+        <div className="space-y-4 max-w-5xl">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white">
+            Abhimanyu <span className="text-gradient-cyan">Kumar</span>
           </h1>
-          <div className="font-mono text-base sm:text-xl md:text-2xl text-indigo-400 font-medium tracking-wide flex items-center gap-2 flex-wrap">
-            <span>PYTHON</span>
-            <span className="text-slate-600">•</span>
-            <span>FASTAPI</span>
-            <span className="text-slate-600">•</span>
-            <span>REACT</span>
-            <span className="text-slate-600">•</span>
-            <span>LINUX/RHEL</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-purple-400">OBSERVABILITY</span>
+
+          <div className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight text-slate-200">
+            Engineering High-Throughput <span className="text-cyan-400 font-semibold">Distributed Telemetry</span>, Resilient APIs &amp; Scalable Systems.
           </div>
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl pt-2">
-            Software Engineer with <strong className="text-white font-semibold">1.5+ years</strong> of enterprise technology experience.
-            Architecting high-throughput telemetry ingestion pipelines, FastAPI microservices, and reactive monitoring consoles.
-            Deep hands-on expertise with <span className="text-blue-300">NetApp</span>, <span className="text-indigo-300">Dell EMC</span>, <span className="text-purple-300">Hitachi VSP</span>, and <span className="text-cyan-300">Brocade SAN switches</span>. Currently pursuing an M.Tech at <span className="text-white font-medium">BITS Pilani</span> via the Wipro WILP initiative.
+
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl pt-1">
+            Software Engineer with <strong className="text-white font-semibold">1.5+ years</strong> of enterprise production experience at <strong className="text-white font-semibold">Wipro</strong>. Architecting telemetry daemons, FastAPI microservices, and reactive monitoring consoles across <span className="text-cyan-300 font-medium">NetApp</span>, <span className="text-blue-300 font-medium">Dell EMC</span>, <span className="text-indigo-300 font-medium">Hitachi VSP</span>, and <span className="text-purple-300 font-medium">Brocade SAN switches</span>. Currently pursuing M.Tech in Software Systems at <strong className="text-white font-semibold">BITS Pilani</strong>.
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-4 mt-8 pt-2">
+        {/* Primary Action Buttons */}
+        <div className="flex flex-wrap items-center gap-3.5 mt-8 pt-2">
           <a
             href="#projects"
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-mono text-sm font-bold tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95 cursor-pointer"
+            className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-sm font-semibold tracking-wide transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
           >
-            <span>EXPLORE_PROJECTS</span>
+            <span>Explore Featured Systems</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
           <button
             onClick={onOpenTerminal}
-            className="px-5 py-3 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/60 text-slate-200 font-mono text-sm transition-all flex items-center gap-2 shadow-md hover:text-white cursor-pointer"
+            className="px-5 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-cyan-500/50 text-slate-200 hover:text-cyan-200 font-mono text-sm transition-all flex items-center gap-2 shadow-md cursor-pointer"
           >
-            <Terminal className="w-4 h-4 text-indigo-400" />
-            <span>&gt;_ OPEN_TERMINAL_HUD</span>
+            <Terminal className="w-4 h-4 text-cyan-400" />
+            <span>Terminal CLI [~]</span>
           </button>
 
           <a
-            href="#contact"
-            className="px-5 py-3 rounded-lg bg-slate-900/50 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/50 text-slate-300 hover:text-purple-300 font-mono text-sm transition-all flex items-center gap-2 cursor-pointer"
+            href="#hud"
+            className="px-5 py-3 rounded-full bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.08] hover:border-indigo-500/40 text-slate-300 hover:text-indigo-300 font-mono text-sm transition-all flex items-center gap-2 cursor-pointer"
           >
-            <span>TRANSMIT_INQUIRY</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <Layers className="w-4 h-4 text-indigo-400" />
+            <span>Architecture Lab</span>
           </a>
         </div>
 
+        {/* ========================================================= */}
+        {/* INTERACTIVE PERSONA COMMAND DECK                          */}
+        {/* ========================================================= */}
+        <div className="mt-12 p-6 rounded-2xl glass-panel border border-white/[0.1] relative overflow-hidden">
+          {/* Subtle accent glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-5 border-b border-white/[0.08] gap-3">
+            <div>
+              <div className="font-mono text-xs text-cyan-400 font-bold tracking-wider uppercase mb-1">
+                ENGINEERING PROFILE DECK // SELECT SPECIALIZATION
+              </div>
+              <p className="text-xs text-slate-400">
+                Click a focus area to inspect production telemetry, systems metrics, and tech stack.
+              </p>
+            </div>
+
+            {/* Persona Switcher Buttons */}
+            <div className="flex items-center gap-1.5 p-1 bg-black/40 border border-white/[0.08] rounded-full">
+              {(["sre", "backend", "fullstack"] as PersonaMode[]).map((mode) => (
+                <button
+                  key={mode}
+                  onClick={() => setActivePersona(mode)}
+                  className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold transition-all cursor-pointer ${
+                    activePersona === mode
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  {mode === "sre" && "SRE & Telemetry"}
+                  {mode === "backend" && "Backend & APIs"}
+                  {mode === "fullstack" && "Full-Stack Web"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Persona Spotlight Description */}
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="font-mono text-xs text-indigo-400 font-semibold mb-1">
+                {persona.badge}
+              </div>
+              <p className="text-sm text-slate-300 font-medium leading-relaxed max-w-3xl">
+                {persona.tagline}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+              {persona.skills.map((s) => (
+                <span
+                  key={s}
+                  className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] font-mono text-[11px] text-slate-300"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 4 Bento Metric Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+            {persona.stats.map((stat, i) => (
+              <div
+                key={i}
+                className="p-4 rounded-xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] transition-all group"
+              >
+                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">
+                  {stat.label}
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-white group-hover:text-cyan-300 transition-colors">
+                  {stat.value}
+                </div>
+                <div className="text-[11px] text-slate-400 mt-1 font-mono truncate">
+                  {stat.sub}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Quick Tech Stack Ribbon */}
-        <div className="mt-8 pt-5 border-t border-slate-800/80 flex flex-col md:flex-row md:items-center gap-3">
-          <span className="font-mono text-xs text-slate-400 uppercase tracking-wider flex-shrink-0 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-            <span>CORE TECH STACK:</span>
+        <div className="mt-8 pt-5 border-t border-white/[0.08] flex flex-col md:flex-row md:items-center gap-3">
+          <span className="font-mono text-xs text-slate-400 uppercase tracking-wider flex-shrink-0 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+            <span>PRIMARY CORE STACK:</span>
           </span>
           <div className="flex flex-wrap items-center gap-2">
             {[
-              { name: "HTML5", highlight: "border-orange-500/40 bg-orange-950/20 text-orange-300" },
-              { name: "CSS3", highlight: "border-blue-500/40 bg-blue-950/20 text-blue-300" },
-              { name: "JavaScript", highlight: "border-yellow-500/40 bg-yellow-950/20 text-yellow-300" },
-              { name: "TypeScript", highlight: "border-sky-500/40 bg-sky-950/20 text-sky-300" },
-              { name: "React", highlight: "border-cyan-500/40 bg-cyan-950/20 text-cyan-300" },
-              { name: "Next.js", highlight: "border-slate-600/40 bg-slate-900/60 text-slate-300" },
-              { name: "Python", highlight: "border-indigo-500/40 bg-indigo-950/20 text-indigo-300" },
-              { name: "FastAPI", highlight: "border-teal-500/40 bg-teal-950/20 text-teal-300" },
-              { name: "Docker", highlight: "border-blue-500/40 bg-blue-950/20 text-blue-300" },
-              { name: "Linux", highlight: "border-red-500/40 bg-red-950/20 text-red-300" },
-              { name: "MongoDB", highlight: "border-emerald-500/40 bg-emerald-950/20 text-emerald-300" },
+              { name: "Python", border: "border-indigo-500/30 hover:border-indigo-400", bg: "bg-indigo-950/20" },
+              { name: "FastAPI", border: "border-teal-500/30 hover:border-teal-400", bg: "bg-teal-950/20" },
+              { name: "React", border: "border-cyan-500/30 hover:border-cyan-400", bg: "bg-cyan-950/20" },
+              { name: "Next.js", border: "border-slate-500/30 hover:border-slate-400", bg: "bg-slate-900/40" },
+              { name: "TypeScript", border: "border-sky-500/30 hover:border-sky-400", bg: "bg-sky-950/20" },
+              { name: "Docker", border: "border-blue-500/30 hover:border-blue-400", bg: "bg-blue-950/20" },
+              { name: "Linux", border: "border-amber-500/30 hover:border-amber-400", bg: "bg-amber-950/20" },
+              { name: "MongoDB", border: "border-emerald-500/30 hover:border-emerald-400", bg: "bg-emerald-950/20" },
+              { name: "HTML5", border: "border-orange-500/30 hover:border-orange-400", bg: "bg-orange-950/20" },
+              { name: "CSS3", border: "border-blue-500/30 hover:border-blue-400", bg: "bg-blue-950/20" },
+              { name: "JavaScript", border: "border-yellow-500/30 hover:border-yellow-400", bg: "bg-yellow-950/20" },
             ].map((tech) => (
               <a
                 key={tech.name}
                 href="#skills"
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm ${tech.highlight}`}
-                title={`Inspect ${tech.name} skills`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-mono transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm ${tech.border} ${tech.bg} text-slate-200`}
+                title={`Inspect ${tech.name} production competency`}
               >
                 <span className="flex-shrink-0">{getTechIcon(tech.name, "w-3.5 h-3.5")}</span>
                 <span>{tech.name}</span>
               </a>
             ))}
-          </div>
-        </div>
-
-        {/* Key Metrics Ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-2">
-          <div className="glass-panel p-4 rounded-lg border-l-2 border-l-indigo-500">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="font-mono text-xs uppercase tracking-wider">Enterprise Exp</span>
-              <Server className="w-4 h-4 text-indigo-400" />
-            </div>
-            <div className="font-mono text-2xl md:text-3xl font-bold text-white">1.5+ Yrs</div>
-            <div className="font-mono text-[11px] text-slate-400 mt-1">Wipro Infrastructure</div>
-          </div>
-
-          <div className="glass-panel p-4 rounded-lg border-l-2 border-l-blue-500">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="font-mono text-xs uppercase tracking-wider">Monitored Fabric</span>
-              <Database className="w-4 h-4 text-blue-400" />
-            </div>
-            <div className="font-mono text-2xl md:text-3xl font-bold text-white">500+</div>
-            <div className="font-mono text-[11px] text-slate-400 mt-1">Storage Arrays &amp; SAN Ports</div>
-          </div>
-
-          <div className="glass-panel p-4 rounded-lg border-l-2 border-l-purple-500">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="font-mono text-xs uppercase tracking-wider">Telemetry Rate</span>
-              <Cpu className="w-4 h-4 text-purple-400" />
-            </div>
-            <div className="font-mono text-2xl md:text-3xl font-bold text-white">12k/sec</div>
-            <div className="font-mono text-[11px] text-slate-400 mt-1">InfluxDB &amp; Prometheus Flow</div>
-          </div>
-
-          <div className="glass-panel p-4 rounded-lg border-l-2 border-l-cyan-400">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span className="font-mono text-xs uppercase tracking-wider">Academic Track</span>
-              <Code2 className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div className="font-mono text-2xl md:text-3xl font-bold text-white">M.Tech</div>
-            <div className="font-mono text-[11px] text-slate-400 mt-1">BITS Pilani (Software Systems)</div>
           </div>
         </div>
       </div>

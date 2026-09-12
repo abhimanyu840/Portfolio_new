@@ -323,21 +323,21 @@ export const ObservabilityHUD: React.FC = () => {
   };
 
   return (
-    <section id="hud" className="py-16 md:py-24 border-b border-slate-800/60 bg-[#060813]/70 relative overflow-hidden">
+    <section id="hud" className="py-20 md:py-28 border-b border-white/[0.08] relative overflow-hidden">
       {/* Subtle ambient lighting */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 pb-6 border-b border-slate-800">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 pb-6 border-b border-white/[0.08] gap-4">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 mb-2">
-              <Activity className="w-4 h-4 text-indigo-400 animate-pulse" />
-              <span>SYSTEMS ARCHITECTURE &amp; LIVE TELEMETRY LAB</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
+              <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <span>04 // SYSTEMS ARCHITECTURE &amp; LIVE TELEMETRY LAB</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-mono tracking-tight">
-              ENTERPRISE OBSERVABILITY &amp; TELEMETRY ENGINE
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Enterprise Observability &amp; Telemetry Engine
             </h2>
             <p className="mt-2 text-sm text-slate-400 leading-relaxed">
               Interactive workbench demonstrating high-throughput telemetry pipelines engineered for enterprise SAN storage (NetApp, Dell EMC, Brocade) at Wipro, coupled with live Next.js portfolio application diagnostics.
@@ -347,12 +347,12 @@ export const ObservabilityHUD: React.FC = () => {
           {/* Controls and Perspective Switcher */}
           <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center gap-3">
             {/* View Mode Tabs */}
-            <div className="p-1 bg-slate-900/90 border border-slate-800 rounded-lg flex items-center gap-1">
+            <div className="p-1 bg-black/40 border border-white/[0.08] rounded-full flex items-center gap-1">
               <button
                 onClick={() => setActiveTab("pipeline")}
-                className={`px-3 py-1.5 rounded-md font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   activeTab === "pipeline"
-                    ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/30"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -361,9 +361,9 @@ export const ObservabilityHUD: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab("runtime")}
-                className={`px-3 py-1.5 rounded-md font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   activeTab === "runtime"
-                    ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/30"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
                     : "text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -377,18 +377,18 @@ export const ObservabilityHUD: React.FC = () => {
               <button
                 onClick={fetchTelemetry}
                 disabled={isRefreshing}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-indigo-500 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
+                className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.1] hover:border-cyan-500/50 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
                 title="Poll live API telemetry"
               >
-                <RefreshCw className={`w-3.5 h-3.5 text-indigo-400 ${isRefreshing ? "animate-spin" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 text-cyan-400 ${isRefreshing ? "animate-spin" : ""}`} />
                 <span>{isRefreshing ? "SAMPLING..." : "POLL_API"}</span>
               </button>
               <button
                 onClick={() => setAutoSample(!autoSample)}
-                className={`px-2.5 py-1.5 rounded-lg border font-mono text-xs flex items-center gap-1.5 cursor-pointer transition-all ${
+                className={`px-3 py-1.5 rounded-full border font-mono text-xs flex items-center gap-1.5 cursor-pointer transition-all ${
                   autoSample
                     ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-                    : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-400"
+                    : "bg-white/[0.02] border-white/[0.08] text-slate-500 hover:text-slate-400"
                 }`}
                 title="Toggle real-time auto sampling (every 4.5s)"
               >
@@ -405,10 +405,10 @@ export const ObservabilityHUD: React.FC = () => {
         {activeTab === "pipeline" && (
           <div className="space-y-6">
             {/* Top Interactive Pipeline Flow */}
-            <div className="glass-panel p-6 rounded-xl border border-slate-800">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-slate-800/80 gap-2">
+            <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-white/[0.08] gap-2">
                 <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-200">
-                  <Network className="w-4 h-4 text-indigo-400" />
+                  <Network className="w-4 h-4 text-cyan-400" />
                   <span>DISTRIBUTED_INGESTION_TOPOLOGY (CLICK STAGE TO INSPECT)</span>
                 </div>
                 <div className="flex items-center gap-3 font-mono text-xs text-slate-400">
