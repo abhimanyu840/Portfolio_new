@@ -115,7 +115,7 @@ export const Experience: React.FC = () => {
             {SEED_EDUCATION.map((edu, idx) => (
               <div
                 key={idx}
-                className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08] hover:border-indigo-500/40 transition-all flex flex-col justify-between group"
+                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-indigo-500/40 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.08]">
@@ -160,7 +160,7 @@ export const Experience: React.FC = () => {
             ))}
 
             {/* Quick SRE Certification & Compliance Card */}
-            <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.06] font-mono text-xs space-y-2">
+            <div className="p-4 sm:p-5 rounded-2xl bg-black/40 border border-white/[0.06] font-mono text-xs space-y-2">
               <div className="text-slate-400 uppercase text-[10px] tracking-wider">Enterprise Compliance &amp; Standards</div>
               <div className="flex items-center justify-between text-slate-300">
                 <span>Datacenter Protocol:</span>
