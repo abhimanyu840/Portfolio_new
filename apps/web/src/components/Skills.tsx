@@ -145,7 +145,7 @@ export const Skills: React.FC = () => {
       : COMPETENCIES.filter((c) => c.category === activeTab);
 
   return (
-    <section id="skills" className="py-20 md:py-28 border-b border-white/[0.08] relative">
+    <section id="skills" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-white/[0.08] gap-4">
@@ -163,7 +163,7 @@ export const Skills: React.FC = () => {
           </div>
 
           {/* Tab Filters */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-black/40 border border-white/[0.08] rounded-full">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 sm:p-1.5 bg-black/40 border border-white/[0.08] rounded-2xl sm:rounded-full">
             {tabs.map((tab) => (
               <button
                 key={tab.id}

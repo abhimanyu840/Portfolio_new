@@ -294,7 +294,7 @@ export const Projects: React.FC = () => {
               onClick={() => setSelectedProject(null)}
             />
 
-            <div className="relative z-10 w-full max-w-3xl rounded-3xl glass-panel border border-white/[0.15] p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl shadow-black">
+            <div className="relative z-10 w-full max-w-3xl rounded-2xl sm:rounded-3xl glass-panel border border-white/[0.15] p-5 sm:p-7 md:p-8 max-h-[90vh] overflow-y-auto shadow-2xl shadow-black">
               {/* Modal Header */}
               <div className="flex items-start justify-between pb-4 mb-4 border-b border-white/[0.08]">
                 <div>
