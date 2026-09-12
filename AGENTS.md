@@ -89,7 +89,7 @@ Completed and verified:
 - Mongoose singleton connection with robust fallback (`apps/web/src/lib/db.ts`).
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
 - Observability & Dark Tech Minimalist UI components:
-  - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA (all elements verified with `cursor-pointer`).
+  - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links with dynamic scroll spy and glowing active pill highlighting (`Projects`, `Skills`, `Experience`, `Architecture Lab`, `Contact`), active pulse dot indicator, mobile menu with active badges, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA with active ring glow (all elements verified with `cursor-pointer`).
   - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech), and above-the-fold Quick Tech Stack ribbon featuring official brand logos (HTML5, CSS3, JS, TS, React, Next.js, Python, FastAPI, Docker, Linux, MongoDB).
   - `ObservabilityHUD`: Repositioned as an interactive Systems Architecture & Live Telemetry Lab below Experience. Features dual-perspective tabs (Enterprise Pipeline Simulation vs. Portfolio Live Runtime), interactive 4-stage ingestion pipeline inspector, enterprise SAN storage fabric node deep-dive inspector (NetApp, Dell EMC, Hitachi, Brocade), live streaming event log terminal with synthetic trap packet injector and SAN alarm simulator, and real-time roundtrip latency sparkline.
   - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`, dismissable on backdrop click.
@@ -118,6 +118,7 @@ Toolchain and application verified on this host:
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
 - DOM section ordering probe: `[ "projects", "skills", "experience", "hud", "contact" ]` verified (`hud` rendered after `experience`).
+- Topbar scroll spy probe: Verified deterministic active section tracking across all 5 sections (`projects`, `skills`, `experience`, `hud`, `contact`) and top Hero state clearance via CDP.
 - Interactive cursor probe: All buttons, mode toggles, pipeline cards, and fabric node selectors verified with computed `cursor: pointer`.
 
 ## Open questions

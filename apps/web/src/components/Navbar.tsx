@@ -26,22 +26,98 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const navLinks = [
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Experience", href: "#experience" },
-    { label: "Architecture Lab", href: "#hud" },
-    { label: "Contact", href: "#contact" },
+    { id: "projects", label: "Projects", href: "#projects" },
+    { id: "skills", label: "Skills", href: "#skills" },
+    { id: "experience", label: "Experience", href: "#experience" },
+    { id: "hud", label: "Architecture Lab", href: "#hud" },
+    { id: "contact", label: "Contact", href: "#contact" },
   ];
+
+  useEffect(() => {
+    // Check initial URL hash
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash.replace("#", "");
+      if (["projects", "skills", "experience", "hud", "contact"].includes(hash)) {
+        setActiveSection(hash);
+      }
+    }
+
+    const sectionIds = ["projects", "skills", "experience", "hud", "contact"];
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      // 1. If near bottom of the page, activate the contact section
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      if (scrollBottom >= docHeight - 90) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // 2. If near top (Hero section), clear active section
+      if (window.scrollY < 200) {
+        setActiveSection("");
+        return;
+      }
+
+      // 3. Focal detection: check which section spans across the focal line (140px below viewport top)
+      const focalLine = 140;
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focalLine && rect.bottom > focalLine) {
+            current = id;
+            break;
+          }
+        }
+      }
+
+      // Fallback: pick the latest section that has crossed the focal line
+      if (!current) {
+        for (let i = sectionIds.length - 1; i >= 0; i--) {
+          const id = sectionIds[i];
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= focalLine) {
+              current = id;
+              break;
+            }
+          }
+        }
+      }
+
+      if (current) {
+        setActiveSection(current);
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
 
   return (
     <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
@@ -54,7 +130,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
       >
         <div className="flex items-center justify-between">
           {/* Brand & Monogram Identity */}
-          <a href="#" className="flex items-center gap-3 group cursor-pointer">
+          <a
+            href="#"
+            onClick={() => setActiveSection("")}
+            className="flex items-center gap-3 group cursor-pointer"
+          >
             <div className="relative">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500/20 via-blue-600/30 to-indigo-600/20 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs sm:text-sm text-cyan-300 shadow-inner group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all">
                 AK
@@ -75,15 +155,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-1 bg-white/[0.03] border border-white/[0.06] rounded-full p-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.08] rounded-full transition-all cursor-pointer"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.id)}
+                  className={`px-3.5 py-1.5 text-xs rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-500/20 via-blue-600/25 to-indigo-600/20 text-cyan-300 font-semibold border border-cyan-500/40 shadow-sm shadow-cyan-500/25"
+                      : "text-slate-400 hover:text-white hover:bg-white/[0.06] border border-transparent font-medium"
+                  }`}
+                >
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Icons & Controls */}
@@ -128,7 +219,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             {/* Direct Get In Touch CTA */}
             <a
               href="#contact"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 transition-all active:scale-95 cursor-pointer"
+              onClick={() => setActiveSection("contact")}
+              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
+                activeSection === "contact"
+                  ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 ring-2 ring-cyan-400/50 shadow-lg shadow-cyan-500/40"
+                  : "bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35"
+              }`}
             >
               <span>Connect</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -158,16 +254,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
         {mobileMenuOpen && (
           <div className="lg:hidden mt-3 pt-3 pb-3 border-t border-white/[0.08] space-y-3">
             <div className="flex flex-col space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 rounded-xl hover:bg-white/[0.06] transition-colors cursor-pointer"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    onClick={() => {
+                      setActiveSection(link.id);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`text-sm px-3.5 py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-between ${
+                      isActive
+                        ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-semibold shadow-inner"
+                        : "text-slate-300 hover:text-white hover:bg-white/[0.06] border border-transparent font-medium"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      )}
+                      <span>{link.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                        ACTIVE
+                      </span>
+                    )}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="pt-2 border-t border-white/[0.08] flex flex-col gap-2">
@@ -184,8 +300,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
 
               <a
                 href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full justify-center flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-cyan-500/20 cursor-pointer"
+                onClick={() => {
+                  setActiveSection("contact");
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full justify-center flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold shadow-md transition-all cursor-pointer ${
+                  activeSection === "contact"
+                    ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 ring-2 ring-cyan-400/50 shadow-cyan-500/30"
+                    : "bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 shadow-cyan-500/20"
+                }`}
               >
                 <span>Connect with Abhimanyu</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
