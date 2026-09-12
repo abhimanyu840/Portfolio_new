@@ -188,11 +188,11 @@ export const Skills: React.FC = () => {
           {filtered.map((skill) => (
             <div
               key={skill.name}
-              className="glass-panel p-5 rounded-2xl border border-white/[0.08] hover:border-cyan-500/40 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/40 relative overflow-hidden"
+              className="glass-panel p-4 sm:p-5 rounded-2xl border border-white/[0.08] hover:border-cyan-500/40 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/40 relative overflow-hidden"
             >
               <div>
                 {/* Card Top: Brand Icon + Title + Tier Badge */}
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start justify-between gap-2 mb-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:border-cyan-500/40 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.2)] transition-all">
                       {getTechIcon(skill.name, "w-5 h-5")}
@@ -208,7 +208,7 @@ export const Skills: React.FC = () => {
                   </div>
 
                   <span
-                    className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                    className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${
                       skill.tier === "Production Core"
                         ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/30"
                         : "bg-indigo-500/10 text-indigo-300 border-indigo-500/30"
@@ -240,7 +240,7 @@ export const Skills: React.FC = () => {
         </div>
 
         {/* Enterprise SAN Hardware & Storage Fabric Callout */}
-        <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-blue-950/20 via-indigo-950/30 to-purple-950/20 border border-indigo-500/20 glass-panel">
+        <div className="mt-10 p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-950/20 via-indigo-950/30 to-purple-950/20 border border-indigo-500/20 glass-panel">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2 font-mono text-xs text-indigo-400 font-bold uppercase">

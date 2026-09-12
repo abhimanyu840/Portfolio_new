@@ -7,7 +7,7 @@ import { getTechIcon } from "@/components/TechIcons";
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-20 md:py-28 border-b border-white/[0.08] relative">
+    <section id="experience" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-white/[0.08] gap-4">
@@ -42,7 +42,7 @@ export const Experience: React.FC = () => {
             {SEED_EXPERIENCE.map((exp) => (
               <div
                 key={exp.id}
-                className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/[0.08] hover:border-cyan-500/40 transition-all group relative overflow-hidden"
+                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-cyan-500/40 transition-all group relative overflow-hidden"
               >
                 {/* Accent glow on hover */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/10 transition-all" />
@@ -57,7 +57,7 @@ export const Experience: React.FC = () => {
                     <h4 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-200 transition-colors">
                       {exp.role} <span className="text-cyan-400 font-normal">@ {exp.company}</span>
                     </h4>
-                    <div className="flex items-center gap-4 text-xs text-slate-400 mt-1 font-mono">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 mt-1 font-mono">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                         <span>{exp.period}</span>
