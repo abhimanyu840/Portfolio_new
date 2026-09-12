@@ -87,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
           </nav>
 
           {/* Right Action Icons & Controls */}
-          <div className="hidden md:flex items-center space-x-2.5">
+          <div className="hidden lg:flex items-center space-x-2.5">
             {/* Social Links */}
             <div className="flex items-center space-x-1 pr-2 border-r border-white/[0.08]">
               <a

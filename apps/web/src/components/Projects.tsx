@@ -64,7 +64,7 @@ export const Projects: React.FC = () => {
   const flagshipProject = projects.find((p) => p.slug === "unified-ops") || projects[0];
 
   return (
-    <section id="projects" className="py-20 md:py-28 border-b border-white/[0.08] relative">
+    <section id="projects" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-white/[0.08] gap-4">
@@ -82,7 +82,7 @@ export const Projects: React.FC = () => {
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-black/40 border border-white/[0.08] rounded-full">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 sm:p-1.5 bg-black/40 border border-white/[0.08] rounded-2xl sm:rounded-full">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -106,7 +106,7 @@ export const Projects: React.FC = () => {
         {/* FLAGSHIP BENTO SPOTLIGHT (UnifiedOps)                      */}
         {/* ========================================================= */}
         {(activeCategory === "all" || activeCategory === "observability") && flagshipProject && (
-          <div className="mb-10 p-6 sm:p-8 rounded-3xl glass-panel border border-cyan-500/30 hover:border-cyan-500/50 shadow-2xl shadow-cyan-500/5 transition-all relative overflow-hidden group">
+          <div className="mb-10 p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl glass-panel border border-cyan-500/30 hover:border-cyan-500/50 shadow-2xl shadow-cyan-500/5 transition-all relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-cyan-500/10 via-blue-600/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
@@ -149,7 +149,7 @@ export const Projects: React.FC = () => {
               </div>
 
               {/* Flagship Benchmarks & Action Card */}
-              <div className="lg:w-80 shrink-0 p-5 rounded-2xl bg-black/60 border border-white/[0.1] flex flex-col justify-between space-y-4">
+              <div className="lg:w-80 shrink-0 p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-black/60 border border-white/[0.1] flex flex-col justify-between space-y-4">
                 <div className="font-mono text-xs text-slate-400 uppercase tracking-wider flex items-center justify-between pb-2 border-b border-white/[0.08]">
                   <span>Telemetry Benchmarks</span>
                   <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
@@ -199,7 +199,7 @@ export const Projects: React.FC = () => {
             .map((project) => (
               <div
                 key={project.id}
-                className="glass-panel p-6 rounded-2xl border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/50"
+                className="glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/50"
               >
                 <div>
                   {/* Category & Status Header */}
