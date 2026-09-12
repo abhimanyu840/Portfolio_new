@@ -367,11 +367,19 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm cursor-pointer"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       <div
+        onClick={(e) => e.stopPropagation()}
         className={`w-full ${
           isExpanded ? "h-[94vh]" : "max-w-3xl h-[65vh]"
-        } bg-[#080d1e] border border-indigo-950/80 rounded-xl shadow-2xl flex flex-col font-mono overflow-hidden transition-all duration-200`}
+        } bg-[#080d1e] border border-indigo-950/80 rounded-xl shadow-2xl flex flex-col font-mono overflow-hidden transition-all duration-200 cursor-default`}
       >
         {/* Terminal Title Bar */}
         <div className="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between select-none">
@@ -384,14 +392,14 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800"
+              className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 cursor-pointer"
               title={isExpanded ? "Restore" : "Maximize"}
             >
               {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             </button>
             <button
               onClick={onClose}
-              className="p-1 text-slate-400 hover:text-red-400 rounded hover:bg-slate-800"
+              className="p-1 text-slate-400 hover:text-red-400 rounded hover:bg-slate-800 cursor-pointer"
               title="Close (Esc)"
             >
               <X className="w-4 h-4" />

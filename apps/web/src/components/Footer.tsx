@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           {/* Back to top button */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer"
             title="Return to top of page"
           >
             <span>RETURN_TOP</span>

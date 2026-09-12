@@ -111,7 +111,7 @@ export const ContactSection: React.FC = () => {
               <div className="space-y-4 font-mono text-xs">
                 <a
                   href={`mailto:${DEVELOPER_PROFILE.email}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all group cursor-pointer"
                 >
                   <Mail className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
                   <div>
@@ -122,7 +122,7 @@ export const ContactSection: React.FC = () => {
 
                 <a
                   href={`tel:${DEVELOPER_PROFILE.phone}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group"
+                  className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group cursor-pointer"
                 >
                   <Phone className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
                   <div>
@@ -146,7 +146,7 @@ export const ContactSection: React.FC = () => {
                   href={DEVELOPER_PROFILE.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
                 >
                   <Globe className="w-3.5 h-3.5 text-indigo-400" />
                   <span>LinkedIn</span>
@@ -155,7 +155,7 @@ export const ContactSection: React.FC = () => {
                   href={DEVELOPER_PROFILE.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-purple-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
                 >
                   <GithubIcon className="w-3.5 h-3.5 text-purple-400" />
                   <span>GitHub</span>
@@ -164,7 +164,7 @@ export const ContactSection: React.FC = () => {
                   href={DEVELOPER_PROFILE.portfolio}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-slate-300 hover:text-white font-mono text-xs transition-all"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-blue-500 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer"
                 >
                   <Globe className="w-3.5 h-3.5 text-blue-400" />
                   <span>Live Portfolio</span>
@@ -272,7 +272,7 @@ export const ContactSection: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95"
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 disabled:opacity-50 text-white font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95 cursor-pointer disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <span>TRANSMITTING_PACKET...</span>

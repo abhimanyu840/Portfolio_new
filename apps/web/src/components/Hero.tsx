@@ -49,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
         <div className="flex flex-wrap items-center gap-4 mt-8 pt-2">
           <a
             href="#projects"
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-mono text-sm font-bold tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95"
+            className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 text-white font-mono text-sm font-bold tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95 cursor-pointer"
           >
             <span>EXPLORE_PROJECTS</span>
             <ArrowDown className="w-4 h-4" />
@@ -57,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
           <button
             onClick={onOpenTerminal}
-            className="px-5 py-3 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/60 text-slate-200 font-mono text-sm transition-all flex items-center gap-2 shadow-md hover:text-white"
+            className="px-5 py-3 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500/60 text-slate-200 font-mono text-sm transition-all flex items-center gap-2 shadow-md hover:text-white cursor-pointer"
           >
             <Terminal className="w-4 h-4 text-indigo-400" />
             <span>&gt;_ OPEN_TERMINAL_HUD</span>
@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
 
           <a
             href="#contact"
-            className="px-5 py-3 rounded-lg bg-slate-900/50 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/50 text-slate-300 hover:text-purple-300 font-mono text-sm transition-all flex items-center gap-2"
+            className="px-5 py-3 rounded-lg bg-slate-900/50 hover:bg-slate-800/80 border border-slate-800 hover:border-purple-500/50 text-slate-300 hover:text-purple-300 font-mono text-sm transition-all flex items-center gap-2 cursor-pointer"
           >
             <span>TRANSMIT_INQUIRY</span>
             <ExternalLink className="w-3.5 h-3.5" />

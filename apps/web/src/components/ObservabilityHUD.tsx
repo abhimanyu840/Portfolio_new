@@ -69,7 +69,7 @@ export const ObservabilityHUD: React.FC = () => {
             <button
               onClick={fetchTelemetry}
               disabled={isRefreshing}
-              className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-indigo-500 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60"
+              className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-indigo-500 font-mono text-xs text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
             >
               <RefreshCw className={`w-3.5 h-3.5 text-indigo-400 ${isRefreshing ? "animate-spin" : ""}`} />
               <span>{isRefreshing ? "SAMPLING..." : "REFRESH_TELEMETRY"}</span>

@@ -70,6 +70,7 @@ AGENTS.md                 # Project rules and context
 - Package manager: Bun (`bun install`, `bun add`, `bun run`).
 - Secrets and tokens: Database connection string (`MONGODB_URI`) resides in `.env.local` / Netlify environment variables, never committed to git.
 - API Design: Route Handlers in `src/app/api/v1/` with Zod input validation and uniform JSON responses `{ success: true, data: ... }`.
+- Interactive Styling: Universal `cursor: pointer` rule on `button`, `[role="button"]`, `a`, inputs, select, and summary in `globals.css` alongside explicit Tailwind `cursor-pointer` and `disabled:cursor-not-allowed` on all interactive UI components.
 
 ## First slice
 
@@ -88,11 +89,11 @@ Completed and verified:
 - Mongoose singleton connection with robust fallback (`apps/web/src/lib/db.ts`).
 - Comprehensive seed data representing Abhimanyu Kumar's full credentials, projects, and skills (`apps/web/src/lib/seed-data.ts`).
 - Observability & Dark Tech Minimalist UI components:
-  - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA.
+  - `Navbar`: Modern developer header with AK monogram squircle, role subtitle, navigation links, GitHub/LinkedIn icon buttons, terminal drawer trigger, and gradient CTA (all elements verified with `cursor-pointer`).
   - `Hero`: Headline, enterprise stats (1.5+ Yrs, 500+ Nodes, 12k/s flow, BITS Pilani M.Tech).
   - `ObservabilityHUD`: Real-time topology flow, enterprise storage status (NetApp, Dell EMC, Hitachi, Brocade SAN), sparklines in indigo/purple telemetry tint.
-  - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`.
-  - `Projects`: Filterable project showcase with deep architecture spec modal.
+  - `TerminalHUD`: Interactive drawer CLI with `help`, `whoami`, `projects`, `skills`, `experience`, `education`, `uptime`, `cat resume`, `contact`, `theme`, `clear`, `exit`, dismissable on backdrop click.
+  - `Projects`: Filterable project showcase with deep architecture spec modal and dismissable backdrop.
   - `Skills`: Categorized competency matrix across 7 domains with percentage meters.
   - `Experience`: Detailed Wipro enterprise telemetry timeline and BITS Pilani M.Tech academic foundation.
   - `ContactSection`: Validated transmission buffer form and direct communication channels.
@@ -115,6 +116,7 @@ Toolchain and application verified on this host:
 - `Invoke-RestMethod http://localhost:3000/api/v1/projects` -> HTTP 200 (5 projects)
 - `Invoke-RestMethod http://localhost:3000/api/v1/telemetry` -> HTTP 200 (live metrics)
 - `POST http://localhost:3000/api/v1/contact` -> HTTP 201 (valid), HTTP 400 (invalid)
+- Interactive cursor probe: 42/42 interactive elements verified with computed `cursor: pointer` and disabled state verified with `cursor: not-allowed`.
 - Browser testing: Headless Edge & Chrome verified 119KB DOM, fullpage desktop, mobile viewport, and mobile menu screenshots.
 
 ## Open questions

@@ -71,7 +71,7 @@ export const Projects: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
+              className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
                 activeCategory === cat.id
                   ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold shadow-md shadow-indigo-600/25"
                   : "bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800"
@@ -152,7 +152,7 @@ export const Projects: React.FC = () => {
               <div className="pt-5 mt-5 border-t border-slate-800 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedProject(project)}
-                  className="font-mono text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+                  className="font-mono text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer"
                 >
                   <span>SPEC_DETAILS</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -164,7 +164,7 @@ export const Projects: React.FC = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700"
+                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 cursor-pointer"
                       title="View GitHub Repository"
                     >
                       <GithubIcon className="w-4 h-4" />
@@ -175,7 +175,7 @@ export const Projects: React.FC = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-indigo-400 hover:bg-slate-700"
+                      className="p-1.5 rounded bg-slate-800 text-slate-400 hover:text-indigo-400 hover:bg-slate-700 cursor-pointer"
                       title="Inspect Live Endpoint"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -189,8 +189,14 @@ export const Projects: React.FC = () => {
 
         {/* Modal: Project Spec Drill-Down */}
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <div className="max-w-2xl w-full bg-[#080d1e] border border-indigo-950/80 rounded-xl p-6 shadow-2xl font-mono text-sm max-h-[90vh] overflow-y-auto">
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer"
+            onClick={() => setSelectedProject(null)}
+          >
+            <div
+              className="max-w-2xl w-full bg-[#080d1e] border border-indigo-950/80 rounded-xl p-6 shadow-2xl font-mono text-sm max-h-[90vh] overflow-y-auto cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                 <div>
                   <span className="text-[10px] uppercase text-indigo-400 font-bold">
@@ -200,7 +206,7 @@ export const Projects: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-1 text-slate-400 hover:text-white"
+                  className="p-1 text-slate-400 hover:text-white cursor-pointer"
                 >
                   ✕
                 </button>
@@ -257,7 +263,7 @@ export const Projects: React.FC = () => {
               <div className="mt-6 pt-4 border-t border-slate-800 flex justify-end">
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"
+                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold cursor-pointer"
                 >
                   DISMISS
                 </button>
