@@ -50,10 +50,10 @@ export const Projects: React.FC = () => {
   }, []);
 
   const categories = [
-    { id: "all", label: "All Systems", count: projects.length },
-    { id: "observability", label: "Observability & SAN", count: projects.filter((p) => p.category === "observability").length },
-    { id: "ai", label: "Enterprise AI & RAG", count: projects.filter((p) => p.category === "ai").length },
-    { id: "fullstack", label: "Full-Stack Platforms", count: projects.filter((p) => p.category === "fullstack").length },
+    { id: "all", label: "All", count: projects.length },
+    { id: "observability", label: "Observability", count: projects.filter((p) => p.category === "observability").length },
+    { id: "ai", label: "AI & RAG", count: projects.filter((p) => p.category === "ai").length },
+    { id: "fullstack", label: "Full-Stack", count: projects.filter((p) => p.category === "fullstack").length },
   ];
 
   const filtered =
@@ -66,31 +66,32 @@ export const Projects: React.FC = () => {
   return (
     <section id="projects" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="mb-10 pb-6 border-b border-white/[0.08] space-y-6">
-          <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 tracking-wider mb-2">
-              <FolderGit2 className="w-4 h-4 text-cyan-400" />
-              <span>01 // PRODUCTION ARCHITECTURE SHOWCASE</span>
+        {/* Section Header - Guaranteed Single Clean Line */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-5 border-b border-white/[0.08]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+              <FolderGit2 className="w-3.5 h-3.5" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Featured Engineering Systems
-            </h2>
-            <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Production-grade distributed telemetry engines, asynchronous FastAPI microservices, and reactive full-stack applications.
-            </p>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight whitespace-nowrap">
+                Featured Systems
+              </h2>
+              <span className="font-mono text-[10px] text-cyan-400/80 px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 uppercase hidden lg:inline-block whitespace-nowrap">
+                01 // ARCHITECTURE
+              </span>
+            </div>
           </div>
 
-          {/* Clean Horizontal Segmented Tabs */}
+          {/* Guaranteed Single-Line Segmented Tabs */}
           <div className="overflow-x-auto no-scrollbar">
-            <div className="inline-flex items-center p-1.5 bg-[#090c19]/90 backdrop-blur-md border border-white/[0.08] rounded-xl gap-2 shadow-lg shadow-black/40 min-w-max">
+            <div className="inline-flex items-center p-1 bg-[#090c19]/90 backdrop-blur-md border border-white/[0.08] rounded-xl gap-1 shrink-0 flex-nowrap shadow-lg shadow-black/40">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-mono font-medium flex items-center gap-2.5 transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium flex items-center gap-1.5 transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
                       isActive
                         ? "bg-gradient-to-r from-cyan-500/20 via-blue-600/25 to-indigo-600/20 text-cyan-300 font-semibold border border-cyan-500/40 shadow-sm shadow-cyan-500/20"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04] border border-transparent"
@@ -98,7 +99,7 @@ export const Projects: React.FC = () => {
                   >
                     <span>{cat.label}</span>
                     <span
-                      className={`text-[11px] font-mono px-2 py-0.5 rounded-md font-bold transition-colors ${
+                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md font-bold transition-colors ${
                         isActive
                           ? "bg-cyan-500/25 text-cyan-200 border border-cyan-500/30"
                           : "bg-white/[0.06] text-slate-400"

@@ -120,6 +120,7 @@ Toolchain and application verified on this host:
 - DOM section ordering probe: `[ "projects", "skills", "experience", "hud", "contact" ]` verified (`hud` rendered after `experience`).
 - Topbar scroll spy probe: Verified deterministic active section tracking across all 5 sections (`projects`, `skills`, `experience`, `hud`, `contact`) and top Hero state clearance via CDP.
 - Interactive cursor probe: All buttons, mode toggles, pipeline cards, and fabric node selectors verified with computed `cursor: pointer`.
+- Projects header single-line layout probe: Verified `Featured Systems` title and category segmented tabs (`All`, `Observability`, `AI & RAG`, `Full-Stack`) align on the exact same horizontal row (`sameRow: true`) across 768px, 1024px, 1280px, and 1440px viewports, with smooth horizontal scrolling on mobile.
 
 ## Open questions
 
