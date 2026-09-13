@@ -67,46 +67,57 @@ export const Projects: React.FC = () => {
     <section id="projects" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-white/[0.08] gap-4">
+        <div className="mb-10 pb-6 border-b border-white/[0.08] space-y-6">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
+            <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 tracking-wider mb-2">
               <FolderGit2 className="w-4 h-4 text-cyan-400" />
               <span>01 // PRODUCTION ARCHITECTURE SHOWCASE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Featured Engineering Systems
             </h2>
-            <p className="mt-2 text-sm text-slate-400 max-w-2xl">
+            <p className="mt-2 text-sm text-slate-400 max-w-2xl leading-relaxed">
               Production-grade distributed telemetry engines, asynchronous FastAPI microservices, and reactive full-stack applications.
             </p>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 sm:p-1.5 bg-black/40 border border-white/[0.08] rounded-2xl sm:rounded-full">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-                  activeCategory === cat.id
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/25"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${activeCategory === cat.id ? "bg-white/20 text-white" : "bg-white/[0.06] text-slate-400"}`}>
-                  {cat.count}
-                </span>
-              </button>
-            ))}
+          {/* Clean Horizontal Segmented Tabs */}
+          <div className="overflow-x-auto no-scrollbar">
+            <div className="inline-flex items-center p-1.5 bg-[#090c19]/90 backdrop-blur-md border border-white/[0.08] rounded-xl gap-2 shadow-lg shadow-black/40 min-w-max">
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-mono font-medium flex items-center gap-2.5 transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                      isActive
+                        ? "bg-gradient-to-r from-cyan-500/20 via-blue-600/25 to-indigo-600/20 text-cyan-300 font-semibold border border-cyan-500/40 shadow-sm shadow-cyan-500/20"
+                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04] border border-transparent"
+                    }`}
+                  >
+                    <span>{cat.label}</span>
+                    <span
+                      className={`text-[11px] font-mono px-2 py-0.5 rounded-md font-bold transition-colors ${
+                        isActive
+                          ? "bg-cyan-500/25 text-cyan-200 border border-cyan-500/30"
+                          : "bg-white/[0.06] text-slate-400"
+                      }`}
+                    >
+                      {cat.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
         {/* ========================================================= */}
-        {/* FLAGSHIP BENTO SPOTLIGHT (UnifiedOps)                      */}
+        {/* FLAGSHIP BENTO SPOTLIGHT (UnifiedOps - Shown in "All" view) */}
         {/* ========================================================= */}
-        {(activeCategory === "all" || activeCategory === "observability") && flagshipProject && (
-          <div className="mb-10 p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl glass-panel border border-cyan-500/30 hover:border-cyan-500/50 shadow-2xl shadow-cyan-500/5 transition-all relative overflow-hidden group">
+        {activeCategory === "all" && flagshipProject && (
+          <div className="mb-10 p-6 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl glass-panel border border-cyan-500/30 hover:border-cyan-500/50 shadow-2xl shadow-cyan-500/5 transition-all relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-cyan-500/10 via-blue-600/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
@@ -191,20 +202,32 @@ export const Projects: React.FC = () => {
         )}
 
         {/* ========================================================= */}
-        {/* SECONDARY PROJECTS BENTO GRID                             */}
+        {/* PROJECTS BENTO GRID                                       */}
         {/* ========================================================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered
-            .filter((p) => p.id !== (activeCategory === "all" ? "unified-ops" : ""))
-            .map((project) => (
+          {(activeCategory === "all"
+            ? projects.filter((p) => p.id !== (flagshipProject ? flagshipProject.id : ""))
+            : filtered
+          ).map((project) => {
+            const isSingle = activeCategory !== "all" && filtered.length === 1;
+            const categoryBadge =
+              project.category === "observability"
+                ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/30"
+                : project.category === "ai"
+                ? "bg-purple-500/10 text-purple-300 border-purple-500/30"
+                : "bg-blue-500/10 text-blue-300 border-blue-500/30";
+
+            return (
               <div
                 key={project.id}
-                className="glass-panel p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-black/50"
+                className={`glass-panel p-6 sm:p-7 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-cyan-500/40 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-cyan-500/5 ${
+                  isSingle ? "col-span-1 md:col-span-2" : ""
+                }`}
               >
                 <div>
                   {/* Category & Status Header */}
-                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06]">
-                    <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-cyan-300 uppercase">
+                  <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/[0.06]">
+                    <span className={`font-mono text-[11px] font-bold px-2.5 py-1 rounded-md border uppercase ${categoryBadge}`}>
                       {project.category}
                     </span>
                     <span className="font-mono text-xs text-slate-400 flex items-center gap-1.5">
@@ -213,19 +236,32 @@ export const Projects: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-200 transition-colors">
                     {project.title}
                   </h3>
                   <div className="text-xs font-mono text-cyan-400/90 mt-1 mb-3">
                     {project.tagline}
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                     {project.description}
                   </p>
 
+                  {/* Tech Stack Pills with Brand SVGs */}
+                  <div className="flex flex-wrap items-center gap-1.5 my-3.5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] font-mono text-xs text-slate-300"
+                      >
+                        <span className="shrink-0">{getTechIcon(tag, "w-3 h-3")}</span>
+                        <span>{tag}</span>
+                      </span>
+                    ))}
+                  </div>
+
                   {/* Architecture Bullet Highlights */}
-                  <div className="space-y-1.5 mb-5">
+                  <div className="space-y-2 mb-5">
                     {project.highlights.slice(0, 2).map((h, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-slate-300">
                         <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
@@ -235,11 +271,11 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Metrics Bar */}
-                  <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-black/40 border border-white/[0.06] mb-4 font-mono text-[11px]">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5 p-3 rounded-xl bg-black/40 border border-white/[0.06] mb-4 font-mono text-xs">
                     {Object.entries(project.metrics).slice(0, 2).map(([key, val]) => (
                       <div key={key}>
-                        <span className="text-slate-500">{key}: </span>
-                        <span className="text-white font-bold">{val}</span>
+                        <span className="text-slate-500 uppercase text-[10px] block">{key}</span>
+                        <span className="text-white font-bold text-xs sm:text-sm mt-0.5 block">{val}</span>
                       </div>
                     ))}
                   </div>
@@ -249,7 +285,7 @@ export const Projects: React.FC = () => {
                 <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                    className="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
                     <span>Inspect System Architecture</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -281,7 +317,8 @@ export const Projects: React.FC = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            );
+          })}
         </div>
 
         {/* ========================================================= */}
