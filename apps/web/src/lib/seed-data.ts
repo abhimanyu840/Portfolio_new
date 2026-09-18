@@ -12,7 +12,7 @@ export const DEVELOPER_PROFILE = {
   status: "Operational // Open to High-Impact Opportunities",
   github: "https://github.com/abhimanyu840",
   linkedin: "https://linkedin.com/in/abhimanyukumar",
-  portfolio: "https://abhimanyukumarportfolio.netlify.app/",
+  portfolio: process.env.NEXT_PUBLIC_SITE_URL || "https://abhimanyu.qzz.io",
   uptimeStart: "2024-01-01T00:00:00.000Z",
 };
 

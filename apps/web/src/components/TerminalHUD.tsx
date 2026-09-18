@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Maximize2, Minimize2, Terminal as TerminalIcon } from "lucide-react";
 import { DEVELOPER_PROFILE, SEED_PROJECTS, SEED_EXPERIENCE, SEED_EDUCATION, SEED_SKILL_GROUPS } from "@/lib/seed-data";
+import { useTheme } from "@/context/ThemeContext";
 
 interface TerminalHUDProps {
   isOpen: boolean;
@@ -18,6 +20,8 @@ interface CommandLog {
 }
 
 export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => {
+  const { resolvedTheme, setTheme, toggleTheme } = useTheme();
+  const shouldReduceMotion = useReducedMotion();
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
@@ -96,8 +100,8 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
               <div><span className="text-indigo-300 font-bold">experience</span> — Wipro enterprise track &amp; SAN storage</div>
               <div><span className="text-indigo-300 font-bold">education</span> — BITS Pilani M.Tech &amp; BCA degrees</div>
               <div><span className="text-indigo-300 font-bold">uptime</span> — System health &amp; active session duration</div>
-              <div><span className="text-indigo-300 font-bold">contact</span> — Email, phone, GitHub, LinkedIn links</div>
-              <div><span className="text-indigo-300 font-bold">theme</span> — Toggle prompt color (indigo/purple/cyan)</div>
+              <div><span className="text-indigo-300 font-bold">contact [status]</span> — Direct channels &amp; gateway status</div>
+              <div><span className="text-indigo-300 font-bold">theme [dark|light|toggle]</span> — Switch UI theme or terminal prompt color</div>
               <div><span className="text-indigo-300 font-bold">history</span> — View recent command history</div>
               <div><span className="text-indigo-300 font-bold">clear</span> — Wipe terminal viewport</div>
               <div><span className="text-indigo-300 font-bold">exit</span> — Dismiss terminal drawer</div>
@@ -286,20 +290,84 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         break;
 
       case "contact":
-        resultNode = (
-          <div className="space-y-1 text-xs sm:text-sm">
-            <div><span className="text-indigo-300">Email:</span> <a href={`mailto:${DEVELOPER_PROFILE.email}`} className="underline hover:text-white">{DEVELOPER_PROFILE.email}</a></div>
-            <div><span className="text-indigo-300">Phone:</span> {DEVELOPER_PROFILE.phone}</div>
-            <div><span className="text-indigo-300">LinkedIn:</span> <a href={DEVELOPER_PROFILE.linkedin} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.linkedin}</a></div>
-            <div><span className="text-indigo-300">GitHub:</span> <a href={DEVELOPER_PROFILE.github} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.github}</a></div>
-            <div><span className="text-indigo-300">Portfolio:</span> {DEVELOPER_PROFILE.portfolio}</div>
-          </div>
-        );
+        if (arg === "status") {
+          resultNode = (
+            <div className="space-y-1.5 text-xs font-mono">
+              <div className="text-cyan-300 font-bold">[GATEWAY STATUS]: ACTIVE // TLS 1.3 ENCRYPTED</div>
+              <div className="text-slate-300">Target Endpoint: <span className="text-cyan-400">POST /api/v1/contact</span></div>
+              <div className="text-slate-400">Rate Limit: 5 transmissions / 10 min window</div>
+              <div className="text-emerald-400 font-semibold">Guaranteed Response SLA: &lt; 24 Hours</div>
+              <div className="text-slate-500 text-[11px] pt-1">
+                Execute &apos;contact&apos; to view verified production direct access channels.
+              </div>
+            </div>
+          );
+        } else {
+          resultNode = (
+            <div className="space-y-2 text-xs sm:text-sm font-mono">
+              <div className="text-cyan-400 font-bold">DIRECT ACCESS CHANNELS // ABHIMANYU KUMAR</div>
+              <div className="space-y-1 text-slate-300 pl-2.5 border-l-2 border-cyan-500/40">
+                <div><span className="text-indigo-300">Email:</span> <a href={`mailto:${DEVELOPER_PROFILE.email}`} className="underline hover:text-white">{DEVELOPER_PROFILE.email}</a></div>
+                <div><span className="text-indigo-300">Phone:</span> {DEVELOPER_PROFILE.phone}</div>
+                <div><span className="text-indigo-300">LinkedIn:</span> <a href={DEVELOPER_PROFILE.linkedin} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.linkedin}</a></div>
+                <div><span className="text-indigo-300">GitHub:</span> <a href={DEVELOPER_PROFILE.github} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.github}</a></div>
+                <div><span className="text-indigo-300">Portfolio:</span> {DEVELOPER_PROFILE.portfolio}</div>
+              </div>
+              <div className="text-slate-500 text-[11px] pt-1 flex items-center justify-between">
+                <span>Commands: <span className="text-indigo-300">&apos;contact status&apos;</span></span>
+                <span>Transmission Form: <a href="#contact" onClick={onClose} className="text-cyan-400 underline">#contact ↗</a></span>
+              </div>
+            </div>
+          );
+        }
         break;
 
       case "theme":
-        setPromptColor((prev) => (prev === "indigo" ? "purple" : prev === "purple" ? "cyan" : "indigo"));
-        resultNode = <div className="text-slate-300">Prompt accent theme cycled.</div>;
+        if (arg === "dark") {
+          setTheme("dark");
+          resultNode = (
+            <div className="text-cyan-300 font-mono text-xs">
+              [SYSTEM] UI Theme switched to: <strong className="text-white">DARK MODE (Obsidian Telemetry)</strong> 🌙
+            </div>
+          );
+        } else if (arg === "light") {
+          setTheme("light");
+          resultNode = (
+            <div className="text-amber-300 font-mono text-xs">
+              [SYSTEM] UI Theme switched to: <strong className="text-white">LIGHT MODE (Modern Slate)</strong> ☀️
+            </div>
+          );
+        } else if (arg === "system") {
+          setTheme("system");
+          resultNode = (
+            <div className="text-indigo-300 font-mono text-xs">
+              [SYSTEM] UI Theme synchronized with: <strong className="text-white">OS SYSTEM PREFERENCE</strong> 💻 (Active: {resolvedTheme.toUpperCase()})
+            </div>
+          );
+        } else if (arg.startsWith("prompt")) {
+          const colorArg = arg.split(" ")[1];
+          if (colorArg === "cyan" || colorArg === "indigo" || colorArg === "purple") {
+            setPromptColor(colorArg);
+          } else {
+            setPromptColor((prev) => (prev === "indigo" ? "purple" : prev === "purple" ? "cyan" : "indigo"));
+          }
+          resultNode = <div className="text-slate-300 font-mono text-xs">[SYSTEM] Terminal prompt accent updated.</div>;
+        } else if (!arg || arg === "toggle") {
+          toggleTheme();
+          const nextMode = resolvedTheme === "dark" ? "LIGHT MODE ☀️" : "DARK MODE 🌙";
+          resultNode = (
+            <div className="text-cyan-300 font-mono text-xs">
+              [SYSTEM] UI Theme toggled to: <strong className="text-white">{nextMode}</strong>
+            </div>
+          );
+        } else {
+          resultNode = (
+            <div className="text-slate-400 font-mono text-xs space-y-1">
+              <div>Usage: <span className="text-indigo-300">theme [dark | light | system | toggle | prompt &lt;cyan|indigo|purple&gt;]</span></div>
+              <div>Current UI Theme: <span className="text-cyan-300 uppercase font-semibold">{resolvedTheme}</span></div>
+            </div>
+          );
+        }
         break;
 
       case "clear":
@@ -334,7 +402,8 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
 
   const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleCommand(input);
+      const val = e.currentTarget.value || input;
+      handleCommand(val);
       setInput("");
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -358,8 +427,6 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
     }
   };
 
-  if (!isOpen) return null;
-
   const colorStyles = {
     indigo: "text-indigo-400",
     purple: "text-purple-400",
@@ -367,20 +434,34 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm cursor-pointer"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={`w-full ${
-          isExpanded ? "h-[94vh]" : "max-w-3xl h-[65vh]"
-        } bg-[#060813] border border-white/[0.12] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col font-mono overflow-hidden transition-all duration-200 cursor-default`}
-      >
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm cursor-pointer"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              onClose();
+            }
+          }}
+        >
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 14 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 420, damping: 30 }
+            }
+            className={`w-full ${
+              isExpanded ? "h-[94vh]" : "max-w-3xl h-[65vh]"
+            } bg-[#060813] border border-white/[0.12] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col font-mono overflow-hidden cursor-default`}
+          >
         {/* Terminal Title Bar */}
         <div className="px-4 py-3 bg-black/60 border-b border-white/[0.08] flex items-center justify-between select-none">
           <div className="flex items-center space-x-2">
@@ -443,7 +524,9 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
             autoFocus
           />
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

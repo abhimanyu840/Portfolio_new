@@ -81,6 +81,7 @@ export const ContactSchema = z.object({
     .string({ required_error: "Message is required" })
     .min(10, "Message must be at least 10 characters")
     .max(2000, "Message must not exceed 2000 characters"),
+  hp_company_field: z.string().optional(),
 });
 
 export type IContactRequest = z.infer<typeof ContactSchema>;
