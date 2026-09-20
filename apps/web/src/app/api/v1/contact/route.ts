@@ -43,12 +43,46 @@ function getClientIp(request: NextRequest): string {
 }
 
 export async function GET() {
-  return NextResponse.json<ApiResponse<{ status: string; bufferSize: number; rateLimitWindowMinutes: number }>>({
+  const isResendConfigured = Boolean(process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim() !== "");
+  const isWebhookConfigured = Boolean(process.env.CONTACT_WEBHOOK_URL && process.env.CONTACT_WEBHOOK_URL.trim() !== "");
+  const isMongoConfigured = Boolean(process.env.MONGODB_URI && process.env.MONGODB_URI.trim() !== "");
+
+  return NextResponse.json<ApiResponse<{
+    status: string;
+    bufferSize: number;
+    rateLimitWindowMinutes: number;
+    integrations: {
+      resend: {
+        configured: boolean;
+        recipient: string;
+        sender: string;
+      };
+      webhook: {
+        configured: boolean;
+      };
+      database: {
+        configured: boolean;
+      };
+    };
+  }>>({
     success: true,
     data: {
       status: "operational",
       bufferSize: submissionsBuffer.length,
       rateLimitWindowMinutes: 10,
+      integrations: {
+        resend: {
+          configured: isResendConfigured,
+          recipient: process.env.CONTACT_TO_EMAIL || "akabhimanyukumar111@gmail.com",
+          sender: process.env.CONTACT_FROM_EMAIL || "Portfolio Inbound <onboarding@resend.dev>",
+        },
+        webhook: {
+          configured: isWebhookConfigured,
+        },
+        database: {
+          configured: isMongoConfigured,
+        },
+      },
     },
     message: "Contact transmission gateway is active and operational.",
     timestamp: new Date().toISOString(),
@@ -151,6 +185,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Tier 1: Resend REST API Email Dispatch (Native fetch, zero npm dependencies)
+    let emailDispatched = false;
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey && resendApiKey.trim() !== "") {
       try {
@@ -199,11 +234,14 @@ export async function POST(request: NextRequest) {
           const errText = await resendRes.text();
           console.warn("[Resend Email Warning]: Dispatch returned non-200 status:", resendRes.status, errText);
         } else {
+          emailDispatched = true;
           console.info(`[Resend Email]: Successfully dispatched email to ${toEmail} from ${name}`);
         }
       } catch (resendErr) {
         console.warn("[Resend Email Error]: Network failure calling Resend API:", resendErr);
       }
+    } else {
+      console.warn("[Contact Gateway]: RESEND_API_KEY is not configured or empty in environment variables. Email dispatch bypassed; payload saved to telemetry buffer.");
     }
 
     // Tier 2: Instant Webhook Dispatch (Discord / Slack / Telegram via native fetch)
@@ -288,7 +326,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json<ApiResponse<IContactSubmission>>(
       {
         success: true,
-        message: "Message transmitted successfully to telemetry buffer. Abhimanyu will review shortly.",
+        message: emailDispatched
+          ? "Message transmitted successfully! Direct notification dispatched to Abhimanyu's inbox."
+          : "Message transmitted successfully to telemetry buffer. Abhimanyu will review shortly.",
         data,
         timestamp: createdAt,
       },

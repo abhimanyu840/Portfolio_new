@@ -34,5 +34,6 @@ bun.lockb
 .DS_Store
 Thumbs.db
 
-# AI scratch
-ai-workspace/scratch/
+# AI workspace
+ai-workspace/
+

@@ -206,18 +206,19 @@ Toolchain and application verified on this host:
   - Architecture Lab 3D View: Verified `3D SAN Topology` tab switch in `ObservabilityHUD.tsx` (`hasTopology3dBtn: true, hudCanvasesCount: 1, isBtnActive: true`).
   - Theme Adaptation: Verified materials and canvas rendering across Dark Mode and Light Mode (`three_hero_dark.png`, `three_hero_light.png`, `three_hud_dark.png`, `three_hud_light.png`).
   - Mobile Responsiveness: Verified on 375x812 viewport with zero horizontal scroll overflow (`hasOverflow: false`, `windowWidth: 375, scrollWidth: 375`).
-- Contact Transmission Gateway & UI Verification Probe (`test-contact-api.mjs`, `verify-contact-ui-cdp.mjs`, `test-react-form.mjs`):
-  - Gateway Status Endpoint: `GET /api/v1/contact` verified returning `{ status: "operational", bufferSize: N, rateLimitWindowMinutes: 10 }`.
-  - Transmission Dispatch: Verified HTTP 201 Created on valid submission with unique ID (`msg_<timestamp>_<hash>`) and message buffering.
+- Contact Transmission Gateway & Resend Verification Probe (`apps/web/src/app/api/v1/contact/route.ts`):
+  - Environment Resolution: Synced `RESEND_API_KEY` into `apps/web/.env.local` to prevent Next.js workspace precedence from falling back to empty string.
+  - Gateway Status Endpoint: `GET /api/v1/contact` verified returning `{ status: "operational", integrations: { resend: { configured: true, recipient: "akabhimanyukumar111@gmail.com", sender: "Portfolio Inbound <onboarding@resend.dev>" } } }`.
+  - Live Resend Dispatch: Verified live HTTP 200 dispatch via Resend REST API to `akabhimanyukumar111@gmail.com` (Message ID `01a0bfb7-5e17-7232-83c9-49345e44610f`) and live Next.js POST dispatch (`[Resend Email]: Successfully dispatched email to akabhimanyukumar111@gmail.com from Verification Probe`).
+  - Transmission Dispatch: Verified HTTP 201 Created on valid submission with unique ID (`msg_<timestamp>_<hash>`) and dynamic client feedback message indicating direct inbox dispatch.
   - Multi-tier Fallback: Verified graceful degradation when external keys omitted, logging to in-memory FIFO buffer without uncaught exceptions.
   - Honeypot Anti-Spam Trap: Verified automated bot submissions with filled `hp_company_field` are intercepted, returning synthetic HTTP 201 (`msg_bot_<timestamp>`) while null-routing the payload without consuming human rate limit quotas or external API credits.
   - Token-Bucket Rate Limiting: Verified sliding-window throttling returning HTTP 429 Too Many Requests with descriptive error and `Retry-After` header when limit reached.
   - Client Form Hotkeys: Verified `Ctrl + Enter` / `Cmd + Enter` shortcut on textarea and inputs triggers submission immediately.
   - Preset Subject Pills: Verified clicking preset pills (`⚡ Enterprise SRE`, `🚀 Full-Stack`, `🛠️ Distributed Systems`) automatically populates the subject input and clears field errors.
   - Real-Time Character Counter: Verified dynamic calculation (`0 / 2000 chars`) with warning thresholds.
-  - Success State & Countdown Timer: Verified display of emerald success banner (`Message transmitted successfully to telemetry buffer...`), submit button transition to `TRANSMITTED ✓ (<N>s)`, and automatic button restoration after 5 seconds.
+  - Success State & Countdown Timer: Verified display of emerald success banner (`Message transmitted successfully! Direct notification dispatched to Abhimanyu's inbox.`), submit button transition to `TRANSMITTED ✓ (<N>s)`, and automatic button restoration after 5 seconds.
   - Terminal HUD Integration: Verified `contact status` command outputs live gateway health and encryption status, and `contact` command outputs verified direct channels with interactive `#contact` link.
-  - Dual-Theme Visuals: Verified form layout, inputs, and button states in both Dark Mode (`verified_form_success_countdown.png`) and Light Mode (`verified_contact_light_mode.png`).
 
 ## Open questions
 
