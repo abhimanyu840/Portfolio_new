@@ -9,12 +9,13 @@ interface ThreeBackgroundProps {
 }
 
 export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
-  particleCount = 140,
+  particleCount = 550,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
   const themeRef = useRef(resolvedTheme);
 
+  // Keep theme ref updated for immediate access in animation loop
   useEffect(() => {
     themeRef.current = resolvedTheme;
   }, [resolvedTheme]);
@@ -23,25 +24,37 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    // Check prefers-reduced-motion
+    // Detect accessibility preference
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
 
-    // Dimensions
+    // Viewport dimensions
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    // Scene, Camera, Renderer
+    // 1. Scene, Camera, and Fog
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
-    camera.position.z = 400;
+    const isInitialDark = themeRef.current === "dark";
+    const bgHexDark = 0x060813;
+    const bgHexLight = 0xf8fafc;
+    const initialBgHex = isInitialDark ? bgHexDark : bgHexLight;
 
+    scene.fog = new THREE.FogExp2(initialBgHex, isInitialDark ? 0.0019 : 0.0022);
+
+    const camera = new THREE.PerspectiveCamera(55, width / height, 1, 1400);
+    camera.position.set(0, 35, 420);
+    camera.lookAt(0, -35, 0);
+
+    // 2. WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
-      powerPreference: "low-power",
+      powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(initialBgHex, 0);
+
     renderer.domElement.style.position = "absolute";
     renderer.domElement.style.top = "0";
     renderer.domElement.style.left = "0";
@@ -50,211 +63,338 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
     renderer.domElement.style.pointerEvents = "none";
     container.appendChild(renderer.domElement);
 
-    // Particle Setup
-    const count = prefersReducedMotion ? 60 : particleCount;
-    const positions = new Float32Array(count * 3);
-    const velocities: { x: number; y: number; z: number }[] = [];
-    const colors = new Float32Array(count * 3);
+    // 3. Cybernetic Topological Wave Grid (Terrain Plane)
+    const gridWidth = isMobile ? 800 : 1100;
+    const gridHeight = isMobile ? 650 : 850;
+    const segmentsX = isMobile ? 32 : 48;
+    const segmentsY = isMobile ? 24 : 36;
 
-    // Palette: Cyan, Blue, Indigo, Purple
-    const paletteDark = [
-      new THREE.Color("#06b6d4"), // Cyan
-      new THREE.Color("#3b82f6"), // Blue
-      new THREE.Color("#6366f1"), // Indigo
-      new THREE.Color("#a855f7"), // Purple
-    ];
-    const paletteLight = [
-      new THREE.Color("#0284c7"), // Deep Cyan
-      new THREE.Color("#2563eb"), // Royal Blue
-      new THREE.Color("#4f46e5"), // Indigo
-      new THREE.Color("#7c3aed"), // Purple
-    ];
+    const terrainGeometry = new THREE.PlaneGeometry(gridWidth, gridHeight, segmentsX, segmentsY);
+    terrainGeometry.rotateX(-Math.PI / 2.22);
+    terrainGeometry.translate(0, -115, -120);
 
-    const currentPalette = themeRef.current === "dark" ? paletteDark : paletteLight;
+    const vertexCount = terrainGeometry.attributes.position.count;
+    const originalPositions = new Float32Array(terrainGeometry.attributes.position.array);
+    const terrainColors = new Float32Array(vertexCount * 3);
 
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 800;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 600;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
+    // Palette gradients
+    const colorCyanDark = new THREE.Color("#06b6d4");
+    const colorBlueDark = new THREE.Color("#3b82f6");
+    const colorIndigoDark = new THREE.Color("#6366f1");
+    const colorPurpleDark = new THREE.Color("#a855f7");
 
-      velocities.push({
-        x: (Math.random() - 0.5) * 0.35,
-        y: (Math.random() - 0.5) * 0.35,
-        z: (Math.random() - 0.5) * 0.2,
-      });
+    const colorCyanLight = new THREE.Color("#0284c7");
+    const colorBlueLight = new THREE.Color("#2563eb");
+    const colorIndigoLight = new THREE.Color("#4f46e5");
+    const colorPurpleLight = new THREE.Color("#7c3aed");
 
-      const col = currentPalette[i % currentPalette.length];
-      colors[i * 3] = col.r;
-      colors[i * 3 + 1] = col.g;
-      colors[i * 3 + 2] = col.b;
-    }
+    const updateTerrainColors = (isDark: boolean) => {
+      const cCyan = isDark ? colorCyanDark : colorCyanLight;
+      const cBlue = isDark ? colorBlueDark : colorBlueLight;
+      const cIndigo = isDark ? colorIndigoDark : colorIndigoLight;
+      const cPurple = isDark ? colorPurpleDark : colorPurpleLight;
 
-    const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+      const pos = terrainGeometry.attributes.position;
+      for (let i = 0; i < vertexCount; i++) {
+        // Compute depth ratio from foreground (-Z near) to horizon (+Z deep)
+        const zPos = pos.getZ(i);
+        const ratio = THREE.MathUtils.clamp((zPos + 400) / 700, 0, 1);
 
-    // Circle texture for soft round particles
+        const vertexColor = new THREE.Color();
+        if (ratio < 0.35) {
+          vertexColor.lerpColors(cCyan, cBlue, ratio / 0.35);
+        } else if (ratio < 0.7) {
+          vertexColor.lerpColors(cBlue, cIndigo, (ratio - 0.35) / 0.35);
+        } else {
+          vertexColor.lerpColors(cIndigo, cPurple, (ratio - 0.7) / 0.3);
+        }
+
+        terrainColors[i * 3] = vertexColor.r;
+        terrainColors[i * 3 + 1] = vertexColor.g;
+        terrainColors[i * 3 + 2] = vertexColor.b;
+      }
+
+      terrainGeometry.setAttribute("color", new THREE.BufferAttribute(terrainColors, 3));
+      terrainGeometry.attributes.color.needsUpdate = true;
+    };
+
+    updateTerrainColors(isInitialDark);
+
+    const terrainMaterial = new THREE.MeshBasicMaterial({
+      wireframe: true,
+      vertexColors: true,
+      transparent: true,
+      opacity: isInitialDark ? 0.22 : 0.12,
+      depthWrite: false,
+    });
+
+    const terrainMesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
+    scene.add(terrainMesh);
+
+    // 4. Volumetric Photon Data Stream (Particles)
+    const effectiveParticleCount = prefersReducedMotion
+      ? 100
+      : isMobile
+      ? Math.floor(particleCount * 0.45)
+      : particleCount;
+
+    const particlePositions = new Float32Array(effectiveParticleCount * 3);
+    const particleColors = new Float32Array(effectiveParticleCount * 3);
+    const particleSizes = new Float32Array(effectiveParticleCount);
+    const particleVelocities: { x: number; y: number; z: number; freq: number }[] = [];
+
+    // Create high-res circular glow particle texture
     const canvas = document.createElement("canvas");
-    canvas.width = 32;
-    canvas.height = 32;
+    canvas.width = 64;
+    canvas.height = 64;
     const ctx = canvas.getContext("2d");
     if (ctx) {
-      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, "rgba(255,255,255,1)");
-      gradient.addColorStop(0.3, "rgba(255,255,255,0.85)");
-      gradient.addColorStop(0.8, "rgba(255,255,255,0.15)");
-      gradient.addColorStop(1, "rgba(255,255,255,0)");
+      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+      gradient.addColorStop(0.25, "rgba(255, 255, 255, 0.85)");
+      gradient.addColorStop(0.6, "rgba(255, 255, 255, 0.25)");
+      gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 32, 32);
+      ctx.fillRect(0, 0, 64, 64);
     }
     const particleTexture = new THREE.CanvasTexture(canvas);
 
+    const updateParticleColors = (isDark: boolean) => {
+      const darkPalette = [colorCyanDark, colorBlueDark, colorIndigoDark, colorPurpleDark];
+      const lightPalette = [colorCyanLight, colorBlueLight, colorIndigoLight, colorPurpleLight];
+      const palette = isDark ? darkPalette : lightPalette;
+
+      for (let i = 0; i < effectiveParticleCount; i++) {
+        const c = palette[i % palette.length];
+        particleColors[i * 3] = c.r;
+        particleColors[i * 3 + 1] = c.g;
+        particleColors[i * 3 + 2] = c.b;
+      }
+    };
+
+    for (let i = 0; i < effectiveParticleCount; i++) {
+      particlePositions[i * 3] = (Math.random() - 0.5) * 950;
+      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 500 + 40;
+      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 750 - 50;
+
+      particleSizes[i] = Math.random() * 4.5 + 2.5;
+
+      particleVelocities.push({
+        x: (Math.random() - 0.5) * 0.18,
+        y: (Math.random() - 0.5) * 0.15,
+        z: Math.random() * 0.45 + 0.25, // Stream forward toward camera
+        freq: Math.random() * 2 + 1,
+      });
+    }
+
+    updateParticleColors(isInitialDark);
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
+    particleGeometry.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
+    particleGeometry.setAttribute("size", new THREE.BufferAttribute(particleSizes, 1));
+
     const particleMaterial = new THREE.PointsMaterial({
-      size: 5,
+      size: 4.5,
       map: particleTexture,
       vertexColors: true,
       transparent: true,
-      opacity: themeRef.current === "dark" ? 0.75 : 0.6,
-      blending: THREE.NormalBlending,
+      opacity: isInitialDark ? 0.72 : 0.5,
+      blending: isInitialDark ? THREE.AdditiveBlending : THREE.NormalBlending,
       depthWrite: false,
     });
 
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particleSystem);
 
-    // Line Connections Setup (Max connections buffer)
-    const maxConnections = count * 5;
-    const linePositions = new Float32Array(maxConnections * 2 * 3);
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute("position", new THREE.BufferAttribute(linePositions, 3));
+    // 5. Interactive Tracking & Motion Dynamics
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
 
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: themeRef.current === "dark" ? 0x38bdf8 : 0x64748b,
-      transparent: true,
-      opacity: themeRef.current === "dark" ? 0.12 : 0.08,
-      blending: THREE.NormalBlending,
-      depthWrite: false,
-    });
+    let targetScrollRatio = 0;
+    let currentScrollRatio = 0;
 
-    const lineSystem = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(lineSystem);
-
-    // Mouse Tracking for subtle camera tilt parallax
-    let targetX = 0;
-    let targetY = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      targetX = ((e.clientX - width / 2) / (width / 2)) * 30;
-      targetY = (-(e.clientY - height / 2) / (height / 2)) * 30;
+      // Normalized screen space [-1, 1]
+      targetMouseX = (e.clientX / width) * 2 - 1;
+      targetMouseY = -(e.clientY / height) * 2 + 1;
+    };
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const docHeight = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      targetScrollRatio = Math.min(Math.max(scrollY / docHeight, 0), 1);
     };
 
     if (!prefersReducedMotion) {
       window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      handleScroll(); // Initial measure
     }
 
-    // Window Resize Handler
+    // 6. Window Resize Handler
     const handleResize = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Animation Loop
+    // 7. Visibility Change: Pause when tab hidden to preserve battery
+    let isTabVisible = !document.hidden;
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // 8. Animation & Render Loop
     let animationFrameId: number;
-    const connectionDist = 110;
-    const maxDistSq = connectionDist * connectionDist;
+    const clock = new THREE.Clock();
+    let prevThemeState = isInitialDark;
 
     const animate = () => {
-      // Smooth Camera Damping
-      if (!prefersReducedMotion) {
-        camera.position.x += (targetX - camera.position.x) * 0.04;
-        camera.position.y += (targetY - camera.position.y) * 0.04;
-        camera.lookAt(0, 0, 0);
+      animationFrameId = requestAnimationFrame(animate);
 
-        // Update Particle Positions
-        const posAttr = particleGeometry.attributes.position as THREE.BufferAttribute;
-        const posArr = posAttr.array as Float32Array;
+      if (!isTabVisible) return;
 
-        for (let i = 0; i < count; i++) {
-          const idx = i * 3;
-          posArr[idx] += velocities[i].x;
-          posArr[idx + 1] += velocities[i].y;
-          posArr[idx + 2] += velocities[i].z;
+      const isCurrentDark = themeRef.current === "dark";
 
-          // Boundary bounce with damping
-          if (posArr[idx] < -400 || posArr[idx] > 400) velocities[i].x *= -1;
-          if (posArr[idx + 1] < -300 || posArr[idx + 1] > 300) velocities[i].y *= -1;
-          if (posArr[idx + 2] < -200 || posArr[idx + 2] > 200) velocities[i].z *= -1;
+      // Reactive theme update on user switch
+      if (isCurrentDark !== prevThemeState) {
+        prevThemeState = isCurrentDark;
+        const bgHex = isCurrentDark ? bgHexDark : bgHexLight;
+
+        if (scene.fog) {
+          (scene.fog as THREE.FogExp2).color.setHex(bgHex);
+          (scene.fog as THREE.FogExp2).density = isCurrentDark ? 0.0019 : 0.0022;
         }
+
+        renderer.setClearColor(bgHex, 0);
+
+        terrainMaterial.opacity = isCurrentDark ? 0.22 : 0.12;
+        particleMaterial.opacity = isCurrentDark ? 0.72 : 0.5;
+        particleMaterial.blending = isCurrentDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+        particleMaterial.needsUpdate = true;
+
+        updateTerrainColors(isCurrentDark);
+        updateParticleColors(isCurrentDark);
+        (particleGeometry.attributes.color as THREE.BufferAttribute).needsUpdate = true;
+      }
+
+      const delta = clock.getDelta();
+      const elapsed = clock.getElapsedTime();
+
+      if (!prefersReducedMotion) {
+        // Damped mouse tracking
+        currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+        // Damped scroll tracking
+        currentScrollRatio += (targetScrollRatio - currentScrollRatio) * 0.06;
+
+        // 3D Camera Dynamic Trajectory (linked to scroll & subtle mouse tilt)
+        // Camera shifts elevation and tilt smoothly across portfolio sections
+        const scrollOffsetY = currentScrollRatio * -55;
+        const scrollOffsetZ = Math.sin(currentScrollRatio * Math.PI) * -35;
+        const scrollPitch = currentScrollRatio * 0.12;
+
+        camera.position.x = currentMouseX * 40;
+        camera.position.y = 35 + scrollOffsetY + currentMouseY * 22;
+        camera.position.z = 420 + scrollOffsetZ;
+        camera.rotation.x = -0.08 - scrollPitch + currentMouseY * 0.04;
+        camera.rotation.y = -currentMouseX * 0.05;
+
+        // Multi-frequency Harmonic Telemetry Waves on Terrain Grid
+        const posAttr = terrainGeometry.attributes.position as THREE.BufferAttribute;
+        const posArray = posAttr.array as Float32Array;
+        const waveTime = elapsed * 0.75;
+
+        // Interactive cursor wave projection on terrain coordinates
+        const cursorWorldX = currentMouseX * 380;
+        const cursorWorldY = -currentMouseY * 260;
+
+        for (let i = 0; i < vertexCount; i++) {
+          const idx = i * 3;
+          const origX = originalPositions[idx];
+          const origY = originalPositions[idx + 1];
+
+          // Harmonic telemetry oscillations
+          const wave1 = Math.sin(origX * 0.013 + waveTime) * 14;
+          const wave2 = Math.cos(origY * 0.016 + waveTime * 1.1) * 11;
+          const wave3 = Math.sin((origX + origY) * 0.009 + waveTime * 0.6) * 7;
+
+          // Localized cursor ripple dispersion
+          const dx = origX - cursorWorldX;
+          const dy = origY - cursorWorldY;
+          const distSq = dx * dx + dy * dy;
+          let ripple = 0;
+
+          if (distSq < 48400) {
+            // ~220px radius
+            const dist = Math.sqrt(distSq);
+            ripple = (1 - dist / 220) * Math.sin(dist * 0.07 - waveTime * 4.5) * 16;
+          }
+
+          posArray[idx + 2] = originalPositions[idx + 2] + wave1 + wave2 + wave3 + ripple;
+        }
+
         posAttr.needsUpdate = true;
 
-        // Update Dynamic Proximity Lines
-        let lineIdx = 0;
-        for (let i = 0; i < count; i++) {
-          const ix = posArr[i * 3];
-          const iy = posArr[i * 3 + 1];
-          const iz = posArr[i * 3 + 2];
+        // Animate Volumetric Photon Stream Particles
+        const partPosAttr = particleGeometry.attributes.position as THREE.BufferAttribute;
+        const partPosArr = partPosAttr.array as Float32Array;
 
-          for (let j = i + 1; j < count; j++) {
-            const jx = posArr[j * 3];
-            const jy = posArr[j * 3 + 1];
-            const jz = posArr[j * 3 + 2];
+        for (let i = 0; i < effectiveParticleCount; i++) {
+          const idx = i * 3;
+          const vel = particleVelocities[i];
 
-            const dx = ix - jx;
-            const dy = iy - jy;
-            const dz = iz - jz;
-            const distSq = dx * dx + dy * dy + dz * dz;
+          // Subtle harmonic float
+          partPosArr[idx] += vel.x + Math.sin(elapsed * vel.freq + i) * 0.08;
+          partPosArr[idx + 1] += vel.y + Math.cos(elapsed * vel.freq + i) * 0.06;
+          partPosArr[idx + 2] += vel.z;
 
-            if (distSq < maxDistSq && lineIdx < maxConnections * 6) {
-              linePositions[lineIdx++] = ix;
-              linePositions[lineIdx++] = iy;
-              linePositions[lineIdx++] = iz;
-
-              linePositions[lineIdx++] = jx;
-              linePositions[lineIdx++] = jy;
-              linePositions[lineIdx++] = jz;
-            }
+          // Stream cycle: wrap particles when they travel past camera or bounds
+          if (partPosArr[idx + 2] > 480) {
+            partPosArr[idx + 2] = -380;
+            partPosArr[idx] = (Math.random() - 0.5) * 950;
+            partPosArr[idx + 1] = (Math.random() - 0.5) * 500 + 40;
           }
         }
 
-        const linePosAttr = lineGeometry.attributes.position as THREE.BufferAttribute;
-        linePosAttr.needsUpdate = true;
-        lineGeometry.setDrawRange(0, lineIdx / 3);
+        partPosAttr.needsUpdate = true;
 
-        // Gentle overall scene rotation
-        particleSystem.rotation.y += 0.0004;
-        lineSystem.rotation.y += 0.0004;
+        // Subtle scene ambient yaw
+        terrainMesh.rotation.z = Math.sin(elapsed * 0.12) * 0.015;
       }
 
-      // Theme sync check
-      const isDark = themeRef.current === "dark";
-      lineMaterial.color.setHex(isDark ? 0x38bdf8 : 0x64748b);
-      lineMaterial.opacity = isDark ? 0.12 : 0.08;
-      particleMaterial.opacity = isDark ? 0.75 : 0.6;
-
       renderer.render(scene, camera);
-      animationFrameId = requestAnimationFrame(animate);
     };
 
+    // Kick off animation
     animate();
 
-    // Clean unmount
+    // Clean cleanup on unmount
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
 
+      terrainGeometry.dispose();
+      terrainMaterial.dispose();
       particleGeometry.dispose();
       particleMaterial.dispose();
       particleTexture.dispose();
-      lineGeometry.dispose();
-      lineMaterial.dispose();
       renderer.dispose();
     };
   }, [particleCount]);

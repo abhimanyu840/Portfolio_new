@@ -143,7 +143,7 @@ Completed and verified:
   - `Navbar CTA Motion` (`apps/web/src/components/Navbar.tsx:265-275`): `whileHover={{ scale: 1.03 }}` and `whileTap={{ scale: 0.97 }}` on Connect CTA button.
   - `Accessibility & Reduced Motion`: All animations guarded with `useReducedMotion()`, setting zero offset and `duration: 0` when `prefers-reduced-motion: reduce` is active.
 - **Three.js 3D Animation & Telemetry Systems**:
-  - `ThreeBackground` (`apps/web/src/components/ThreeBackground.tsx`): GPU-accelerated ambient 3D particle constellation with dynamic proximity links rendered via `THREE.LineSegments` with opacity inversely proportional to distance, smooth mouse velocity damping tilt for global 3D depth parallax, and automated Dark/Light color adaptation.
+  - `ThreeBackground` (`apps/web/src/components/ThreeBackground.tsx`): GPU-accelerated Cybernetic Topological Horizon & Volumetric Photon Stream engine. Features an undulating 3D perspective telemetry terrain mesh (`THREE.PlaneGeometry`) deformed by harmonic multi-frequency waveforms ($z = \sin(x) \cdot \cos(y)$) and real-time localized cursor wave dispersion physics; 550 volumetric photon stream particles drifting along dynamic streamlines with circular glow textures; seamless exponential distance fog (`THREE.FogExp2`) dissolving into infinite obsidian/slate depth; smooth scroll-linked camera trajectory tracking ($0.06$ spring damping); and instant, zero-FOUC Dark/Light theme adaptation.
   - `HeroTelemetryCanvas` (`apps/web/src/components/HeroTelemetryCanvas.tsx`): Interactive 3D Enterprise SAN Storage & Telemetry Fabric stage featured in Hero and Architecture Lab:
     - Central Telemetry Hub: Glowing pulsing core sphere, rotating wireframe icosahedron, and counter-rotating equatorial gimbal rings.
     - 6 Orbiting Enterprise Fabric Nodes: Brocade DCX-8510 SAN Director (Cyan), NetApp AFF-A800 (Sky Blue), Dell PowerMax 8000 (Royal Blue), Hitachi VSP 5600 (Purple), AsyncIO Trap Daemon (Amber), and InfluxDB Shard Cluster (Emerald).
@@ -218,7 +218,14 @@ Toolchain and application verified on this host:
   - Preset Subject Pills: Verified clicking preset pills (`⚡ Enterprise SRE`, `🚀 Full-Stack`, `🛠️ Distributed Systems`) automatically populates the subject input and clears field errors.
   - Real-Time Character Counter: Verified dynamic calculation (`0 / 2000 chars`) with warning thresholds.
   - Success State & Countdown Timer: Verified display of emerald success banner (`Message transmitted successfully! Direct notification dispatched to Abhimanyu's inbox.`), submit button transition to `TRANSMITTED ✓ (<N>s)`, and automatic button restoration after 5 seconds.
-  - Terminal HUD Integration: Verified `contact status` command outputs live gateway health and encryption status, and `contact` command outputs verified direct channels with interactive `#contact` link.
+- 3D Cybernetic Background & Telemetry Horizon Verification Probe (`verify-proper-threejs-bg.mjs`):
+  - WebGL Integrity: 2 active WebGL2 canvases probed (`width: 1440/1214`, `gl.getError() === 0`, `pointerEvents: "none"` on background canvas).
+  - Performance & Frame Rate: Measured steady 145 FPS over 60 consecutive animation frames (`frames: 60, elapsedMs: 414ms`) with Direct3D11 hardware compositing.
+  - Scroll Dynamics: Camera elevation ($Y$) and perspective pitch smoothly interpolate across sections with $0.06$ spring damping.
+  - Theme Adaptation: Live dynamic updates verified across Dark Mode (cyan/indigo/purple wireframe, additive glowing photons, `#060813` fog) and Light Mode (slate/cyan wireframe, soft photons, `#f8fafc` fog).
+  - Elimination of Muddy CSS Blurs: Removed 4 heavy 650px CSS `blur-[65px]` divs from `AnimatedBackground.tsx`, restoring 100% typography contrast and eliminating rasterization bottlenecks.
+  - Mobile Responsiveness: Verified on 375x812 mobile viewport with zero horizontal overflow (`scrollWidth === windowWidth`) and adaptive subdivision scaling.
+  - Visual artifacts: Captured and verified `proper_bg_dark_hero.png`, `proper_bg_dark_projects.png`, `proper_bg_dark_contact.png`, `proper_bg_light_hero.png`, and `proper_bg_dark_mobile.png`.
 
 ## Open questions
 
