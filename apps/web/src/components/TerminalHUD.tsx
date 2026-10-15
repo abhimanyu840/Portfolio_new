@@ -26,7 +26,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [promptColor, setPromptColor] = useState<"indigo" | "purple" | "cyan">("cyan");
+  const [promptColor, setPromptColor] = useState<"cyan" | "teal" | "blue">("cyan");
 
   const [logs, setLogs] = useState<CommandLog[]>([
     {
@@ -92,19 +92,19 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
           <div className="space-y-1 text-xs sm:text-sm">
             <div className="text-cyan-400 font-semibold mb-1">AVAILABLE COMMANDS:</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
-              <div><span className="text-indigo-300 font-bold">whoami</span> — Overview &amp; enterprise credentials</div>
-              <div><span className="text-indigo-300 font-bold">ls / dir</span> — List directory files</div>
-              <div><span className="text-indigo-300 font-bold">cat &lt;file&gt;</span> — Print file (e.g. cat resume, cat readme)</div>
-              <div><span className="text-indigo-300 font-bold">projects</span> — List monitored platforms &amp; apps</div>
-              <div><span className="text-indigo-300 font-bold">skills</span> — Categorized technical proficiency</div>
-              <div><span className="text-indigo-300 font-bold">experience</span> — Wipro enterprise track &amp; SAN storage</div>
-              <div><span className="text-indigo-300 font-bold">education</span> — BITS Pilani M.Tech &amp; BCA degrees</div>
-              <div><span className="text-indigo-300 font-bold">uptime</span> — System health &amp; active session duration</div>
-              <div><span className="text-indigo-300 font-bold">contact [status]</span> — Direct channels &amp; gateway status</div>
-              <div><span className="text-indigo-300 font-bold">theme [dark|light|toggle]</span> — Switch UI theme or terminal prompt color</div>
-              <div><span className="text-indigo-300 font-bold">history</span> — View recent command history</div>
-              <div><span className="text-indigo-300 font-bold">clear</span> — Wipe terminal viewport</div>
-              <div><span className="text-indigo-300 font-bold">exit</span> — Dismiss terminal drawer</div>
+              <div><span className="text-cyan-300 font-bold">whoami</span> — Overview &amp; enterprise credentials</div>
+              <div><span className="text-cyan-300 font-bold">ls / dir</span> — List directory files</div>
+              <div><span className="text-cyan-300 font-bold">cat &lt;file&gt;</span> — Print file (e.g. cat resume, cat readme)</div>
+              <div><span className="text-cyan-300 font-bold">projects</span> — List monitored platforms &amp; apps</div>
+              <div><span className="text-cyan-300 font-bold">skills</span> — Categorized technical proficiency</div>
+              <div><span className="text-cyan-300 font-bold">experience</span> — Wipro enterprise track &amp; SAN storage</div>
+              <div><span className="text-cyan-300 font-bold">education</span> — BITS Pilani M.Tech &amp; BCA degrees</div>
+              <div><span className="text-cyan-300 font-bold">uptime</span> — System health &amp; active session duration</div>
+              <div><span className="text-cyan-300 font-bold">contact [status]</span> — Direct channels &amp; gateway status</div>
+              <div><span className="text-cyan-300 font-bold">theme [dark|light|toggle]</span> — Switch UI theme or terminal prompt color</div>
+              <div><span className="text-cyan-300 font-bold">history</span> — View recent command history</div>
+              <div><span className="text-cyan-300 font-bold">clear</span> — Wipe terminal viewport</div>
+              <div><span className="text-cyan-300 font-bold">exit</span> — Dismiss terminal drawer</div>
             </div>
           </div>
         );
@@ -116,7 +116,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
           <div className="space-y-1 text-xs sm:text-sm">
             <div className="text-slate-400">Directory index of /home/abhimanyu:</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-cyan-300 font-mono py-1">
-              <span className="text-indigo-300 font-bold">📄 resume.md</span>
+              <span className="text-teal-300 font-bold">📄 resume.md</span>
               <span className="text-cyan-300 font-bold">📁 projects/</span>
               <span className="text-cyan-300 font-bold">📁 telemetry/</span>
               <span className="text-slate-300">📄 readme.txt</span>
@@ -132,7 +132,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
         resultNode = (
           <div className="space-y-2 text-xs sm:text-sm">
             <div className="text-white font-bold">{DEVELOPER_PROFILE.name}</div>
-            <div className="text-indigo-400">{DEVELOPER_PROFILE.title}</div>
+            <div className="text-cyan-400">{DEVELOPER_PROFILE.title}</div>
             <div className="text-slate-300">{DEVELOPER_PROFILE.bio}</div>
             <div className="text-slate-400">Location: {DEVELOPER_PROFILE.location} | Status: {DEVELOPER_PROFILE.status}</div>
           </div>
@@ -144,12 +144,12 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
           <div className="space-y-3 text-xs sm:text-sm">
             <div className="text-cyan-400 font-semibold">DEPLOYED PROJECTS &amp; TELEMETRY PLATFORMS:</div>
             {SEED_PROJECTS.map((p, idx) => (
-              <div key={p.id} className="border-l-2 border-indigo-500/50 pl-3 py-1">
+              <div key={p.id} className="border-l-2 border-cyan-500/50 pl-3 py-1">
                 <div className="text-white font-bold">
                   {idx + 1}. {p.title}
                 </div>
                 <div className="text-slate-400">{p.tagline}</div>
-                <div className="text-indigo-300 text-xs mt-1">Tech: {p.tags.join(" • ")}</div>
+                <div className="text-teal-300 text-xs mt-1">Tech: {p.tags.join(" • ")}</div>
               </div>
             ))}
           </div>
@@ -162,7 +162,7 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
             <div className="text-cyan-400 font-semibold">TECHNICAL SKILL MATRIX:</div>
             {SEED_SKILL_GROUPS.map((g) => (
               <div key={g.category} className="py-1">
-                <span className="text-indigo-300 font-semibold">{g.category}: </span>
+                <span className="text-cyan-300 font-semibold">{g.category}: </span>
                 <span className="text-slate-300">{g.skills.map((s) => s.name).join(", ")}</span>
               </div>
             ))}
@@ -192,9 +192,9 @@ export const TerminalHUD: React.FC<TerminalHUDProps> = ({ isOpen, onClose }) => 
         resultNode = (
           <div className="space-y-3 text-xs sm:text-sm">
             {SEED_EDUCATION.map((edu, idx) => (
-              <div key={idx} className="border-l-2 border-indigo-500/50 pl-3">
+              <div key={idx} className="border-l-2 border-cyan-500/50 pl-3">
                 <div className="text-white font-bold">{edu.degree}</div>
-                <div className="text-indigo-300">{edu.institution}</div>
+                <div className="text-teal-300">{edu.institution}</div>
                 <div className="text-slate-400">{edu.period} • {edu.status}</div>
                 {edu.program && <div className="text-slate-300 text-xs">{edu.program}</div>}
               </div>
@@ -236,7 +236,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         } else if (arg === "readme" || arg === "readme.txt" || arg === "readme.md") {
           resultNode = (
             <div className="text-slate-300 space-y-1 text-xs sm:text-sm">
-              <div className="text-indigo-400 font-bold">ABHIMANYU KUMAR — SYSTEM OBSERVABILITY PORTFOLIO</div>
+              <div className="text-cyan-400 font-bold">ABHIMANYU KUMAR — SYSTEM OBSERVABILITY PORTFOLIO</div>
               <div>Engineered with Next.js 16, React 19, Turborepo, Bun workspaces, and Tailwind CSS.</div>
               <div>Backend telemetry route handlers with MongoDB persistence and resilient in-memory seed fallback.</div>
               <div>Designed for high-reliability infrastructure engineering showcasing enterprise storage, SAN, and observability platforms.</div>
@@ -259,7 +259,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
 
       case "uptime":
         resultNode = (
-          <div className="text-xs sm:text-sm text-indigo-400 font-mono">
+          <div className="text-xs sm:text-sm text-emerald-400 font-mono">
             SYS_UPTIME: 14,820s | HEALTH: 99.98% | ACTIVE_NODES: 4 | STATUS: ALL_SYSTEMS_GO
           </div>
         );
@@ -307,14 +307,14 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
             <div className="space-y-2 text-xs sm:text-sm font-mono">
               <div className="text-cyan-400 font-bold">DIRECT ACCESS CHANNELS // ABHIMANYU KUMAR</div>
               <div className="space-y-1 text-slate-300 pl-2.5 border-l-2 border-cyan-500/40">
-                <div><span className="text-indigo-300">Email:</span> <a href={`mailto:${DEVELOPER_PROFILE.email}`} className="underline hover:text-white">{DEVELOPER_PROFILE.email}</a></div>
-                <div><span className="text-indigo-300">Phone:</span> {DEVELOPER_PROFILE.phone}</div>
-                <div><span className="text-indigo-300">LinkedIn:</span> <a href={DEVELOPER_PROFILE.linkedin} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.linkedin}</a></div>
-                <div><span className="text-indigo-300">GitHub:</span> <a href={DEVELOPER_PROFILE.github} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.github}</a></div>
-                <div><span className="text-indigo-300">Portfolio:</span> {DEVELOPER_PROFILE.portfolio}</div>
+                <div><span className="text-cyan-300">Email:</span> <a href={`mailto:${DEVELOPER_PROFILE.email}`} className="underline hover:text-white">{DEVELOPER_PROFILE.email}</a></div>
+                <div><span className="text-cyan-300">Phone:</span> {DEVELOPER_PROFILE.phone}</div>
+                <div><span className="text-cyan-300">LinkedIn:</span> <a href={DEVELOPER_PROFILE.linkedin} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.linkedin}</a></div>
+                <div><span className="text-cyan-300">GitHub:</span> <a href={DEVELOPER_PROFILE.github} target="_blank" rel="noreferrer" className="underline hover:text-white">{DEVELOPER_PROFILE.github}</a></div>
+                <div><span className="text-cyan-300">Portfolio:</span> {DEVELOPER_PROFILE.portfolio}</div>
               </div>
               <div className="text-slate-500 text-[11px] pt-1 flex items-center justify-between">
-                <span>Commands: <span className="text-indigo-300">&apos;contact status&apos;</span></span>
+                <span>Commands: <span className="text-cyan-300">&apos;contact status&apos;</span></span>
                 <span>Transmission Form: <a href="#contact" onClick={onClose} className="text-cyan-400 underline">#contact ↗</a></span>
               </div>
             </div>
@@ -340,16 +340,16 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         } else if (arg === "system") {
           setTheme("system");
           resultNode = (
-            <div className="text-indigo-300 font-mono text-xs">
+            <div className="text-sky-300 font-mono text-xs">
               [SYSTEM] UI Theme synchronized with: <strong className="text-white">OS SYSTEM PREFERENCE</strong> 💻 (Active: {resolvedTheme.toUpperCase()})
             </div>
           );
         } else if (arg.startsWith("prompt")) {
           const colorArg = arg.split(" ")[1];
-          if (colorArg === "cyan" || colorArg === "indigo" || colorArg === "purple") {
+          if (colorArg === "cyan" || colorArg === "teal" || colorArg === "blue") {
             setPromptColor(colorArg);
           } else {
-            setPromptColor((prev) => (prev === "indigo" ? "purple" : prev === "purple" ? "cyan" : "indigo"));
+            setPromptColor((prev) => (prev === "cyan" ? "teal" : prev === "teal" ? "blue" : "cyan"));
           }
           resultNode = <div className="text-slate-300 font-mono text-xs">[SYSTEM] Terminal prompt accent updated.</div>;
         } else if (!arg || arg === "toggle") {
@@ -363,7 +363,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
         } else {
           resultNode = (
             <div className="text-slate-400 font-mono text-xs space-y-1">
-              <div>Usage: <span className="text-indigo-300">theme [dark | light | system | toggle | prompt &lt;cyan|indigo|purple&gt;]</span></div>
+              <div>Usage: <span className="text-cyan-300">theme [dark | light | system | toggle | prompt &lt;cyan|teal|blue&gt;]</span></div>
               <div>Current UI Theme: <span className="text-cyan-300 uppercase font-semibold">{resolvedTheme}</span></div>
             </div>
           );
@@ -381,7 +381,7 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
       default:
         resultNode = (
           <div className="text-red-400">
-            Command not recognized: &apos;{cmd}&apos;. Type <span className="underline text-indigo-300">&apos;help&apos;</span> for documentation.
+            Command not recognized: &apos;{cmd}&apos;. Type <span className="underline text-cyan-300">&apos;help&apos;</span> for documentation.
           </div>
         );
         isErr = true;
@@ -428,9 +428,9 @@ Wipro | Software Engineer / Project Engineer (2025 - Present)
   };
 
   const colorStyles = {
-    indigo: "text-indigo-400",
-    purple: "text-purple-400",
     cyan: "text-cyan-400",
+    teal: "text-teal-400",
+    blue: "text-blue-400",
   };
 
   return (

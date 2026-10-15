@@ -134,7 +134,7 @@ export const Projects: React.FC = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeProjectsTab"
-                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/20 dark:via-blue-600/25 dark:to-indigo-600/20 border border-slate-300/80 dark:border-cyan-500/40 shadow-sm dark:shadow-cyan-500/20 z-0 pointer-events-none"
+                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/20 dark:via-blue-600/25 dark:to-teal-500/20 border border-slate-300/80 dark:border-cyan-500/40 shadow-sm dark:shadow-cyan-500/20 z-0 pointer-events-none"
                         transition={springTransition}
                       />
                     )}
@@ -237,7 +237,7 @@ export const Projects: React.FC = () => {
                         onClick={() => setSelectedProject(flagshipProject)}
                         whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
                         whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white font-mono text-xs font-semibold shadow-md shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-600 hover:from-cyan-400 hover:via-blue-500 hover:to-teal-500 text-white font-mono text-xs font-semibold shadow-md shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                       >
                         <span>Inspect System Architecture</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -275,7 +275,7 @@ export const Projects: React.FC = () => {
               project.category === "observability"
                 ? "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30"
                 : project.category === "ai"
-                ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30"
+                ? "bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/30"
                 : "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30";
 
             return (

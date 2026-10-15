@@ -77,22 +77,22 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
     const originalPositions = new Float32Array(terrainGeometry.attributes.position.array);
     const terrainColors = new Float32Array(vertexCount * 3);
 
-    // Palette gradients
+    // Palette gradients: Enterprise Infrastructure & Observability (Electric Cyan, Cobalt Blue, Teal, Emerald)
     const colorCyanDark = new THREE.Color("#06b6d4");
-    const colorBlueDark = new THREE.Color("#3b82f6");
-    const colorIndigoDark = new THREE.Color("#6366f1");
-    const colorPurpleDark = new THREE.Color("#a855f7");
+    const colorBlueDark = new THREE.Color("#2563eb");
+    const colorTealDark = new THREE.Color("#0d9488");
+    const colorEmeraldDark = new THREE.Color("#10b981");
 
     const colorCyanLight = new THREE.Color("#0284c7");
-    const colorBlueLight = new THREE.Color("#2563eb");
-    const colorIndigoLight = new THREE.Color("#4f46e5");
-    const colorPurpleLight = new THREE.Color("#7c3aed");
+    const colorBlueLight = new THREE.Color("#1d4ed8");
+    const colorTealLight = new THREE.Color("#0f766e");
+    const colorEmeraldLight = new THREE.Color("#059669");
 
     const updateTerrainColors = (isDark: boolean) => {
       const cCyan = isDark ? colorCyanDark : colorCyanLight;
       const cBlue = isDark ? colorBlueDark : colorBlueLight;
-      const cIndigo = isDark ? colorIndigoDark : colorIndigoLight;
-      const cPurple = isDark ? colorPurpleDark : colorPurpleLight;
+      const cTeal = isDark ? colorTealDark : colorTealLight;
+      const cEmerald = isDark ? colorEmeraldDark : colorEmeraldLight;
 
       const pos = terrainGeometry.attributes.position;
       for (let i = 0; i < vertexCount; i++) {
@@ -104,9 +104,9 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
         if (ratio < 0.35) {
           vertexColor.lerpColors(cCyan, cBlue, ratio / 0.35);
         } else if (ratio < 0.7) {
-          vertexColor.lerpColors(cBlue, cIndigo, (ratio - 0.35) / 0.35);
+          vertexColor.lerpColors(cBlue, cTeal, (ratio - 0.35) / 0.35);
         } else {
-          vertexColor.lerpColors(cIndigo, cPurple, (ratio - 0.7) / 0.3);
+          vertexColor.lerpColors(cTeal, cEmerald, (ratio - 0.7) / 0.3);
         }
 
         terrainColors[i * 3] = vertexColor.r;
@@ -160,8 +160,8 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
     const particleTexture = new THREE.CanvasTexture(canvas);
 
     const updateParticleColors = (isDark: boolean) => {
-      const darkPalette = [colorCyanDark, colorBlueDark, colorIndigoDark, colorPurpleDark];
-      const lightPalette = [colorCyanLight, colorBlueLight, colorIndigoLight, colorPurpleLight];
+      const darkPalette = [colorCyanDark, colorBlueDark, colorTealDark, colorEmeraldDark];
+      const lightPalette = [colorCyanLight, colorBlueLight, colorTealLight, colorEmeraldLight];
       const palette = isDark ? darkPalette : lightPalette;
 
       for (let i = 0; i < effectiveParticleCount; i++) {

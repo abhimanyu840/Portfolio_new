@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
             </span>
             <span className="text-slate-300 dark:text-slate-700">|</span>
             <span className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
-              <GitBranch className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
+              <GitBranch className="w-3 h-3 text-cyan-500 dark:text-cyan-400" />
               <span>REVISION: #0ea94a9</span>
             </span>
             <span className="text-slate-300 dark:text-slate-700">|</span>

@@ -105,10 +105,16 @@ Completed and verified:
   - Zero-FOUC pre-hydration script (`apps/web/src/app/layout.tsx:50-70`): Head script evaluating `localStorage.portfolio_theme` or `window.matchMedia('(prefers-color-scheme: dark)').matches`, applying `.dark` or `.light` class, and setting `style.colorScheme` before first paint.
   - Tailwind v4 Theme Variant (`apps/web/src/app/globals.css:3`): Configured `@custom-variant dark (&:where(.dark, .dark *));` for deterministic class-based theme scoping alongside CSS variables `--background`/`--foreground`.
   - Sun/Moon Animated Toggles: High-contrast toggle buttons in desktop Navbar (`apps/web/src/components/Navbar.tsx:285-300`) and mobile navigation drawer (`apps/web/src/components/Navbar.tsx:320-336`).
-  - Terminal CLI HUD Theme Commands (`apps/web/src/components/TerminalHUD.tsx:302-348`): Full support for `theme dark`, `theme light`, `theme system`, `theme toggle`, and `theme prompt <cyan|indigo|purple>`.
+  - Terminal CLI HUD Theme Commands (`apps/web/src/components/TerminalHUD.tsx:302-370`): Full support for `theme dark`, `theme light`, `theme system`, `theme toggle`, and `theme prompt <cyan|teal|blue>`.
   - Pinned Architecture Specification Modal (`apps/web/src/components/Projects.tsx:332-445`): Header and footer pinned with flexbox and `max-h-[90vh]` scrollable body, ensuring close and action buttons are permanently visible within viewport.
   - Skills Single-Row Segmented Filter Tabs (`apps/web/src/components/Skills.tsx:165-184`): Horizontal segmented control with smooth scroll (`overflow-x-auto no-scrollbar`).
   - Latency Sparkline Percentage Heights (`apps/web/src/components/ObservabilityHUD.tsx:764-776`): Fixed flex container percentage height inheritance with `h-full flex flex-col justify-end` and inner flex bar alignment.
+- **Enterprise Infrastructure & Observability Theme Transition**:
+  - Full aesthetic migration from "vibe-coded" purple/violet palette to authentic Enterprise SRE & Systems Telemetry palette:
+    - Primary Accents: Electric Cyan (`#06b6d4`, `#38bdf8`), Deep Cobalt Blue (`#2563eb`), Enterprise Teal (`#14b8a6`, `#0d9488`), and Telemetry Emerald (`#10b981`).
+    - Base Canvases: Obsidian `#060813` dark canvas and pure white `#ffffff` light canvas with crisp slate typography.
+    - Zero purple/violet remnants across all 13 core UI, 3D, and layout components (verified via 0 regex matches across `apps/web/src`).
+    - Three.js Background & Hero Telemetry Canvas: Replaced purple wave lerp and star field with cyan, cobalt, teal, and emerald photon streams and node meshes.
 - **Framer Motion Tab Animation System**:
   - `framer-motion` (`^13.2.0`) installed in `apps/web`.
   - Spring-physics sliding active indicator (`layoutId`) with CSS `isolation: isolate` on buttons and `z-0 pointer-events-none` on indicator pills across all tab systems:
@@ -126,10 +132,10 @@ Completed and verified:
   - `Scroll-Spy Flight Lock`: Extended `isManualNavRef` duration to 1200ms in `handleNavClick` (`apps/web/src/components/Navbar.tsx:49-59`), guaranteeing that smooth anchor scrolling across the entire 3500px page height never triggers premature scroll-spy overrides.
   - `Active Color Scheme Dual-Mode Engine`:
     - Light Mode: Crisp, elevated pure white pill (`bg-white`) with high-contrast text (`text-slate-900 font-semibold`), subtle border (`border-slate-200/90`), and elevation drop shadow (`shadow-sm`), mirroring native macOS/Linear segmented controls.
-    - Dark Mode: Fixed CSS background bleed-through by explicitly setting `dark:bg-[#0c1222]` behind `dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-indigo-600/25`, glowing cyan rim (`dark:border-cyan-400/50`), and ambient cyan bloom (`dark:shadow-[0_0_15px_rgba(6,182,212,0.3)]`) with razor-sharp cyan-white text (`dark:text-cyan-100 font-semibold`), completely removing visual collision with the "Connect ↗" gradient CTA button.
+    - Dark Mode: Fixed CSS background bleed-through by explicitly setting `dark:bg-[#0c1222]` behind `dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-teal-500/25`, glowing cyan rim (`dark:border-cyan-400/50`), and ambient cyan bloom (`dark:shadow-[0_0_15px_rgba(6,182,212,0.3)]`) with razor-sharp cyan-white text (`dark:text-cyan-100 font-semibold`), completely removing visual collision with the "Connect ↗" gradient CTA button.
     - Consistency across app: Added `dark:bg-[#0c1222]` to `Projects.tsx:111` and `Skills.tsx:191` to eliminate pastel white bleed-through across all segmented controls.
 - **Page-Wide Animation & Ambient Background System**:
-  - `AnimatedBackground` (`apps/web/src/components/AnimatedBackground.tsx`): Luminous ambient background featuring 4 organic looping gradient orbs (cyan, blue, indigo, purple) with GPU transform offload (`transform-gpu will-change-transform`), subtle cyber scanline sweep beam, and 6 pulsing telemetry beacon coordinates with pre-hydration static fallback.
+  - `AnimatedBackground` (`apps/web/src/components/AnimatedBackground.tsx`): Luminous ambient background featuring GPU transform offload (`transform-gpu will-change-transform`), subtle cyber scanline sweep beam, and 8 pulsing telemetry beacon coordinates (cyan, blue, sky, emerald, teal) with pre-hydration static fallback.
   - `Layout Integration` (`apps/web/src/app/layout.tsx:77-80`): Embedded `<AnimatedBackground />` globally behind z-10 page contents across all routes.
   - `Hero Entrance Orchestration` (`apps/web/src/components/Hero.tsx:73-91`): Staggered entrance animation (`staggerChildren: 0.08`), `whileHover={{ y: -2, scale: 1.02 }}` on primary CTA, `whileHover={{ scale: 1.05 }}` on persona selector pills, and badge micro-interactions.
   - `Projects Micro-Interactions` (`apps/web/src/components/Projects.tsx:160-260`): `whileHover={{ y: -3 }}` with glowing border on Flagship Bento Spotlight, `whileHover={{ y: -5 }}` on Bento project cards, and `whileHover`/`whileTap` on modal launch and GitHub triggers.
@@ -146,7 +152,7 @@ Completed and verified:
   - `ThreeBackground` (`apps/web/src/components/ThreeBackground.tsx`): GPU-accelerated Cybernetic Topological Horizon & Volumetric Photon Stream engine. Features an undulating 3D perspective telemetry terrain mesh (`THREE.PlaneGeometry`) deformed by harmonic multi-frequency waveforms ($z = \sin(x) \cdot \cos(y)$) and real-time localized cursor wave dispersion physics; 550 volumetric photon stream particles drifting along dynamic streamlines with circular glow textures; seamless exponential distance fog (`THREE.FogExp2`) dissolving into infinite obsidian/slate depth; smooth scroll-linked camera trajectory tracking ($0.06$ spring damping); and instant, zero-FOUC Dark/Light theme adaptation.
   - `HeroTelemetryCanvas` (`apps/web/src/components/HeroTelemetryCanvas.tsx`): Interactive 3D Enterprise SAN Storage & Telemetry Fabric stage featured in Hero and Architecture Lab:
     - Central Telemetry Hub: Glowing pulsing core sphere, rotating wireframe icosahedron, and counter-rotating equatorial gimbal rings.
-    - 6 Orbiting Enterprise Fabric Nodes: Brocade DCX-8510 SAN Director (Cyan), NetApp AFF-A800 (Sky Blue), Dell PowerMax 8000 (Royal Blue), Hitachi VSP 5600 (Purple), AsyncIO Trap Daemon (Amber), and InfluxDB Shard Cluster (Emerald).
+    - 6 Orbiting Enterprise Fabric Nodes: Brocade DCX-8510 SAN Director (Cyan), NetApp AFF-A800 (Sky Blue), Dell PowerMax 8000 (Royal Blue), Hitachi VSP 5600 (Teal), AsyncIO Trap Daemon (Amber), and InfluxDB Shard Cluster (Emerald).
     - Fiber-Optic 3D Splines & Packets: `THREE.CatmullRomCurve3` conduits with continuous flowing photon packets traveling toward core at speeds proportional to live telemetry stream (12k/s).
     - Interactive 3D Controls: 360° drag rotation with pointer events, raycaster node hover illumination with real-time HUD telemetry tooltip, 3 topology view presets (`Orbit`, `Mesh`, `Wave`), `[⚡ INJECT PACKET]` data burst trigger, auto-rotate toggle, and node quick selector bar.
     - Architecture Lab 3D Mode: Integrated as third perspective tab (`3D SAN Topology`) in `ObservabilityHUD.tsx`.
@@ -222,7 +228,7 @@ Toolchain and application verified on this host:
   - WebGL Integrity: 2 active WebGL2 canvases probed (`width: 1440/1214`, `gl.getError() === 0`, `pointerEvents: "none"` on background canvas).
   - Performance & Frame Rate: Measured steady 145 FPS over 60 consecutive animation frames (`frames: 60, elapsedMs: 414ms`) with Direct3D11 hardware compositing.
   - Scroll Dynamics: Camera elevation ($Y$) and perspective pitch smoothly interpolate across sections with $0.06$ spring damping.
-  - Theme Adaptation: Live dynamic updates verified across Dark Mode (cyan/indigo/purple wireframe, additive glowing photons, `#060813` fog) and Light Mode (slate/cyan wireframe, soft photons, `#f8fafc` fog).
+  - Theme Adaptation: Live dynamic updates verified across Dark Mode (cyan/cobalt/teal/emerald wireframe, additive glowing photons, `#060813` fog) and Light Mode (slate/cyan wireframe, soft photons, `#f8fafc` fog).
   - Elimination of Muddy CSS Blurs: Removed 4 heavy 650px CSS `blur-[65px]` divs from `AnimatedBackground.tsx`, restoring 100% typography contrast and eliminating rasterization bottlenecks.
   - Mobile Responsiveness: Verified on 375x812 mobile viewport with zero horizontal overflow (`scrollWidth === windowWidth`) and adaptive subdivision scaling.
   - Visual artifacts: Captured and verified `proper_bg_dark_hero.png`, `proper_bg_dark_projects.png`, `proper_bg_dark_contact.png`, `proper_bg_light_hero.png`, and `proper_bg_dark_mobile.png`.
@@ -230,7 +236,7 @@ Toolchain and application verified on this host:
 ## Open questions
 
 All core architectural decisions resolved during interview:
-1. **Design Theme**: Blue, Indigo & Purple Tint Minimalist Tech (canvas `#060813`, indigo/purple ambient glow, refined developer topbar, zero vibe-coded sci-fi noise).
+1. **Design Theme**: Enterprise Infrastructure & Observability Theme (canvas `#060813`, Electric Cyan `#06b6d4`, Deep Cobalt Blue `#2563eb`, Enterprise Teal `#14b8a6`, and Telemetry Emerald `#10b981` accents, crisp developer topbar, zero vibe-coded sci-fi/crypto purple noise).
 2. **Backend**: Next.js 16 App Router Route Handlers (`src/app/api/v1/...`).
 3. **Database**: MongoDB Atlas with resilient mock/seed fallback.
 4. **Deployment**: Netlify (`@netlify/plugin-nextjs`).

@@ -214,7 +214,7 @@ export const Skills: React.FC = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeSkillsTab"
-                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/20 dark:via-blue-600/25 dark:to-indigo-600/20 border border-slate-300/80 dark:border-cyan-500/40 shadow-sm dark:shadow-cyan-500/20 z-0 pointer-events-none"
+                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/20 dark:via-blue-600/25 dark:to-teal-500/20 border border-slate-300/80 dark:border-cyan-500/40 shadow-sm dark:shadow-cyan-500/20 z-0 pointer-events-none"
                         transition={springTransition}
                       />
                     )}
@@ -279,7 +279,7 @@ export const Skills: React.FC = () => {
                       className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${
                         skill.tier === "Production Core"
                           ? "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30"
-                          : "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30"
+                          : "bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/30"
                       }`}
                     >
                       {skill.tier}
@@ -310,11 +310,11 @@ export const Skills: React.FC = () => {
         </AnimatePresence>
 
         {/* Enterprise SAN Hardware & Storage Fabric Callout */}
-        <motion.div variants={itemVariants} className="mt-10 p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-100/80 dark:bg-gradient-to-r dark:from-blue-950/20 dark:via-indigo-950/30 dark:to-purple-950/20 border border-slate-200 dark:border-indigo-500/20 glass-panel">
+        <motion.div variants={itemVariants} className="mt-10 p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-100/80 dark:bg-gradient-to-r dark:from-cyan-950/20 dark:via-blue-950/30 dark:to-teal-950/20 border border-slate-200 dark:border-cyan-500/20 glass-panel">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-1">
-              <div className="flex items-center gap-2 font-mono text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase">
-                <Server className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 font-bold uppercase">
+                <Server className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 <span>ENTERPRISE SAN &amp; STORAGE HARDWARE PROTOCOLS</span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-300">
@@ -327,7 +327,7 @@ export const Skills: React.FC = () => {
                   key={hw}
                   whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.05 }}
                   transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }}
-                  className="px-3 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] font-mono text-xs text-indigo-700 dark:text-indigo-300 font-medium shadow-sm cursor-default"
+                  className="px-3 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] font-mono text-xs text-cyan-700 dark:text-cyan-300 font-medium shadow-sm cursor-default"
                 >
                   {hw}
                 </motion.span>

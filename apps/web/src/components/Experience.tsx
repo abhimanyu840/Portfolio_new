@@ -144,7 +144,7 @@ export const Experience: React.FC = () => {
           {/* Education & Academic Rigor Column (Span 5) */}
           <div className="lg:col-span-5 space-y-6">
             <motion.div variants={cardVariants} className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-white/[0.08]">
-              <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 ACADEMIC PEDIGREE
               </h3>
@@ -156,23 +156,23 @@ export const Experience: React.FC = () => {
                 variants={cardVariants}
                 whileHover={shouldReduceMotion ? {} : { y: -4, scale: 1.01 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
-                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08] hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all flex flex-col justify-between group shadow-sm hover:shadow-xl hover:shadow-indigo-500/5"
+                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08] hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all flex flex-col justify-between group shadow-sm hover:shadow-xl hover:shadow-blue-500/5"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-200 dark:border-white/[0.08]">
-                    <span className="font-mono text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+                    <span className="font-mono text-[11px] font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1">
                       <Award className="w-3.5 h-3.5" />
                       <span>WILP SCHOLARSHIP</span>
                     </span>
-                    <span className="font-mono text-xs text-indigo-600 dark:text-indigo-400 font-bold px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">
+                    <span className="font-mono text-xs text-blue-600 dark:text-blue-400 font-bold px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20">
                       {edu.status}
                     </span>
                   </div>
 
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-200 transition-colors">
+                  <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-200 transition-colors">
                     {edu.degree}
                   </h4>
-                  <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-300/90 mt-0.5">
+                  <div className="text-sm font-semibold text-blue-600 dark:text-blue-300/90 mt-0.5">
                     {edu.institution}
                   </div>
                   <div className="font-mono text-xs text-slate-500 dark:text-slate-400 mt-1 mb-5">
@@ -188,7 +188,7 @@ export const Experience: React.FC = () => {
                         transition={{ duration: 0.15 }}
                         className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/[0.04] text-xs text-slate-700 dark:text-slate-300 leading-relaxed cursor-default"
                       >
-                        <span className="text-indigo-600 dark:text-indigo-400 font-mono">•</span>
+                        <span className="text-blue-600 dark:text-blue-400 font-mono">•</span>
                         <span>{detail}</span>
                       </motion.div>
                     ))}
@@ -197,7 +197,7 @@ export const Experience: React.FC = () => {
 
                 <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/[0.08] flex items-center justify-between font-mono text-[11px] text-slate-500 dark:text-slate-400">
                   <span>SPECIALIZATION: SOFTWARE SYSTEMS</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 font-semibold">BITS PILANI</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-semibold">BITS PILANI</span>
                 </div>
               </motion.div>
             ))}

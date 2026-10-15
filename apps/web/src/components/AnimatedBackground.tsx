@@ -52,11 +52,11 @@ export const AnimatedBackground: React.FC = () => {
       <div className="absolute inset-0">
         {[
           { top: "14%", left: "12%", delay: 0, size: "w-1.5 h-1.5", color: "bg-cyan-400", halo: "ring-cyan-400/30" },
-          { top: "26%", left: "88%", delay: 2, size: "w-2 h-2", color: "bg-indigo-400", halo: "ring-indigo-400/30" },
+          { top: "26%", left: "88%", delay: 2, size: "w-2 h-2", color: "bg-blue-400", halo: "ring-blue-400/30" },
           { top: "45%", left: "6%", delay: 4, size: "w-1.5 h-1.5", color: "bg-sky-400", halo: "ring-sky-400/30" },
-          { top: "62%", left: "94%", delay: 1, size: "w-1.5 h-1.5", color: "bg-purple-400", halo: "ring-purple-400/30" },
+          { top: "62%", left: "94%", delay: 1, size: "w-1.5 h-1.5", color: "bg-emerald-400", halo: "ring-emerald-400/30" },
           { top: "76%", left: "15%", delay: 3, size: "w-2 h-2", color: "bg-cyan-400", halo: "ring-cyan-400/30" },
-          { top: "88%", left: "82%", delay: 5, size: "w-1.5 h-1.5", color: "bg-indigo-400", halo: "ring-indigo-400/30" },
+          { top: "88%", left: "82%", delay: 5, size: "w-1.5 h-1.5", color: "bg-teal-400", halo: "ring-teal-400/30" },
           { top: "38%", left: "50%", delay: 2.5, size: "w-1 h-1", color: "bg-blue-400", halo: "ring-blue-400/25" },
           { top: "70%", left: "52%", delay: 4.5, size: "w-1.5 h-1.5", color: "bg-teal-400", halo: "ring-teal-400/25" },
         ].map((node, i) => (

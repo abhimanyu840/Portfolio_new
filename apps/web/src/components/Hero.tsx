@@ -125,7 +125,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </div>
 
           <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl pt-1">
-            Software Engineer with <strong className="text-slate-900 dark:text-white font-semibold">1.5+ years</strong> of enterprise production experience at <strong className="text-slate-900 dark:text-white font-semibold">Wipro</strong>. Architecting telemetry daemons, FastAPI microservices, and reactive monitoring consoles across <span className="text-cyan-600 dark:text-cyan-300 font-medium">NetApp</span>, <span className="text-blue-600 dark:text-blue-300 font-medium">Dell EMC</span>, <span className="text-indigo-600 dark:text-indigo-300 font-medium">Hitachi VSP</span>, and <span className="text-purple-600 dark:text-purple-300 font-medium">Brocade SAN switches</span>. Currently pursuing M.Tech in Software Systems at <strong className="text-slate-900 dark:text-white font-semibold">BITS Pilani</strong>.
+            Software Engineer with <strong className="text-slate-900 dark:text-white font-semibold">1.5+ years</strong> of enterprise production experience at <strong className="text-slate-900 dark:text-white font-semibold">Wipro</strong>. Architecting telemetry daemons, FastAPI microservices, and reactive monitoring consoles across <span className="text-cyan-600 dark:text-cyan-300 font-medium">NetApp</span>, <span className="text-blue-600 dark:text-blue-300 font-medium">Dell EMC</span>, <span className="text-sky-600 dark:text-sky-300 font-medium">Hitachi VSP</span>, and <span className="text-teal-600 dark:text-teal-300 font-medium">Brocade SAN switches</span>. Currently pursuing M.Tech in Software Systems at <strong className="text-slate-900 dark:text-white font-semibold">BITS Pilani</strong>.
           </p>
         </motion.div>
 
@@ -135,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             href="#projects"
             whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
             whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-600 hover:from-cyan-400 hover:via-blue-500 hover:to-teal-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
           >
             <span>Explore Featured Systems</span>
             <ArrowDown className="w-4 h-4" />
@@ -155,9 +155,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
             href="#hud"
             whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
             whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-            className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-100/60 hover:bg-slate-200/60 border border-slate-200/80 dark:bg-white/[0.02] dark:hover:bg-white/[0.06] dark:border-white/[0.08] dark:hover:border-indigo-500/40 text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-300 font-mono text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
+            className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-100/60 hover:bg-slate-200/60 border border-slate-200/80 dark:bg-white/[0.02] dark:hover:bg-white/[0.06] dark:border-white/[0.08] dark:hover:border-teal-500/40 text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-300 font-mono text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
           >
-            <Layers className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+            <Layers className="w-4 h-4 text-teal-500 dark:text-teal-400" />
             <span>Architecture Lab</span>
           </motion.a>
         </motion.div>
@@ -203,7 +203,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
                     {isActive && (
                       <motion.div
                         layoutId="activeHeroPersonaTab"
-                        className="absolute inset-0 rounded-lg sm:rounded-full bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 shadow-md shadow-cyan-500/25 z-0 pointer-events-none"
+                        className="absolute inset-0 rounded-lg sm:rounded-full bg-gradient-to-r from-cyan-600 via-blue-600 to-teal-600 shadow-md shadow-cyan-500/25 z-0 pointer-events-none"
                         transition={springTransition}
                       />
                     )}
@@ -229,7 +229,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
               {/* Active Persona Spotlight Description */}
               <div className="mb-5 sm:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div>
-                  <div className="font-mono text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">
+                  <div className="font-mono text-xs text-cyan-600 dark:text-cyan-400 font-semibold mb-1">
                     {persona.badge}
                   </div>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed max-w-3xl">
@@ -284,7 +284,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTerminal }) => {
           </span>
           <div className="flex flex-wrap items-center gap-2">
             {[
-              { name: "Python", border: "border-indigo-500/30 hover:border-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-950/20" },
+              { name: "Python", border: "border-blue-500/30 hover:border-blue-400", bg: "bg-blue-50 dark:bg-blue-950/20" },
               { name: "FastAPI", border: "border-teal-500/30 hover:border-teal-400", bg: "bg-teal-50 dark:bg-teal-950/20" },
               { name: "React", border: "border-cyan-500/30 hover:border-cyan-400", bg: "bg-cyan-50 dark:bg-cyan-950/20" },
               { name: "Next.js", border: "border-slate-400/40 hover:border-slate-500", bg: "bg-slate-100 dark:bg-slate-900/40" },

@@ -287,10 +287,10 @@ export const ContactSection: React.FC = () => {
               <motion.div
                 whileHover={shouldReduceMotion ? {} : { y: -3, scale: 1.01 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
-                className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] hover:border-purple-500/40 transition-all flex items-center gap-3 shadow-sm hover:shadow-md hover:shadow-purple-500/5"
+                className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] hover:border-teal-500/40 transition-all flex items-center gap-3 shadow-sm hover:shadow-md hover:shadow-teal-500/5"
               >
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                 </div>
                 <div>
                   <div className="text-[10px] font-mono text-slate-500 uppercase">Current Station</div>
@@ -518,7 +518,7 @@ export const ContactSection: React.FC = () => {
                     className={`px-6 py-3 rounded-xl font-mono text-xs font-bold tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-75 disabled:cursor-not-allowed ${
                       formStatus.type === "success"
                         ? "bg-emerald-600 text-white shadow-emerald-500/20"
-                        : "bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white shadow-cyan-500/20"
+                        : "bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-600 hover:from-cyan-400 hover:via-blue-500 hover:to-teal-500 text-white shadow-cyan-500/20"
                     }`}
                   >
                     <Send className={`w-3.5 h-3.5 ${formStatus.type === "submitting" ? "animate-spin" : ""}`} />

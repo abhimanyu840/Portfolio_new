@@ -80,8 +80,8 @@ const FABRIC_NODES: NodeData[] = [
     name: "Hitachi VSP 5600",
     vendor: "Hitachi Vantara",
     role: "Mission-Critical SAN",
-    color: "#a855f7", // Purple
-    colorHex: 0xa855f7,
+    color: "#14b8a6", // Teal
+    colorHex: 0x14b8a6,
     iconName: "database",
     protocol: "Fibre Channel / CCI REST",
     throughput: "100% SLA Fabric",
@@ -199,7 +199,7 @@ export const HeroTelemetryCanvas: React.FC = () => {
     dirLight1.position.set(200, 300, 200);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x818cf8, 1.5);
+    const dirLight2 = new THREE.DirectionalLight(0x0ea5e9, 1.5);
     dirLight2.position.set(-200, -200, 150);
     scene.add(dirLight2);
 
@@ -232,7 +232,7 @@ export const HeroTelemetryCanvas: React.FC = () => {
     // 1c. Equatorial Gimbal Rings
     const ringGeo1 = new THREE.TorusGeometry(48, 1.2, 16, 64);
     const ringMat1 = new THREE.MeshBasicMaterial({
-      color: 0x6366f1,
+      color: 0x2563eb,
       transparent: true,
       opacity: 0.6,
     });
@@ -242,7 +242,7 @@ export const HeroTelemetryCanvas: React.FC = () => {
 
     const ringGeo2 = new THREE.TorusGeometry(56, 1.0, 16, 64);
     const ringMat2 = new THREE.MeshBasicMaterial({
-      color: 0xa855f7,
+      color: 0x10b981,
       transparent: true,
       opacity: 0.5,
     });
@@ -367,8 +367,9 @@ export const HeroTelemetryCanvas: React.FC = () => {
     const starColors = new Float32Array(starCount * 3);
     const starPalette = [
       new THREE.Color("#38bdf8"),
-      new THREE.Color("#818cf8"),
-      new THREE.Color("#c084fc"),
+      new THREE.Color("#2563eb"),
+      new THREE.Color("#14b8a6"),
+      new THREE.Color("#10b981"),
       new THREE.Color("#ffffff"),
     ];
 

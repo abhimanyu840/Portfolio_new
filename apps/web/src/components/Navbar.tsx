@@ -164,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             className="flex items-center gap-3 group cursor-pointer"
           >
             <div className="relative">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500/20 via-blue-600/30 to-indigo-600/20 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs sm:text-sm text-cyan-600 dark:text-cyan-300 shadow-inner group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500/20 via-blue-600/30 to-teal-500/20 border border-cyan-500/40 flex items-center justify-center font-mono font-bold text-xs sm:text-sm text-cyan-600 dark:text-cyan-300 shadow-inner group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all">
                 AK
               </div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-[#0a0d1a] animate-pulse" />
@@ -199,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                   {isActive && (
                     <motion.div
                       layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-indigo-600/25 border border-slate-200/90 dark:border-cyan-400/50 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.3)] z-0 pointer-events-none"
+                      className="absolute inset-0 rounded-full bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-teal-500/25 border border-slate-200/90 dark:border-cyan-400/50 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.3)] z-0 pointer-events-none"
                       transition={springTransition}
                     />
                   )}
@@ -221,7 +221,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               {resolvedTheme === "dark" ? (
                 <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
               ) : (
-                <Moon className="w-4 h-4 text-indigo-500 group-hover:-rotate-12 transition-transform duration-300" />
+                <Moon className="w-4 h-4 text-sky-500 group-hover:-rotate-12 transition-transform duration-300" />
               )}
             </button>
 
@@ -268,7 +268,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               onClick={() => handleNavClick("contact")}
               whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-white text-xs font-semibold bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/35 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-white text-xs font-semibold bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-600 hover:from-cyan-400 hover:via-blue-500 hover:to-teal-500 shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/35 transition-all cursor-pointer"
             >
               <span>Connect</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -286,7 +286,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               {resolvedTheme === "dark" ? (
                 <Sun className="w-4 h-4 text-amber-400" />
               ) : (
-                <Moon className="w-4 h-4 text-indigo-500" />
+                <Moon className="w-4 h-4 text-sky-500" />
               )}
             </button>
             <button
@@ -336,7 +336,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                     {isActive && (
                       <motion.div
                         layoutId="activeMobileNavPill"
-                        className="absolute inset-0 rounded-xl bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-indigo-600/25 border border-slate-200/90 dark:border-cyan-400/50 shadow-sm dark:shadow-[0_0_12px_rgba(6,182,212,0.3)] z-0 pointer-events-none"
+                        className="absolute inset-0 rounded-xl bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/25 dark:via-blue-600/30 dark:to-teal-500/25 border border-slate-200/90 dark:border-cyan-400/50 shadow-sm dark:shadow-[0_0_12px_rgba(6,182,212,0.3)] z-0 pointer-events-none"
                         transition={springTransition}
                       />
                     )}
@@ -363,7 +363,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               >
                 <div className="flex items-center gap-2">
                   {resolvedTheme === "dark" ? (
-                    <Moon className="w-4 h-4 text-indigo-400" />
+                    <Moon className="w-4 h-4 text-sky-400" />
                   ) : (
                     <Sun className="w-4 h-4 text-amber-500" />
                   )}
@@ -396,8 +396,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                 }}
                 className={`w-full justify-center flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-semibold shadow-md transition-all cursor-pointer ${
                   activeSection === "contact"
-                    ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 ring-2 ring-cyan-400/50 shadow-cyan-500/30"
-                    : "bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 shadow-cyan-500/20"
+                    ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-500 ring-2 ring-cyan-400/50 shadow-cyan-500/30"
+                    : "bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-600 shadow-cyan-500/20"
                 }`}
               >
                 <span>Connect with Abhimanyu</span>
