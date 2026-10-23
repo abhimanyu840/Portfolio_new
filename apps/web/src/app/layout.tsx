@@ -89,7 +89,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[#ffffff] text-slate-900 dark:bg-[#060813] dark:text-slate-100 antialiased selection:bg-cyan-500/25 selection:text-cyan-200 transition-colors duration-200">
+      <body className="min-h-screen bg-[#ffffff] text-slate-900 dark:bg-[#060a0a] dark:text-slate-100 antialiased selection:bg-[#34d399]/25 selection:text-[#a7f3d0] transition-colors duration-200">
         <ThemeProvider>
           {/* Luminous Animated Background */}
           <AnimatedBackground />

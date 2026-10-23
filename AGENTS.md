@@ -232,11 +232,41 @@ Toolchain and application verified on this host:
   - Elimination of Muddy CSS Blurs: Removed 4 heavy 650px CSS `blur-[65px]` divs from `AnimatedBackground.tsx`, restoring 100% typography contrast and eliminating rasterization bottlenecks.
   - Mobile Responsiveness: Verified on 375x812 mobile viewport with zero horizontal overflow (`scrollWidth === windowWidth`) and adaptive subdivision scaling.
   - Visual artifacts: Captured and verified `proper_bg_dark_hero.png`, `proper_bg_dark_projects.png`, `proper_bg_dark_contact.png`, `proper_bg_light_hero.png`, and `proper_bg_dark_mobile.png`.
+- **Emerald Celestial UI & Three.js 3D Re-Architecture (from `media_1792701625750_5a6e9eef.png` blueprint)**:
+  - `Plan Document`: `ai-workspace/plans/emerald-celestial-ui-redesign-plan.md`.
+  - `ThreeBackground` (`apps/web/src/components/ThreeBackground.tsx:40-380`): Re-architected cosmic space scene with camera frustum projection math (`getFrustumAt(z, aspect)`):
+    - Celestial Planet: Positioned on the right edge (`radius: 260`, `x: halfW * 0.86`, `y: -halfH * 0.62`, `z: -80`) with custom Fresnel atmosphere rim light shader radiating vibrant electric mint/emerald glow (`#00f5a0`, `#34d399`, `#10b981`), realistic latitude bands, and soft shadow terminator.
+    - Outer Radiant Atmosphere Shell: `THREE.BackSide` additive blending shell (`radius: 1.042*R`) emitting atmospheric haze into deep space.
+    - 3 Visible 3D Celestial Moons & Orbital Trajectories: 3 prominent 3D shaded spheres with dedicated diffuse terminator and Fresnel rim lighting:
+      1. Moon 1 (Upper Right Sky, ~2 o'clock, radius 17, `x: 165, y: 85`) revolving along an elliptical orbit.
+      2. Moon 2 (Right Horizon, radius 13, `x: 265, y: 25`).
+      3. Moon 3 (Foreground Lower-Right, radius 18, `x: 135, y: -55`).
+    - Architectural Futuristic Monoliths: 6 monolithic obelisks/towers on the lower-left perspective ground (`x: -halfW * 0.86`) with dark obsidian metallic faces, sharp illuminated mint edge lines (`0x34d399`), perspective floor grid, and left-horizon atmospheric emerald light beam framing the left margin without clipping the headline.
+    - Starfield & Parallax: 450 circular disc dust particles drifting gently with subtle cursor parallax.
+  - `HeroTelemetryCanvas` (`apps/web/src/components/HeroTelemetryCanvas.tsx:1-480`): Rebuilt to match reference image:
+    - Isometric Server Rack Nodes: Brocade SAN, NetApp, Dell EMC, Hitachi VSP, AsyncIO Core, and TSDB Shard with glowing mint edge lines and status LEDs.
+    - Pinned 2D HTML/SVG Node Labels: `# Brocade SAN`, `● NetApp`, etc., dynamically projected onto 2D screen coordinates.
+    - Conduits & Packets: Luminous mint fiber-channel conduits with flowing white-mint photon packets.
+    - Header Toolbar: `3D SAN FABRIC TOPOLOGY`, `// {fps} FPS WEBGL`, segmented `Fabric` / `Mesh` / `Nodes` tabs, `INJECT PACKET` button, and `[ ]` fullscreen expand/collapse toggle (`Maximize2` / `Minimize2`).
+    - Non-intrusive HUD Tooltip: Only appears on node hover/selection, maintaining canvas openness.
+    - Official Netlify Badge: Integrated on bottom-right corner.
+  - `Navbar` (`apps/web/src/components/Navbar.tsx:160-290`): Dark rounded dock capsule featuring solid mint squircle `AK` (`bg-[#34d399] text-slate-950 font-bold`), clean white name `Abhimanyu Kumar`, horizontal segmented control (`Projects`, `Skills`, `Experience`, `Architecture Lab`, `Contact`) with sliding active pill, theme toggle, GitHub, LinkedIn, `>_ Terminal ∨`, and glowing solid mint `Connect ↗` CTA button.
+  - `Hero` (`apps/web/src/components/Hero.tsx:50-160`):
+    - Dual Top Badges: `AVAILABLE FOR PLATFORM & SYSTEMS ROLES | NOIDA, INDIA` (pulsing green dot) and `Wipro Software Engineer // BITS Pilani M.Tech`.
+    - Stacked Minimalist Motto: Right-aligned `BUILDING / RELIABLE SYSTEMS / AT SCALE` with mint accent rule (`w-7 h-[2px] bg-[#34d399]`).
+    - Main Headline: Bold `Abhimanyu Kumar` with bright mint `Kumar` (`#34d399`).
+    - Subtitle: `Engineering High-Throughput Distributed Telemetry, Resilient APIs & Scalable Systems.` with mint highlighted `Distributed Telemetry`.
+    - Action Buttons: `Explore Featured Systems ->` (solid mint pill with arrow), `>_ Terminal CLI [~]` (dark glass), and `Architecture Lab` (dark glass with stack icon).
+  - `End-to-End CDP Browser Verification` (`ai-workspace/scratch/verify-celestial-emerald-v2.mjs`):
+    - WebGL canvases: 2 active WebGL2 canvases probed (1440x900 and 1214x420, `hasGl: true`, `gl.getError() === 0`).
+    - Console errors: `NONE (0)` across the entire lifecycle.
+    - Mode Switching & Ingestion: Verified `Mesh` (`meshClicked: true`), `INJECT PACKET` surge (`injectClicked: true`), and `Fabric` reset.
+    - Screenshots captured & verified: `v2_celestial_dark_hero.png`, `v2_celestial_dark_san_card.png`, `v2_celestial_light_hero.png`, and `v2_celestial_mobile_hero.png`.
 
 ## Open questions
 
 All core architectural decisions resolved during interview:
-1. **Design Theme**: Enterprise Infrastructure & Observability Theme (canvas `#060813`, Electric Cyan `#06b6d4`, Deep Cobalt Blue `#2563eb`, Enterprise Teal `#14b8a6`, and Telemetry Emerald `#10b981` accents, crisp developer topbar, zero vibe-coded sci-fi/crypto purple noise).
+1. **Design Theme**: Emerald Celestial & Infrastructure Theme (canvas `#060a0a`, Electric Mint `#34d399`, Telemetry Emerald `#10b981`, Deep Space Charcoal `#070d0e` accents, crisp developer topbar, zero vibe-coded noise).
 2. **Backend**: Next.js 16 App Router Route Handlers (`src/app/api/v1/...`).
 3. **Database**: MongoDB Atlas with resilient mock/seed fallback.
 4. **Deployment**: Netlify (`@netlify/plugin-nextjs`).
