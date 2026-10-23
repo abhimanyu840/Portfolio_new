@@ -262,6 +262,9 @@ Toolchain and application verified on this host:
     - Console errors: `NONE (0)` across the entire lifecycle.
     - Mode Switching & Ingestion: Verified `Mesh` (`meshClicked: true`), `INJECT PACKET` surge (`injectClicked: true`), and `Fabric` reset.
     - Screenshots captured & verified: `v2_celestial_dark_hero.png`, `v2_celestial_dark_san_card.png`, `v2_celestial_light_hero.png`, and `v2_celestial_mobile_hero.png`.
+  - **Netlify Secrets Scanning Hardening**:
+    - `netlify.toml`: Configured `SECRETS_SCAN_OMIT_KEYS = ["CONTACT_TO_EMAIL", "CONTACT_FROM_EMAIL"]` under `[build]` and in `[build.environment]` to suppress false-positive secret detection on the developer's public contact email.
+    - `apps/web/src/app/api/v1/contact/route.ts`: Removed hardcoded fallback strings from GET diagnostics and POST Resend dispatch, strictly relying on `process.env.CONTACT_TO_EMAIL` with safe fallbacks and masked API status.
 
 ## Open questions
 

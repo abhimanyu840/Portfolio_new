@@ -73,8 +73,8 @@ export async function GET() {
       integrations: {
         resend: {
           configured: isResendConfigured,
-          recipient: process.env.CONTACT_TO_EMAIL || "akabhimanyukumar111@gmail.com",
-          sender: process.env.CONTACT_FROM_EMAIL || "Portfolio Inbound <onboarding@resend.dev>",
+          recipient: isResendConfigured ? "[CONFIGURED]" : "[NOT SET]",
+          sender: process.env.CONTACT_FROM_EMAIL ? "[CONFIGURED]" : "Portfolio Inbound <onboarding@resend.dev>",
         },
         webhook: {
           configured: isWebhookConfigured,
@@ -189,22 +189,25 @@ export async function POST(request: NextRequest) {
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey && resendApiKey.trim() !== "") {
       try {
-        const toEmail = process.env.CONTACT_TO_EMAIL || "akabhimanyukumar111@gmail.com";
+        const toEmail = process.env.CONTACT_TO_EMAIL;
         const fromEmail = process.env.CONTACT_FROM_EMAIL || "Portfolio Inbound <onboarding@resend.dev>";
 
-        const resendRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${resendApiKey.trim()}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: fromEmail,
-            to: [toEmail],
-            reply_to: email,
-            subject: `[Portfolio Gateway] ${subject} (From: ${name})`,
-            text: `New Portfolio Inbound Transmission:\n\nSender: ${name} <${email}>\nSubject: ${subject}\nTimestamp: ${createdAt}\nClient IP: ${clientIp}\n\nMessage:\n${message}`,
-            html: `
+        if (!toEmail) {
+          console.warn("[Contact Gateway]: CONTACT_TO_EMAIL is not configured in environment. Skipping email dispatch.");
+        } else {
+          const resendRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${resendApiKey.trim()}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [toEmail],
+              reply_to: email,
+              subject: `[Portfolio Gateway] ${subject} (From: ${name})`,
+              text: `New Portfolio Inbound Transmission:\n\nSender: ${name} <${email}>\nSubject: ${subject}\nTimestamp: ${createdAt}\nClient IP: ${clientIp}\n\nMessage:\n${message}`,
+              html: `
               <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #060813; color: #e2e8f0; padding: 32px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
                 <div style="margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 16px;">
                   <h2 style="margin: 0; color: #06b6d4; font-size: 18px; font-family: monospace; letter-spacing: 1px;">05 // INBOUND TRANSMISSION RECEIVED</h2>
@@ -227,15 +230,16 @@ export async function POST(request: NextRequest) {
                 </div>
               </div>
             `,
-          }),
-        });
+            }),
+          });
 
-        if (!resendRes.ok) {
-          const errText = await resendRes.text();
-          console.warn("[Resend Email Warning]: Dispatch returned non-200 status:", resendRes.status, errText);
-        } else {
-          emailDispatched = true;
-          console.info(`[Resend Email]: Successfully dispatched email to ${toEmail} from ${name}`);
+          if (!resendRes.ok) {
+            const errText = await resendRes.text();
+            console.warn("[Resend Email Warning]: Dispatch returned non-200 status:", resendRes.status, errText);
+          } else {
+            emailDispatched = true;
+            console.info(`[Resend Email]: Successfully dispatched email to ${toEmail} from ${name}`);
+          }
         }
       } catch (resendErr) {
         console.warn("[Resend Email Error]: Network failure calling Resend API:", resendErr);
