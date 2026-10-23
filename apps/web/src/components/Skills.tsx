@@ -160,11 +160,11 @@ export const Skills: React.FC = () => {
   };
 
   const tabs = [
-    { id: "all" as const, label: "All Disciplines", count: COMPETENCIES.length },
-    { id: "telemetry" as const, label: "Telemetry & Observability", count: COMPETENCIES.filter((c) => c.category === "telemetry").length },
-    { id: "backend" as const, label: "Backend & Full-Stack", count: COMPETENCIES.filter((c) => c.category === "backend").length },
-    { id: "languages" as const, label: "Languages & Core", count: COMPETENCIES.filter((c) => c.category === "languages").length },
-    { id: "devops" as const, label: "DevOps & Linux/RHEL", count: COMPETENCIES.filter((c) => c.category === "devops").length },
+    { id: "all" as const, label: "All Disciplines", shortLabel: "All", count: COMPETENCIES.length },
+    { id: "telemetry" as const, label: "Telemetry & Observability", shortLabel: "Telemetry", count: COMPETENCIES.filter((c) => c.category === "telemetry").length },
+    { id: "backend" as const, label: "Backend & Full-Stack", shortLabel: "Backend", count: COMPETENCIES.filter((c) => c.category === "backend").length },
+    { id: "languages" as const, label: "Languages & Core", shortLabel: "Languages", count: COMPETENCIES.filter((c) => c.category === "languages").length },
+    { id: "devops" as const, label: "DevOps & Linux/RHEL", shortLabel: "DevOps & Linux", count: COMPETENCIES.filter((c) => c.category === "devops").length },
   ];
 
   const filtered =
@@ -173,7 +173,7 @@ export const Skills: React.FC = () => {
       : COMPETENCIES.filter((c) => c.category === activeTab);
 
   return (
-    <section id="skills" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative">
+    <section id="skills" className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative">
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial={shouldReduceMotion ? false : "hidden"}
@@ -182,23 +182,23 @@ export const Skills: React.FC = () => {
         variants={containerVariants}
       >
         {/* Section Header */}
-        <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-slate-200 dark:border-white/[0.08] gap-4">
+        <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 pb-5 sm:pb-6 border-b border-slate-200 dark:border-white/[0.08] gap-4">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">
-              <Cpu className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+            <div className="flex items-center gap-2 font-mono text-xs text-emerald-700 dark:text-[#34d399] mb-2">
+              <Cpu className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
               <span>02 // PRODUCTION COMPETENCY MATRIX</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Technical Arsenal &amp; <span className="text-gradient-cyan">Tooling</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Technical Arsenal &amp; <span className="text-gradient-emerald">Tooling</span>
             </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
               Languages, backend runtimes, time-series storage engines, and enterprise storage fabrics proven in production at Wipro and graduate research at BITS Pilani.
             </p>
           </div>
 
-          {/* Tab Filters */}
-          <div className="overflow-x-auto no-scrollbar">
-            <div className="inline-flex items-center gap-1 p-1 bg-slate-100/90 dark:bg-[#090c19]/90 backdrop-blur-md border border-slate-200 dark:border-white/[0.08] rounded-xl shrink-0 flex-nowrap shadow-sm relative">
+          {/* Tab Filters with Responsive Labels */}
+          <div className="overflow-x-auto no-scrollbar w-full md:w-auto">
+            <div className="inline-flex items-center gap-1 p-1 bg-slate-100/90 dark:bg-[#070e10]/90 backdrop-blur-md border border-slate-200 dark:border-white/[0.08] rounded-xl shrink-0 flex-nowrap shadow-sm relative">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -207,22 +207,23 @@ export const Skills: React.FC = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`relative isolate px-3 py-1.5 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
                       isActive
-                        ? "text-cyan-700 dark:text-cyan-300 font-semibold"
+                        ? "text-slate-950 dark:text-[#a7f3d0] font-bold"
                         : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.04] border border-transparent"
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeSkillsTab"
-                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1222] dark:bg-gradient-to-r dark:from-cyan-500/20 dark:via-blue-600/25 dark:to-teal-500/20 border border-slate-300/80 dark:border-cyan-500/40 shadow-sm dark:shadow-cyan-500/20 z-0 pointer-events-none"
+                        className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1617] border border-slate-300/80 dark:border-[#34d399]/40 shadow-sm dark:shadow-[0_0_12px_rgba(52,211,153,0.25)] z-0 pointer-events-none"
                         transition={springTransition}
                       />
                     )}
-                    <span className="relative z-10">{tab.label}</span>
+                    <span className="relative z-10 hidden sm:inline">{tab.label}</span>
+                    <span className="relative z-10 sm:hidden">{tab.shortLabel}</span>
                     <span
                       className={`relative z-10 text-[10px] px-1.5 py-0.2 rounded-md font-bold transition-colors ${
                         isActive
-                          ? "bg-cyan-500/25 text-cyan-700 dark:text-cyan-200 border border-cyan-500/30"
+                          ? "bg-emerald-500/20 text-emerald-700 dark:text-[#34d399] border border-emerald-500/30"
                           : "bg-slate-200/80 text-slate-600 dark:bg-white/[0.06] dark:text-slate-400"
                       }`}
                     >
@@ -252,7 +253,7 @@ export const Skills: React.FC = () => {
                 variants={itemVariants}
                 whileHover={shouldReduceMotion ? {} : { y: -5, scale: 1.018 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
-                className="glass-panel p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-cyan-500/50 dark:border-white/[0.08] dark:hover:border-cyan-500/50 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-cyan-500/5 dark:hover:shadow-cyan-500/10 relative overflow-hidden"
+                className="glass-panel p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-[#34d399]/40 dark:border-white/[0.08] dark:hover:border-[#34d399]/40 transition-all flex flex-col justify-between group hover:shadow-xl hover:shadow-emerald-500/5 dark:hover:shadow-emerald-500/10 relative overflow-hidden"
               >
                 <div>
                   {/* Card Top: Brand Icon + Title + Tier Badge */}
@@ -261,12 +262,12 @@ export const Skills: React.FC = () => {
                       <motion.div
                         whileHover={shouldReduceMotion ? {} : { rotate: [0, -6, 6, 0], scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                        className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] flex items-center justify-center group-hover:border-cyan-500/40 group-hover:shadow-[0_0_15px_rgba(56,189,248,0.2)] transition-all"
+                        className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] flex items-center justify-center group-hover:border-[#34d399]/40 group-hover:shadow-[0_0_15px_rgba(52,211,153,0.2)] transition-all shrink-0"
                       >
                         {getTechIcon(skill.name, "w-5 h-5")}
                       </motion.div>
                       <div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-200 transition-colors">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#a7f3d0] transition-colors">
                           {skill.name}
                         </h3>
                         <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
@@ -278,7 +279,7 @@ export const Skills: React.FC = () => {
                     <span
                       className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${
                         skill.tier === "Production Core"
-                          ? "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30"
+                          ? "bg-emerald-500/10 text-emerald-700 dark:text-[#34d399] border-emerald-500/30"
                           : "bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/30"
                       }`}
                     >
@@ -310,11 +311,11 @@ export const Skills: React.FC = () => {
         </AnimatePresence>
 
         {/* Enterprise SAN Hardware & Storage Fabric Callout */}
-        <motion.div variants={itemVariants} className="mt-10 p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-100/80 dark:bg-gradient-to-r dark:from-cyan-950/20 dark:via-blue-950/30 dark:to-teal-950/20 border border-slate-200 dark:border-cyan-500/20 glass-panel">
+        <motion.div variants={itemVariants} className="mt-10 p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl bg-slate-100/80 dark:bg-gradient-to-r dark:from-emerald-950/20 dark:via-[#060a0a]/50 dark:to-teal-950/20 border border-slate-200 dark:border-emerald-500/20 glass-panel">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-1">
-              <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 font-bold uppercase">
-                <Server className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <div className="flex items-center gap-2 font-mono text-xs text-emerald-600 dark:text-[#34d399] font-bold uppercase">
+                <Server className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                 <span>ENTERPRISE SAN &amp; STORAGE HARDWARE PROTOCOLS</span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-300">
@@ -327,7 +328,7 @@ export const Skills: React.FC = () => {
                   key={hw}
                   whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.05 }}
                   transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }}
-                  className="px-3 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] font-mono text-xs text-cyan-700 dark:text-cyan-300 font-medium shadow-sm cursor-default"
+                  className="px-3 py-1 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] font-mono text-xs text-emerald-700 dark:text-[#a7f3d0] font-medium shadow-sm cursor-default"
                 >
                   {hw}
                 </motion.span>

@@ -30,7 +30,7 @@ export const Experience: React.FC = () => {
   };
 
   return (
-    <section id="experience" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative">
+    <section id="experience" className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative">
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial={shouldReduceMotion ? false : "hidden"}
@@ -39,22 +39,22 @@ export const Experience: React.FC = () => {
         variants={containerVariants}
       >
         {/* Section Header */}
-        <motion.div variants={cardVariants} className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-slate-200 dark:border-white/[0.08] gap-4">
+        <motion.div variants={cardVariants} className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 pb-5 sm:pb-6 border-b border-slate-200 dark:border-white/[0.08] gap-4">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">
-              <Briefcase className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+            <div className="flex items-center gap-2 font-mono text-xs text-emerald-700 dark:text-[#34d399] mb-2">
+              <Briefcase className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
               <span>03 // CAREER TRACK &amp; PEDIGREE</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Experience &amp; <span className="text-gradient-cyan">Academics</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Experience &amp; <span className="text-gradient-emerald">Academics</span>
             </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
               Verifiable enterprise engineering record at Wipro paired with advanced graduate research in distributed systems at BITS Pilani.
             </p>
           </div>
           <div className="font-mono text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            <span>RECORD: <strong className="text-cyan-700 dark:text-cyan-300">ENTERPRISE TELEMETRY // VERIFIED</strong></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-[#34d399] animate-pulse" />
+            <span>RECORD: <strong className="text-emerald-700 dark:text-[#34d399]">ENTERPRISE TELEMETRY // VERIFIED</strong></span>
           </div>
         </motion.div>
 
@@ -62,7 +62,7 @@ export const Experience: React.FC = () => {
           {/* Work Experience Column (Span 7) */}
           <div className="lg:col-span-7 space-y-6">
             <motion.div variants={cardVariants} className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-white/[0.08]">
-              <Building2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <Building2 className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
               <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 ENTERPRISE PRODUCTION TRACK
               </h3>
@@ -74,34 +74,34 @@ export const Experience: React.FC = () => {
                 variants={cardVariants}
                 whileHover={shouldReduceMotion ? {} : { y: -4, scale: 1.01 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
-                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08] hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all group relative overflow-hidden shadow-sm hover:shadow-xl hover:shadow-cyan-500/5"
+                className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08] hover:border-[#34d399]/40 dark:hover:border-[#34d399]/40 transition-all group relative overflow-hidden shadow-sm hover:shadow-xl hover:shadow-emerald-500/5"
               >
                 {/* Accent glow on hover */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/15 transition-all" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/10 transition-all" />
 
                 {/* Role and Company Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/[0.08] pb-4 mb-5 relative z-10">
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-700 dark:text-cyan-300 font-mono text-[11px] font-semibold mb-1.5">
-                      <Sparkles className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-[#34d399] font-mono text-[11px] font-semibold mb-1.5">
+                      <Sparkles className="w-3 h-3 text-emerald-600 dark:text-[#34d399]" />
                       FULL-TIME ENTERPRISE SRE
                     </span>
-                    <h4 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-200 transition-colors">
-                      {exp.role} <span className="text-cyan-600 dark:text-cyan-400 font-normal">@ {exp.company}</span>
+                    <h4 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#a7f3d0] transition-colors">
+                      {exp.role} <span className="text-emerald-700 dark:text-[#34d399] font-normal">@ {exp.company}</span>
                     </h4>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400 mt-1 font-mono">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                        <Calendar className="w-3.5 h-3.5 text-emerald-600 dark:text-[#34d399]" />
                         <span>{exp.period}</span>
                       </span>
                       <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                        <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-[#34d399]" />
                         <span>{exp.location}</span>
                       </span>
                     </div>
                   </div>
 
-                  <span className="font-mono text-xs text-emerald-700 dark:text-emerald-400 font-bold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 self-start sm:self-auto">
+                  <span className="font-mono text-xs text-emerald-700 dark:text-[#34d399] font-bold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 self-start sm:self-auto">
                     ACTIVE NOW
                   </span>
                 </div>
@@ -115,7 +115,7 @@ export const Experience: React.FC = () => {
                       transition={{ duration: 0.15 }}
                       className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed cursor-default"
                     >
-                      <CheckCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-[#34d399] shrink-0 mt-0.5" />
                       <span>{highlight}</span>
                     </motion.div>
                   ))}
@@ -213,15 +213,15 @@ export const Experience: React.FC = () => {
                 <span>Enterprise Compliance &amp; Standards</span>
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               </div>
-              <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-slate-700 dark:text-slate-300">
                 <span>Datacenter Protocol:</span>
-                <span className="text-cyan-700 dark:text-cyan-300 font-semibold">Fibre Channel 32G / NVMe-oF</span>
+                <span className="text-emerald-700 dark:text-[#34d399] font-semibold">Fibre Channel 32G / NVMe-oF</span>
               </div>
-              <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-slate-700 dark:text-slate-300">
                 <span>Telemetry Ingestion:</span>
-                <span className="text-cyan-700 dark:text-cyan-300 font-semibold">RFC 5424 Syslog / SNMP v3</span>
+                <span className="text-emerald-700 dark:text-[#34d399] font-semibold">RFC 5424 Syslog / SNMP v3</span>
               </div>
-              <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-slate-700 dark:text-slate-300">
                 <span>Air-Gapped Environments:</span>
                 <span className="text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

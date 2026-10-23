@@ -357,9 +357,9 @@ export const ObservabilityHUD: React.FC = () => {
   };
 
   return (
-    <section id="hud" className="py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative overflow-hidden">
+    <section id="hud" className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-20 md:py-24 lg:py-28 border-b border-slate-200 dark:border-white/[0.08] relative overflow-hidden">
       {/* Subtle ambient lighting */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <motion.div
@@ -372,12 +372,12 @@ export const ObservabilityHUD: React.FC = () => {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 pb-6 border-b border-slate-200 dark:border-white/[0.08] gap-4">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-2 font-mono text-xs text-cyan-600 dark:text-cyan-400 mb-2">
-              <Activity className="w-4 h-4 text-cyan-600 dark:text-cyan-400 animate-pulse" />
+            <div className="flex items-center gap-2 font-mono text-xs text-emerald-600 dark:text-[#34d399] mb-2">
+              <Activity className="w-4 h-4 text-emerald-600 dark:text-[#34d399] animate-pulse" />
               <span>04 // SYSTEMS ARCHITECTURE &amp; LIVE TELEMETRY LAB</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Enterprise Observability &amp; <span className="text-gradient-cyan">Telemetry Lab</span>
+              Enterprise Observability &amp; <span className="text-gradient-emerald">Telemetry Lab</span>
             </h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Interactive workbench demonstrating high-throughput telemetry pipelines engineered for enterprise SAN storage (NetApp, Dell EMC, Brocade) at Wipro, coupled with live Next.js portfolio application diagnostics.
@@ -385,79 +385,84 @@ export const ObservabilityHUD: React.FC = () => {
           </div>
 
           {/* Controls and Perspective Switcher */}
-          <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center gap-3">
-            {/* View Mode Tabs */}
-            <div className="p-1 sm:p-1.5 bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/[0.08] rounded-2xl sm:rounded-full flex flex-wrap sm:flex-nowrap items-center gap-1 relative">
-              <button
-                onClick={() => setActiveTab("pipeline")}
-                className={`relative isolate px-3.5 py-1.5 rounded-xl sm:rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer ${
-                  activeTab === "pipeline"
-                    ? "text-white"
-                    : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                }`}
-              >
-                {activeTab === "pipeline" && (
-                  <motion.div
-                    layoutId="activeHudPerspectiveTab"
-                    className="absolute inset-0 rounded-xl sm:rounded-full bg-gradient-to-r from-cyan-600 via-blue-600 to-teal-600 shadow-md shadow-cyan-500/25 z-0 pointer-events-none"
-                    transition={springTransition}
-                  />
-                )}
-                <Layers className="w-3.5 h-3.5 relative z-10" />
-                <span className="relative z-10">Enterprise Pipeline</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("runtime")}
-                className={`relative isolate px-3.5 py-1.5 rounded-xl sm:rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer ${
-                  activeTab === "runtime"
-                    ? "text-white"
-                    : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                }`}
-              >
-                {activeTab === "runtime" && (
-                  <motion.div
-                    layoutId="activeHudPerspectiveTab"
-                    className="absolute inset-0 rounded-xl sm:rounded-full bg-gradient-to-r from-cyan-600 via-blue-600 to-teal-600 shadow-md shadow-cyan-500/25 z-0 pointer-events-none"
-                    transition={springTransition}
-                  />
-                )}
-                <Server className="w-3.5 h-3.5 relative z-10" />
-                <span className="relative z-10">Portfolio Runtime</span>
-              </button>
-              <button
-                onClick={() => setActiveTab("topology3d")}
-                className={`relative isolate px-3.5 py-1.5 rounded-xl sm:rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer ${
-                  activeTab === "topology3d"
-                    ? "text-white"
-                    : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                }`}
-              >
-                {activeTab === "topology3d" && (
-                  <motion.div
-                    layoutId="activeHudPerspectiveTab"
-                    className="absolute inset-0 rounded-xl sm:rounded-full bg-gradient-to-r from-cyan-600 via-blue-600 to-teal-600 shadow-md shadow-cyan-500/25 z-0 pointer-events-none"
-                    transition={springTransition}
-                  />
-                )}
-                <Sparkles className="w-3.5 h-3.5 relative z-10 text-cyan-400 dark:text-cyan-300" />
-                <span className="relative z-10">3D SAN Topology</span>
-              </button>
+          <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center justify-between lg:justify-end gap-3 w-full lg:w-auto">
+            {/* View Mode Tabs - Single Row with Scroll on Mobile */}
+            <div className="overflow-x-auto no-scrollbar w-full sm:w-auto">
+              <div className="inline-flex items-center p-1 bg-slate-100/90 dark:bg-[#070e10]/90 backdrop-blur-md border border-slate-200 dark:border-white/[0.08] rounded-xl gap-1 shrink-0 flex-nowrap shadow-sm relative">
+                <button
+                  onClick={() => setActiveTab("pipeline")}
+                  className={`relative isolate px-3 py-1.5 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                    activeTab === "pipeline"
+                      ? "text-slate-950 dark:text-[#a7f3d0] font-bold"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.04]"
+                  }`}
+                >
+                  {activeTab === "pipeline" && (
+                    <motion.div
+                      layoutId="activeHudPerspectiveTab"
+                      className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1617] border border-slate-300/80 dark:border-[#34d399]/40 shadow-sm dark:shadow-[0_0_12px_rgba(52,211,153,0.25)] z-0 pointer-events-none"
+                      transition={springTransition}
+                    />
+                  )}
+                  <Layers className="w-3.5 h-3.5 relative z-10" />
+                  <span className="relative z-10 hidden sm:inline">Enterprise Pipeline</span>
+                  <span className="relative z-10 sm:hidden">Pipeline</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("runtime")}
+                  className={`relative isolate px-3 py-1.5 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                    activeTab === "runtime"
+                      ? "text-slate-950 dark:text-[#a7f3d0] font-bold"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.04]"
+                  }`}
+                >
+                  {activeTab === "runtime" && (
+                    <motion.div
+                      layoutId="activeHudPerspectiveTab"
+                      className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1617] border border-slate-300/80 dark:border-[#34d399]/40 shadow-sm dark:shadow-[0_0_12px_rgba(52,211,153,0.25)] z-0 pointer-events-none"
+                      transition={springTransition}
+                    />
+                  )}
+                  <Server className="w-3.5 h-3.5 relative z-10" />
+                  <span className="relative z-10 hidden sm:inline">Portfolio Runtime</span>
+                  <span className="relative z-10 sm:hidden">Runtime</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("topology3d")}
+                  className={`relative isolate px-3 py-1.5 rounded-lg font-mono text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                    activeTab === "topology3d"
+                      ? "text-slate-950 dark:text-[#a7f3d0] font-bold"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.04]"
+                  }`}
+                >
+                  {activeTab === "topology3d" && (
+                    <motion.div
+                      layoutId="activeHudPerspectiveTab"
+                      className="absolute inset-0 rounded-lg bg-white dark:bg-[#0c1617] border border-slate-300/80 dark:border-[#34d399]/40 shadow-sm dark:shadow-[0_0_12px_rgba(52,211,153,0.25)] z-0 pointer-events-none"
+                      transition={springTransition}
+                    />
+                  )}
+                  <Sparkles className="w-3.5 h-3.5 relative z-10 text-emerald-500 dark:text-[#34d399]" />
+                  <span className="relative z-10 hidden sm:inline">3D SAN Topology</span>
+                  <span className="relative z-10 sm:hidden">3D Fabric</span>
+                </button>
+              </div>
             </div>
 
             {/* Quick Action Refresh */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={fetchTelemetry}
                 disabled={isRefreshing}
-                className="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:bg-white/[0.04] dark:border-white/[0.1] dark:hover:border-cyan-500/50 font-mono text-xs text-slate-700 dark:text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed shadow-sm"
+                className="px-3.5 py-1.5 min-h-[36px] rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:bg-white/[0.04] dark:border-white/[0.1] dark:hover:border-emerald-500/50 font-mono text-xs text-slate-700 dark:text-slate-300 flex items-center gap-1.5 transition-all disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed shadow-sm"
                 title="Poll live API telemetry"
               >
-                <RefreshCw className={`w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 ${isRefreshing ? "animate-spin" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 text-emerald-600 dark:text-[#34d399] ${isRefreshing ? "animate-spin" : ""}`} />
                 <span>{isRefreshing ? "SAMPLING..." : "POLL_API"}</span>
               </button>
               <button
                 onClick={() => setAutoSample(!autoSample)}
-                className={`px-3 py-1.5 rounded-full border font-mono text-xs flex items-center gap-1.5 cursor-pointer transition-all ${
+                className={`px-3 py-1.5 min-h-[36px] rounded-lg border font-mono text-xs flex items-center gap-1.5 cursor-pointer transition-all ${
                   autoSample
                     ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400"
                     : "bg-slate-100 border-slate-200 text-slate-500 hover:text-slate-700 dark:bg-white/[0.02] dark:border-white/[0.08] dark:text-slate-500 dark:hover:text-slate-400"
@@ -488,7 +493,7 @@ export const ObservabilityHUD: React.FC = () => {
             <div className="glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-slate-200 dark:border-white/[0.08] gap-2">
                 <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
-                  <Network className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                  <Network className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                   <span>DISTRIBUTED_INGESTION_TOPOLOGY (CLICK STAGE TO INSPECT)</span>
                 </div>
                 <div className="flex items-center gap-3 font-mono text-xs text-slate-500 dark:text-slate-400">
@@ -497,7 +502,7 @@ export const ObservabilityHUD: React.FC = () => {
                     <span>PIPELINE HEALTH: 100% SLA</span>
                   </span>
                   <span className="hidden sm:inline text-slate-300 dark:text-slate-700">|</span>
-                  <span className="text-cyan-600 dark:text-cyan-400 hidden sm:inline">RHEL 9.x KERNEL</span>
+                  <span className="text-emerald-600 dark:text-[#34d399] hidden sm:inline">RHEL 9.x KERNEL</span>
                 </div>
               </div>
 
@@ -505,7 +510,7 @@ export const ObservabilityHUD: React.FC = () => {
               <div className="relative mb-4 h-1.5 w-full bg-slate-200/70 dark:bg-white/[0.05] rounded-full overflow-hidden">
                 {!shouldReduceMotion && (
                   <motion.div
-                    className="absolute top-0 bottom-0 left-0 w-28 bg-gradient-to-r from-transparent via-cyan-400 to-blue-500 rounded-full shadow-[0_0_8px_rgba(6,182,212,0.6)] transform-gpu will-change-transform"
+                    className="absolute top-0 bottom-0 left-0 w-28 bg-gradient-to-r from-transparent via-[#34d399] to-emerald-500 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)] transform-gpu will-change-transform"
                     animate={{ x: ["-120%", "1200%"] }}
                     transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
                   />
@@ -524,30 +529,30 @@ export const ObservabilityHUD: React.FC = () => {
                       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }}
                       className={`relative isolate p-4 rounded-xl border text-left transition-all cursor-pointer overflow-hidden group ${
                         isSelected
-                          ? "bg-cyan-50/90 border-cyan-500/80 dark:bg-cyan-950/30 dark:border-cyan-500/80 shadow-md shadow-cyan-600/10 dark:shadow-cyan-600/20"
+                          ? "bg-emerald-50/90 border-emerald-500/80 dark:bg-emerald-950/30 dark:border-[#34d399]/80 shadow-md shadow-emerald-600/10 dark:shadow-emerald-600/20"
                           : "bg-slate-50/80 border-slate-200 hover:border-slate-300 hover:bg-slate-100/80 dark:bg-white/[0.02] dark:border-white/[0.06] dark:hover:border-white/[0.14] dark:hover:bg-white/[0.04]"
                       }`}
                     >
                       {isSelected && (
                         <motion.div
                           layoutId="activeHudStageTab"
-                          className="absolute inset-0 rounded-xl border-2 border-cyan-500 bg-cyan-500/10 dark:bg-cyan-500/15 pointer-events-none z-0 shadow-sm"
+                          className="absolute inset-0 rounded-xl border-2 border-[#34d399] bg-[#34d399]/10 dark:bg-[#34d399]/15 pointer-events-none z-0 shadow-sm"
                           transition={springTransition}
                         />
                       )}
                       <div className="relative z-10">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 text-cyan-700 dark:bg-white/[0.06] dark:text-cyan-300">
+                          <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 text-emerald-800 dark:bg-white/[0.06] dark:text-[#a7f3d0]">
                             STAGE {stage.step}
                           </span>
-                          <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
+                          <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-[#34d399] transition-colors">
                             {isSelected ? "ACTIVE" : "INSPECT"}
                           </span>
                         </div>
-                        <div className="font-mono text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-200 transition-colors">
+                        <div className="font-mono text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#a7f3d0] transition-colors">
                           {stage.name}
                         </div>
-                        <div className="font-mono text-xs text-cyan-600 dark:text-cyan-400/90 mt-0.5">
+                        <div className="font-mono text-xs text-emerald-600 dark:text-[#34d399]/90 mt-0.5">
                           {stage.subtitle}
                         </div>
                         <div className="mt-3 pt-2.5 border-t border-slate-200 dark:border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
@@ -558,7 +563,7 @@ export const ObservabilityHUD: React.FC = () => {
 
                       {/* Active indicator bar */}
                       {isSelected && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-teal-500 z-10" />
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-[#34d399] z-10" />
                       )}
                     </motion.div>
                   );
@@ -578,10 +583,10 @@ export const ObservabilityHUD: React.FC = () => {
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                     <div className="space-y-2 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs text-cyan-600 dark:text-cyan-400 font-bold">
+                        <span className="font-mono text-xs text-emerald-600 dark:text-[#34d399] font-bold">
                           [INSPECTOR] STAGE {selectedStage.step}: {selectedStage.name.toUpperCase()}
                         </span>
-                        <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20">
+                        <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-[#a7f3d0] border border-emerald-500/20">
                           {selectedStage.protocol}
                         </span>
                       </div>
@@ -605,7 +610,7 @@ export const ObservabilityHUD: React.FC = () => {
                       <div className="text-[10px] text-slate-500 uppercase tracking-wider">Operational Target</div>
                       <div className="flex justify-between">
                         <span className="text-slate-500 dark:text-slate-400">Throughput:</span>
-                        <span className="text-cyan-600 dark:text-cyan-300 font-semibold">{selectedStage.throughput}</span>
+                        <span className="text-emerald-600 dark:text-[#34d399] font-semibold">{selectedStage.throughput}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-slate-500 dark:text-slate-400">Queue Latency:</span>
@@ -628,7 +633,7 @@ export const ObservabilityHUD: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3 mb-4">
                     <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
-                      <HardDrive className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                      <HardDrive className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                       <span>MONITORED_ENTERPRISE_FABRICS (CLICK TO INSPECT)</span>
                     </div>
                     <span className="font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold">4 / 4 HEALTHY</span>
@@ -646,14 +651,14 @@ export const ObservabilityHUD: React.FC = () => {
                           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }}
                           className={`relative isolate p-3.5 rounded-xl border transition-all cursor-pointer group ${
                             isSelected
-                              ? "bg-cyan-50/90 border-cyan-500/80 dark:bg-cyan-950/30 dark:border-cyan-500/80 shadow-sm"
+                              ? "bg-emerald-50/90 border-emerald-500/80 dark:bg-emerald-950/30 dark:border-[#34d399]/80 shadow-sm"
                               : "bg-slate-50/80 border-slate-200 hover:border-slate-300 hover:bg-slate-100/80 dark:bg-white/[0.02] dark:border-white/[0.06] dark:hover:border-white/[0.14] dark:hover:bg-white/[0.04]"
                           }`}
                         >
                           {isSelected && (
                             <motion.div
                               layoutId="activeHudFabricNode"
-                              className="absolute inset-0 rounded-xl border-2 border-cyan-500 bg-cyan-500/10 dark:bg-cyan-500/15 pointer-events-none z-0 shadow-sm"
+                              className="absolute inset-0 rounded-xl border-2 border-[#34d399] bg-[#34d399]/10 dark:bg-[#34d399]/15 pointer-events-none z-0 shadow-sm"
                               transition={springTransition}
                             />
                           )}
@@ -667,15 +672,15 @@ export const ObservabilityHUD: React.FC = () => {
                                 {node.status}
                               </span>
                             </div>
-                            <div className="font-mono text-xs font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-200 transition-colors">
+                            <div className="font-mono text-xs font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-[#a7f3d0] transition-colors">
                               {node.name}
                             </div>
                             <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                               {node.role}
                             </div>
-                            <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-white/[0.06] font-mono text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 flex justify-between">
+                            <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-white/[0.06] font-mono text-[11px] font-semibold text-emerald-600 dark:text-[#34d399] flex justify-between">
                               <span>{node.primaryMetric}</span>
-                              <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors" />
+                              <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-[#34d399] transition-colors" />
                             </div>
                           </div>
                         </motion.div>
@@ -694,7 +699,7 @@ export const ObservabilityHUD: React.FC = () => {
                       className="p-3.5 sm:p-4 rounded-xl bg-slate-50/90 dark:bg-black/50 border border-slate-200 dark:border-white/[0.06] space-y-2.5 font-mono text-xs"
                     >
                       <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.06] pb-2">
-                        <span className="text-cyan-600 dark:text-cyan-400 font-bold">NODE: {selectedNode.name}</span>
+                        <span className="text-emerald-600 dark:text-[#34d399] font-bold">NODE: {selectedNode.name}</span>
                         <span className="text-[10px] text-slate-500">{selectedNode.details.protocol}</span>
                       </div>
 
@@ -727,7 +732,7 @@ export const ObservabilityHUD: React.FC = () => {
 
                 <div className="mt-4 pt-3 border-t border-slate-200 dark:border-white/[0.08] font-mono text-[11px] text-slate-500 flex items-center justify-between">
                   <span>TELEMETRY POLLER: PYTHON ASYNC DAEMON</span>
-                  <span className="text-cyan-600 dark:text-cyan-400 font-semibold">SYNC FREQ: 1000ms</span>
+                  <span className="text-emerald-600 dark:text-[#34d399] font-semibold">SYNC FREQ: 1000ms</span>
                 </div>
               </div>
 
@@ -736,7 +741,7 @@ export const ObservabilityHUD: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3 mb-3">
                     <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
-                      <TerminalIcon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                      <TerminalIcon className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                       <span>STREAMING_EVENT_LOG</span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -745,17 +750,17 @@ export const ObservabilityHUD: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Interactive Simulation Action Buttons */}
+                  {/* Interactive Simulation Action Buttons - 40px Touch Target for Mobile */}
                   <div className="flex items-center gap-2 mb-3">
                     <motion.button
                       onClick={handleSimulatePacket}
                       disabled={isSimulatingEvent}
                       whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                      className="flex-1 px-2.5 py-1.5 rounded-lg bg-cyan-50 hover:bg-cyan-100 dark:bg-cyan-600/20 dark:hover:bg-cyan-600/30 border border-cyan-200 dark:border-cyan-500/40 font-mono text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                      className="flex-1 px-2.5 py-2 min-h-[40px] rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-600/20 dark:hover:bg-emerald-600/30 border border-emerald-200 dark:border-[#34d399]/40 font-mono text-[11px] font-semibold text-emerald-800 dark:text-[#34d399] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 disabled:opacity-50"
                       title="Emit synthetic enterprise telemetry packet into pipeline"
                     >
-                      <Zap className={`w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 ${isSimulatingEvent ? "animate-bounce" : ""}`} />
+                      <Zap className={`w-3.5 h-3.5 text-emerald-600 dark:text-[#34d399] ${isSimulatingEvent ? "animate-bounce" : ""}`} />
                       <span>EMIT_TRAP_PACKET</span>
                     </motion.button>
                     <motion.button
@@ -763,7 +768,7 @@ export const ObservabilityHUD: React.FC = () => {
                       disabled={isSimulatingEvent}
                       whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                      className="flex-1 px-2.5 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 font-mono text-[11px] font-semibold text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                      className="flex-1 px-2.5 py-2 min-h-[40px] rounded-lg bg-amber-50 hover:bg-amber-100 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 font-mono text-[11px] font-semibold text-amber-700 dark:text-amber-300 flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 disabled:opacity-50"
                       title="Simulate buffer credit threshold alert"
                     >
                       <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
@@ -772,7 +777,7 @@ export const ObservabilityHUD: React.FC = () => {
                   </div>
 
                   {/* Terminal Log Stream Box (Authentic dark console for optimal log contrast in both themes) */}
-                  <div className="p-3 sm:p-4 rounded-xl bg-[#080b14] border border-slate-300 dark:border-white/[0.08] font-mono text-[11px] space-y-2 h-[260px] sm:h-[280px] overflow-y-auto scrollbar-thin shadow-inner">
+                  <div className="p-3 sm:p-4 rounded-xl bg-[#060a0a] border border-slate-300 dark:border-white/[0.08] font-mono text-[11px] space-y-2 h-[260px] sm:h-[280px] overflow-y-auto scrollbar-thin shadow-inner">
                     {logs.map((log) => {
                       const levelColors = {
                         INFO: "text-blue-400 bg-blue-500/10 border-blue-500/20",
@@ -830,7 +835,7 @@ export const ObservabilityHUD: React.FC = () => {
             <div className="lg:col-span-2 glass-panel p-5 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/[0.08]">
               <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3 mb-5">
                 <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
-                  <ShieldCheck className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                   <span>NEXTJS_APP_ROUTER_RUNTIME_STATUS</span>
                 </div>
                 <span className="font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
@@ -848,7 +853,7 @@ export const ObservabilityHUD: React.FC = () => {
 
                 <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06]">
                   <div className="text-[10px] text-slate-500 uppercase">Database Persistence</div>
-                  <div className="font-bold text-cyan-700 dark:text-cyan-300 text-sm mt-1">
+                  <div className="font-bold text-emerald-700 dark:text-[#34d399] text-sm mt-1">
                     {telemetry?.metrics.databaseStatus === "connected"
                       ? "MongoDB Atlas (Online)"
                       : "Telemetry Seed Cache (Instant)"}
@@ -883,10 +888,10 @@ export const ObservabilityHUD: React.FC = () => {
               <div className="mt-6 pt-5 border-t border-slate-200 dark:border-white/[0.08]">
                 <div className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                     <span>CLIENT_ROUNDTRIP_LATENCY_SPARKLINE (LAST 10 SAMPLES)</span>
                   </div>
-                  <span className="text-cyan-700 dark:text-cyan-400 font-bold">
+                  <span className="text-emerald-700 dark:text-[#34d399] font-bold">
                     Latest: {latencyHistory[latencyHistory.length - 1]}ms
                   </span>
                 </div>
@@ -904,7 +909,7 @@ export const ObservabilityHUD: React.FC = () => {
                             initial={shouldReduceMotion ? false : { height: 0 }}
                             animate={{ height: `${pct}%` }}
                             transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.35, ease: "easeOut" }}
-                            className="w-full bg-gradient-to-t from-cyan-600 via-blue-500 to-teal-500 group-hover:from-cyan-400 group-hover:to-teal-300 rounded-t transition-all min-h-[4px] shadow-sm"
+                            className="w-full bg-gradient-to-t from-emerald-600 via-teal-500 to-[#34d399] group-hover:from-emerald-400 group-hover:to-[#a7f3d0] rounded-t transition-all min-h-[4px] shadow-sm"
                           />
                         </div>
                         <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200 shrink-0">
@@ -926,14 +931,14 @@ export const ObservabilityHUD: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3 mb-3">
                   <div className="flex items-center gap-2 font-mono text-xs font-semibold text-slate-800 dark:text-slate-200">
-                    <Code2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <Code2 className="w-4 h-4 text-emerald-600 dark:text-[#34d399]" />
                     <span>RAW_API_PAYLOAD</span>
                   </div>
-                  <span className="font-mono text-[10px] text-cyan-600 dark:text-cyan-400">/api/v1/telemetry</span>
+                  <span className="font-mono text-[10px] text-emerald-600 dark:text-[#34d399]">/api/v1/telemetry</span>
                 </div>
 
                 {/* Code format json preview (high contrast console container) */}
-                <div className="p-3 sm:p-4 rounded-xl bg-[#080b14] border border-slate-300 dark:border-white/[0.08] font-mono text-[11px] text-cyan-200 overflow-x-auto h-[260px] sm:h-[280px] scrollbar-thin shadow-inner">
+                <div className="p-3 sm:p-4 rounded-xl bg-[#060a0a] border border-slate-300 dark:border-white/[0.08] font-mono text-[11px] text-[#a7f3d0] overflow-x-auto h-[260px] sm:h-[280px] scrollbar-thin shadow-inner">
                   <pre>
                     {JSON.stringify(
                       {
@@ -960,7 +965,7 @@ export const ObservabilityHUD: React.FC = () => {
                 <button
                   onClick={fetchTelemetry}
                   disabled={isRefreshing}
-                  className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold cursor-pointer disabled:opacity-50"
+                  className="text-emerald-600 dark:text-[#34d399] hover:text-emerald-700 dark:hover:text-[#a7f3d0] font-semibold cursor-pointer disabled:opacity-50"
                 >
                   TRIGGER_PROBE
                 </button>
